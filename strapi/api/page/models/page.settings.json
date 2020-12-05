@@ -1,0 +1,37 @@
+{
+  "kind": "collectionType",
+  "collectionName": "pages",
+  "info": {
+    "name": "Page",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "category": {
+      "type": "enumeration",
+      "enum": [
+        "ueber_uns",
+        "leistungen"
+      ]
+    },
+    "superHeadline": {
+      "type": "string"
+    },
+    "headline": {
+      "type": "string"
+    },
+    "subheadline": {
+      "type": "string"
+    },
+    "copytext": {
+      "type": "richtext"
+    }
+  }
+}

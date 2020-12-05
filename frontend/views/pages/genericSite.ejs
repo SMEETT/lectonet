@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<%- include ("../partials/head.ejs") %>
+	</head>
+	<style>
+		* {
+			border: 1px solid red;
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		body {
+			background-color: linen;
+		}
+
+		h1 {
+			color: maroon;
+		}
+
+		.container {
+			display: block;
+		}
+
+		.copy {
+			white-space: pre-wrap;
+		}
+	</style>
+
+	<body>
+		<div class="container">
+			<h4><%= data.superHeadline %></h4>
+			<h1><%= data.headline %></h1>
+			<div><%= data.subheadline %></div>
+			<div class="copy"><%= data.copytext %></div>
+		</div>
+	</body>
+</html>
