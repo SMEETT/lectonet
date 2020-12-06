@@ -1,0 +1,263 @@
+:root {
+	--default-grey: #333333;
+	--hover-light-grey: #9c9c9c;
+	--default-red: #ea5659;
+	--default-red-hover: #ff7b7d;
+	--card-header-grey: #e5e5e5;
+}
+
+.hamburger-wrapper {
+	background-color: rgba(0, 0, 0, 0.6);
+	width: 580px;
+	height: 484px;
+	margin-top: 405px;
+	position: absolute;
+	display: flex;
+	border: 1px solid red;
+}
+
+.hamburger-logo > img {
+	width: 120px;
+	margin-top: 25px;
+	margin-left: 11px;
+}
+
+.hamburger-icon {
+	margin-left: 380px;
+	margin-top: 22px;
+}
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	transition: 0.3s;
+	font-family: Montserrat;
+	font-style: normal;
+}
+
+.facebook-icon {
+	margin-left: 90px;
+}
+
+body {
+	background-color: white;
+}
+
+section.text {
+	grid-area: txt;
+	padding-left: 64px;
+}
+
+section.picture {
+	grid-area: picture;
+	padding-top: 30px;
+}
+
+footer {
+	grid-area: footer;
+	background-color: var(--default-grey);
+}
+
+.wrapper {
+	border-style: inset;
+	border: 10px solid white;
+	margin-top: 30px;
+	margin-left: auto;
+	margin-right: auto;
+	display: grid;
+	grid-template-columns: 47% 53%;
+	grid-template-rows: 126px auto 180px;
+	grid-template-areas:
+		"header header"
+		"txt picture"
+		"footer footer";
+	overflow: hidden;
+	box-shadow: -24px 0px 30px rgba(0, 0, 0, 0.15), 24px 0px 30px rgba(0, 0, 0, 0.15);
+}
+
+a {
+	text-decoration: none;
+	color: var(--default-grey);
+}
+
+a:hover {
+	color: var(--hover-light-grey);
+	text-decoration: underline;
+}
+
+header {
+	grid-area: header;
+	border-bottom: 1px solid var(--default-grey);
+	display: flex;
+	align-items: center;
+}
+
+.logo {
+	display: inline-block;
+	margin-left: 64px;
+	margin-right: 120px;
+	margin-bottom: 8px;
+	z-index: 5;
+}
+
+nav {
+	display: flex;
+	width: 100%;
+	border: 1px solid red;
+}
+
+nav ul {
+	display: inline-block;
+	z-index: 5;
+}
+
+nav li {
+	list-style: none;
+	display: inline-block;
+	font-weight: bold;
+	font-size: 14px;
+	text-transform: uppercase;
+	cursor: pointer;
+	margin-right: 35px;
+	border: 1px solid red;
+}
+
+nav .social-media-icon > a > img {
+	margin-bottom: -6px;
+}
+
+nav .social-media-icon:hover {
+	filter: brightness(3);
+}
+
+nav li .dropdown-icon {
+	margin-bottom: 2px;
+	margin-left: 4px;
+	display: inline-block;
+}
+
+.dropdown-wrapper {
+	display: none;
+	position: absolute;
+	width: 1260px;
+	border: 1px solid red;
+	margin-top: -40px;
+	background-color: rgba(255, 255, 255, 0.95);
+	z-index: 4;
+	transition: ease-in-out;
+	border-bottom: 1px solid var(--default-grey);
+}
+
+.dropdown-wrapper ul {
+	margin-top: 85px;
+}
+
+.dropdown-wrapper li {
+	list-style: none;
+	font-weight: 500;
+	font-size: 14px;
+	line-height: 16px;
+	border: 1px solid red;
+	margin-bottom: 16px;
+	display: table;
+	text-transform: uppercase;
+	color: var(--default-grey);
+}
+
+.leistungen-sublinks,
+.ueber-uns-sublinks {
+	font-size: 14px;
+}
+
+.leistungen-sublinks {
+	margin-left: 326px;
+}
+
+.ueber-uns-sublinks {
+	margin-left: 474px;
+}
+
+.links-link {
+	margin-left: 90px;
+}
+
+.btn {
+	width: 150px;
+	height: 45px;
+	border-radius: 45px;
+	padding: 14px 20px;
+
+	flex-direction: column;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	font-weight: 700;
+	font-size: 14px;
+	border: none;
+	text-transform: uppercase;
+
+	align-self: center;
+	cursor: pointer;
+}
+
+.btn.red {
+	background: var(--default-red);
+	color: white;
+	margin: 20px 0px;
+}
+
+.btn.red:hover {
+	background: var(--default-red-hover);
+}
+
+.btn.outline {
+	border: 2px solid var(--default-grey);
+	background: white;
+	color: var(--default-grey);
+}
+
+.btn.outline:hover {
+	background: var(--default-grey);
+	color: white;
+}
+
+h5 {
+	font-weight: bold;
+	font-size: 18px;
+	line-height: 96.5%;
+	text-decoration-line: underline;
+	color: var(--default-grey);
+	margin-top: 30px;
+}
+
+h1 {
+	/* MAIN/Headline */
+	font-weight: bold;
+	font-size: 36px;
+	line-height: 103.5%;
+	text-decoration-line: underline;
+	color: var(--default-grey);
+	margin-top: 8px;
+}
+
+h4 {
+	/* MAIN/H4 */
+	font-family: Merriweather;
+	font-style: italic;
+	font-weight: 300;
+	font-size: 20px;
+	line-height: 165%;
+	margin-top: 16px;
+	color: var(--default-grey);
+}
+
+p {
+	/* MAIN/Copy */
+	font-family: Merriweather;
+	font-weight: 300;
+	font-size: 16px;
+	line-height: 200%;
+	margin-top: 30px;
+	color: var(--default-grey);
+}

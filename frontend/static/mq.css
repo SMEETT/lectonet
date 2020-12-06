@@ -1,0 +1,117 @@
+/* ----------- 1280-WIDTH */
+@media only screen and (min-width: 1280px) {
+	.wrapper {
+		width: 1280px;
+	}
+}
+
+/* ----------- 960-WIDTH */
+@media only screen and (max-width: 1279px) {
+	.wrapper {
+		width: 960px;
+		grid-template-columns: 60% 40%;
+	}
+
+	.logo {
+		margin-left: 38px;
+		margin-right: 40px;
+	}
+
+	.facebook-icon {
+		margin-left: 20px;
+	}
+
+	.links-link {
+		margin-left: 20px;
+	}
+
+	nav li {
+		margin-right: 25px;
+	}
+
+	.dropdown-wrapper {
+		width: 940px;
+	}
+
+	.leistungen-sublinks {
+		margin-left: 224px;
+	}
+
+	.ueber-uns-sublinks {
+		margin-left: 358px;
+	}
+
+	section.text {
+		grid-area: txt;
+		margin-left: 38px;
+	}
+}
+
+/* ----------- 600-WIDTH */
+@media only screen and (max-width: 959px) {
+	.wrapper {
+		width: 600px;
+		grid-template-columns: 100%;
+		grid-template-rows: 80px auto auto 180px;
+		grid-template-areas:
+			"header"
+			"picture"
+			"txt"
+			"footer";
+	}
+
+	section.picture {
+		justify-content: end;
+		display: flex;
+	}
+
+	section.picture img {
+		width: 535px;
+	}
+
+	nav {
+		display: none;
+	}
+
+	.dropdown-wrapper {
+		display: none;
+	}
+
+	.btn.outline {
+		border: 1px solid red;
+		display: inline-flex !important;
+	}
+
+	section.text {
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		text-align: center;
+		padding: 0px 30px;
+		margin-left: 0;
+	}
+
+	.logo {
+		margin-left: 12px;
+		margin-right: 60px;
+		width: 120px;
+	}
+}
+
+/* ----------- 320-WIDTH */
+@media only screen and (max-width: 599px) {
+	.wrapper {
+		width: 320px;
+		border: 5px solid white;
+		grid-template-rows: 60px auto auto 180px;
+		margin-top: 10px;
+	}
+
+	section.picture {
+		justify-content: center;
+	}
+	section.picture img {
+		width: 300px;
+		justify-content: center;
+	}
+}

@@ -3,37 +3,20 @@
 	<head>
 		<%- include ("../partials/head.ejs") %>
 	</head>
-	<style>
-		* {
-			border: 1px solid red;
-			margin: 0;
-			padding: 0;
-			box-sizing: border-box;
-		}
-
-		body {
-			background-color: linen;
-		}
-
-		h1 {
-			color: maroon;
-		}
-
-		.container {
-			display: block;
-		}
-
-		.copy {
-			white-space: pre-wrap;
-		}
-	</style>
-
 	<body>
-		<div class="container">
-			<h4><%= data.superHeadline %></h4>
-			<h1><%= data.headline %></h1>
-			<div><%= data.subheadline %></div>
-			<div class="copy"><%= data.copytext %></div>
+		<div class="wrapper">
+			<header><%- include ("../partials/header.ejs") %></header>
+			<section class="text">
+				<h5><%= data.superheadline %></h5>
+				<h1><%= data.headline %></h1>
+				<h4><%= data.subheadline %></h4>
+				<p><%= data.copytext %></p>
+				<button class="btn red">PREISRECHNER</button>
+			</section>
+			<section class="picture">
+				<img src="http://localhost:1337<%= data.image.url %>" alt="<%= data.image.alternativeText %>" />
+			</section>
+			<footer>&nbsp</footer>
 		</div>
 	</body>
 </html>

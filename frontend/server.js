@@ -1,3 +1,4 @@
+// imports
 const express = require("express");
 const path = require("path");
 const fs = require("fs");
@@ -5,22 +6,25 @@ const ejs = require("ejs");
 const axios = require("axios");
 const slugify = require("slugify");
 
+// express init
 const app = express();
 
-// app.set("views", path.join(__dirname, "views"));
+// use EJS as template engine
 app.set("view engine", "ejs");
 
 // set up static folder
 app.use("/static", express.static(path.resolve(__dirname, "static")));
 
-const pageTitle = "lectonet Title";
-
+// index route
 app.get("/", (req, res) => {
-	res.render("pages/index", {
-		pageTitle: pageTitle,
+	axios.get("http://localhost:1337/index").then((response) => {
+		res.render("pages/index", {
+			data: response.data,
+		});
 	});
 });
 
+// dynamic routing
 app.get("/:path", (req, res) => {
 	axios.get("http://localhost:1337/pages").then((response) => {
 		// look for page with a title that matches the requested path
@@ -30,7 +34,7 @@ app.get("/:path", (req, res) => {
 
 		// if no match is returned, render 404
 		if (!match) {
-			console.log("No match1");
+			console.log("No match/404");
 			res.render("pages/404", { data: { title: "Page doesn't exist", content: "Page doesn't exist" } });
 			return;
 		}
@@ -44,5 +48,5 @@ app.get("/:path", (req, res) => {
 	});
 });
 
-const port = process.env.PORT || 5060;
+const port = process.env.PORT || 1338;
 app.listen(port, () => console.log(`Server running on port ${port}`));
