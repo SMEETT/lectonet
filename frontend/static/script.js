@@ -8,7 +8,27 @@ const ueberuns_sublinks = document.getElementsByClassName("ueber-uns-sublinks")[
 
 const dropdown_wrapper = document.getElementsByClassName("dropdown-wrapper")[0];
 
-const mediaQuery = window.matchMedia("(max-width: 1279px)");
+// hamburger menu elements
+
+const hamburger_content = document.getElementsByClassName("hamburger-content")[0];
+const hamburger_wrapper = document.getElementsByClassName("hamburger-wrapper")[0];
+
+console.log(hamburger_wrapper);
+
+const hamburger_icon_menuHidden = document.getElementById("hamburger-icon-toggle-menuHidden");
+const hamburger_icon_menuVisible = document.getElementById("hamburger-icon-toggle-menuVisible");
+
+hamburger_icon_menuHidden.addEventListener("click", () => {
+	hamburger_wrapper.style.display = "none";
+	hamburger_content.style.display = "flex";
+});
+
+hamburger_icon_menuVisible.addEventListener("click", () => {
+	hamburger_wrapper.style.display = "flex";
+	hamburger_content.style.display = "none";
+});
+
+const mediaQuery = window.matchMedia("(max-width: 959px)");
 console.log(mediaQuery);
 
 function handleTabletChange(e) {
@@ -16,9 +36,11 @@ function handleTabletChange(e) {
 	// console.log(e);
 	if (e.matches) {
 		// Then log the following message to the console
+
 		console.log("Media Query Matched!");
 	} else {
-		console.log("changed back");
+		hamburger_wrapper.style.display = "none";
+		hamburger_content.style.display = "none";
 	}
 }
 
@@ -26,7 +48,7 @@ mediaQuery.addEventListener("change", handleTabletChange);
 
 handleTabletChange(mediaQuery);
 
-const wrapperTopMargin = parseInt(window.getComputedStyle(wrapper).marginTop.slice(0, 2));
+// const wrapperTopMargin = parseInt(window.getComputedStyle(wrapper).marginTop.slice(0, 2));
 
 leistungen_link.addEventListener("mouseenter", () => {
 	dropdown_wrapper.style.display = "block";
@@ -43,8 +65,7 @@ ueberuns_link.addEventListener("mouseenter", () => {
 dropdown_wrapper.addEventListener("mouseout", onMouseOutHandler, true);
 
 function onMouseOutHandler(event) {
-	console.log(wrapperTopMargin);
-	if (event.pageY >= dropdown_wrapper.offsetHeight + wrapperTopMargin) {
+	if (event.pageY >= dropdown_wrapper.offsetHeight + 30) {
 		dropdown_wrapper.style.display = "none";
 	}
 }

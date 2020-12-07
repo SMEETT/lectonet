@@ -1,39 +1,143 @@
 :root {
 	--default-grey: #333333;
 	--hover-light-grey: #9c9c9c;
+	--hover-dark-white: rgb(224, 224, 224);
 	--default-red: #ea5659;
 	--default-red-hover: #ff7b7d;
 	--card-header-grey: #e5e5e5;
 }
 
 .hamburger-wrapper {
-	background-color: rgba(0, 0, 0, 0.6);
+	height: 80px;
+	position: relative;
+	display: none;
+}
+
+.hamburger-content {
+	background-color: rgba(0, 0, 0, 0.75);
 	width: 580px;
-	height: 484px;
-	margin-top: 405px;
 	position: absolute;
 	display: flex;
-	border: 1px solid red;
+	justify-content: space-between;
+	display: none;
+	color: white;
+	font-size: 14px;
+	padding-bottom: 32px;
+	display: none;
+}
+
+.bright {
+	filter: brightness(10);
+}
+
+.hamburger-content a {
+	color: white;
+}
+
+.hamburger-content a:hover {
+	color: var(--hover-dark-white);
 }
 
 .hamburger-logo > img {
 	width: 120px;
 	margin-top: 25px;
-	margin-left: 11px;
+	margin-left: 12px;
 }
 
-.hamburger-icon {
-	margin-left: 380px;
-	margin-top: 22px;
+.hamburger-icon img {
+	justify-content: flex-end;
+	margin-top: 25px;
+	margin-right: 12px;
+	/* filter: brightness(10); */
+	cursor: pointer;
+}
+
+.hamburger-icon img:hover {
+	filter: brightness(3);
+}
+
+.hamburger-links {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-start;
+	align-items: center;
+	padding-top: 16px;
+	text-align: center;
+}
+
+.hamburger-links ul {
+	margin-bottom: 16px;
+	line-height: 32px;
+}
+
+.hamburger-preisrechner {
+	margin-top: 16px;
+}
+
+/* .hamburger-ueber-uns {
+	margin-top: 32px;
+} */
+
+/* .hamburger-links ul li {
+	border: 1px solid green;
+}
+
+.hamburger-leistungen {
+	border: 1px solid white;
+} */
+
+.hamburger-category {
+	text-decoration: underline;
+	text-transform: uppercase;
+	font-weight: 700;
+	margin-top: 16px;
+	margin-bottom: 8px;
+}
+
+.hamburger-social-media {
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 16px;
+	padding: 0 84px;
+}
+
+.hamburger-social-media a {
+	filter: brightness(10);
+}
+
+.hamburger-social-media a:hover {
+	filter: brightness(3);
+}
+
+.flex-col-1 {
+	display: flex;
+	flex: 1;
+}
+
+.flex-col-2 {
+	display: flex;
+	justify-content: center;
+	flex: 2;
+	padding-left: 48px;
+}
+
+.flex-col-3 {
+	display: flex;
+	justify-content: flex-end;
+	flex: 1;
 }
 
 * {
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
-	transition: 0.3s;
+	transition: 0.15s;
 	font-family: Montserrat;
 	font-style: normal;
+	list-style: none;
 }
 
 .facebook-icon {
@@ -57,6 +161,51 @@ section.picture {
 footer {
 	grid-area: footer;
 	background-color: var(--default-grey);
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	justify-content: space-between;
+	color: white;
+	padding: 32px 0;
+	margin-top: 16px;
+	font-size: 14px;
+	line-height: 24px;
+}
+
+footer ul li {
+	list-style: none;
+}
+
+footer .logo-footer {
+	margin-left: 64px;
+}
+
+footer .social-media-icons {
+	align-content: center;
+	justify-content: center;
+	display: flex;
+	flex-direction: column;
+	margin-right: 64px;
+}
+
+footer .social-media-icons-container {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	margin-top: 8px;
+}
+
+footer .social-media-icons img {
+	display: inline-flex;
+	flex-direction: row;
+}
+
+footer .social-media-label {
+	display: block;
+	font-weight: 700;
+	font-size: 14px;
+	text-decoration: underline;
+	text-transform: uppercase;
 }
 
 .wrapper {
@@ -67,7 +216,7 @@ footer {
 	margin-right: auto;
 	display: grid;
 	grid-template-columns: 47% 53%;
-	grid-template-rows: 126px auto 180px;
+	grid-template-rows: 126px auto auto;
 	grid-template-areas:
 		"header header"
 		"txt picture"
@@ -89,8 +238,8 @@ a:hover {
 header {
 	grid-area: header;
 	border-bottom: 1px solid var(--default-grey);
-	display: flex;
-	align-items: center;
+	display: block;
+	position: relative;
 }
 
 .logo {
@@ -104,7 +253,7 @@ header {
 nav {
 	display: flex;
 	width: 100%;
-	border: 1px solid red;
+	margin-top: 35px;
 }
 
 nav ul {
@@ -120,7 +269,6 @@ nav li {
 	text-transform: uppercase;
 	cursor: pointer;
 	margin-right: 35px;
-	border: 1px solid red;
 }
 
 nav .social-media-icon > a > img {
@@ -141,7 +289,6 @@ nav li .dropdown-icon {
 	display: none;
 	position: absolute;
 	width: 1260px;
-	border: 1px solid red;
 	margin-top: -40px;
 	background-color: rgba(255, 255, 255, 0.95);
 	z-index: 4;
@@ -158,7 +305,6 @@ nav li .dropdown-icon {
 	font-weight: 500;
 	font-size: 14px;
 	line-height: 16px;
-	border: 1px solid red;
 	margin-bottom: 16px;
 	display: table;
 	text-transform: uppercase;
@@ -250,6 +396,7 @@ h4 {
 	line-height: 165%;
 	margin-top: 16px;
 	color: var(--default-grey);
+	white-space: pre-wrap;
 }
 
 p {
@@ -260,4 +407,13 @@ p {
 	line-height: 200%;
 	margin-top: 30px;
 	color: var(--default-grey);
+	white-space: pre-wrap;
+}
+
+p strong {
+	font-weight: 700;
+}
+
+p a {
+	text-decoration: underline;
 }

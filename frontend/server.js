@@ -1,10 +1,11 @@
 // imports
 const express = require("express");
-const path = require("path");
-const fs = require("fs");
-const ejs = require("ejs");
-const axios = require("axios");
 const slugify = require("slugify");
+const axios = require("axios");
+const path = require("path");
+const ejs = require("ejs");
+const fs = require("fs");
+const md = require("markdown-it")();
 
 // express init
 const app = express();
@@ -14,6 +15,9 @@ app.set("view engine", "ejs");
 
 // set up static folder
 app.use("/static", express.static(path.resolve(__dirname, "static")));
+
+// api base path
+const apiPath = process.env.apiPath || "http://localhost:1337";
 
 // index route
 app.get("/", (req, res) => {
@@ -26,7 +30,7 @@ app.get("/", (req, res) => {
 
 // dynamic routing
 app.get("/:path", (req, res) => {
-	axios.get("http://localhost:1337/pages").then((response) => {
+	axios.get(`${apiPath}/pages`).then((response) => {
 		// look for page with a title that matches the requested path
 		const match = response.data.find((page) => {
 			return slugify(page.title, { lower: true }) === req.params.path;
@@ -35,7 +39,9 @@ app.get("/:path", (req, res) => {
 		// if no match is returned, render 404
 		if (!match) {
 			console.log("No match/404");
-			res.render("pages/404", { data: { title: "Page doesn't exist", content: "Page doesn't exist" } });
+			res.render("pages/404", {
+				data: { title: "Page doesn't exist", content: "Page doesn't exist" },
+			});
 			return;
 		}
 
@@ -43,6 +49,7 @@ app.get("/:path", (req, res) => {
 		if (match.category === "leistungen") {
 			res.render("pages/genericSite", {
 				data: match,
+				md: md.renderInline(match.copytext),
 			});
 		}
 	});

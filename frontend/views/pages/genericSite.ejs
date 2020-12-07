@@ -10,13 +10,13 @@
 				<h5><%= data.superheadline %></h5>
 				<h1><%= data.headline %></h1>
 				<h4><%= data.subheadline %></h4>
-				<p><%= data.copytext %></p>
+				<p><%- md %></p>
 				<button class="btn red">PREISRECHNER</button>
 			</section>
 			<section class="picture">
 				<img src="http://localhost:1337<%= data.image.url %>" alt="<%= data.image.alternativeText %>" />
 			</section>
-			<footer>&nbsp</footer>
+			<footer><%- include ("../partials/footer.ejs") %></footer>
 		</div>
 	</body>
 </html>

@@ -43,6 +43,9 @@
       ],
       "plugin": "upload",
       "required": false
+    },
+    "position": {
+      "type": "integer"
     }
   }
 }
