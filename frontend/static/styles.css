@@ -7,101 +7,117 @@
 	--card-header-grey: #e5e5e5;
 }
 
-.hamburger-wrapper {
-	height: 80px;
-	position: relative;
-	display: none;
-}
+/* #################### */
+/* HAMBURGER */
+/* #################### */
 
-.hamburger-content {
-	background-color: rgba(0, 0, 0, 0.75);
-	width: 580px;
-	position: absolute;
-	display: flex;
-	justify-content: space-between;
-	display: none;
+.hamburger-wrapper {
+	position: relative;
+	display: grid;
+	width: 100%;
+	margin: 0;
+	grid-template-columns: auto auto auto;
+	grid-template-rows: 80px auto;
+	grid-template-areas:
+		"logo btn hamburger"
+		"links links links";
 	color: white;
 	font-size: 14px;
-	padding-bottom: 32px;
+	background: rgba(0, 0, 0, 0);
+}
+
+.hamburger-logo-container {
+	grid-area: logo;
+	display: flex;
+	width: 100%;
+	justify-content: center;
+	align-items: center;
+	padding-left: 3px;
+}
+
+.hamburger-logo-container > img {
+	width: 142px;
+}
+
+.hamburger-icon-container {
+	grid-area: hamburger;
+	display: flex;
+	width: 100%;
+	justify-content: center;
+	align-items: center;
+	padding-right: 2px;
+}
+
+.hamburger-icon-container img {
+	/* filter: brightness(10); */
+	width: 32px;
+	cursor: pointer;
+}
+
+.hamburger-icon-container img:hover {
+	filter: brightness(3);
+}
+
+.hamburger-preisrechner-btn-container {
+	grid-area: btn;
+	width: 100%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.hamburger-links-container {
+	width: 100%;
 	display: none;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding-top: 16px;
+	text-align: center;
+	grid-area: links;
+}
+
+.hamburger-links-container ul {
+	margin-bottom: 16px;
+	line-height: 32px;
+	width: 100%;
+}
+
+.hamburger-links-container ul li {
+	width: 300px;
 }
 
 .bright {
 	filter: brightness(10);
 }
 
-.hamburger-content a {
-	color: white;
-}
-
-.hamburger-content a:hover {
-	color: var(--hover-dark-white);
-}
-
-.hamburger-logo > img {
-	width: 120px;
-	margin-top: 25px;
-	margin-left: 12px;
-}
-
-.hamburger-icon img {
-	justify-content: flex-end;
-	margin-top: 25px;
-	margin-right: 12px;
-	/* filter: brightness(10); */
-	cursor: pointer;
-}
-
-.hamburger-icon img:hover {
+.bright:hover {
 	filter: brightness(3);
 }
 
-.hamburger-links {
-	width: 100%;
-	display: flex;
-	flex-direction: column;
-	justify-content: flex-start;
-	align-items: center;
-	padding-top: 16px;
-	text-align: center;
+.hamburger-wrapper a {
+	color: white;
 }
 
-.hamburger-links ul {
-	margin-bottom: 16px;
-	line-height: 32px;
+.hamburger-wrapper a:hover {
+	color: var(--hover-dark-white);
 }
-
-.hamburger-preisrechner {
-	margin-top: 16px;
-}
-
-/* .hamburger-ueber-uns {
-	margin-top: 32px;
-} */
-
-/* .hamburger-links ul li {
-	border: 1px solid green;
-}
-
-.hamburger-leistungen {
-	border: 1px solid white;
-} */
 
 .hamburger-category {
 	text-decoration: underline;
 	text-transform: uppercase;
 	font-weight: 700;
-	margin-top: 16px;
+	width: 100%;
 	margin-bottom: 8px;
 }
 
 .hamburger-social-media {
-	width: 100%;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	margin-top: 16px;
-	padding: 0 84px;
+	margin-top: 8px;
+	margin-bottom: 16px;
+	padding: 0 80px;
 }
 
 .hamburger-social-media a {
@@ -112,23 +128,9 @@
 	filter: brightness(3);
 }
 
-.flex-col-1 {
-	display: flex;
-	flex: 1;
-}
-
-.flex-col-2 {
-	display: flex;
-	justify-content: center;
-	flex: 2;
-	padding-left: 48px;
-}
-
-.flex-col-3 {
-	display: flex;
-	justify-content: flex-end;
-	flex: 1;
-}
+/* #################### */
+/* GENERAL */
+/* #################### */
 
 * {
 	box-sizing: border-box;
@@ -216,7 +218,7 @@ footer .social-media-label {
 	margin-right: auto;
 	display: grid;
 	grid-template-columns: 47% 53%;
-	grid-template-rows: 126px auto auto;
+	grid-template-rows: auto auto auto;
 	grid-template-areas:
 		"header header"
 		"txt picture"
@@ -238,12 +240,14 @@ a:hover {
 header {
 	grid-area: header;
 	border-bottom: 1px solid var(--default-grey);
-	display: block;
+	display: flex;
+	align-items: flex-start;
 	position: relative;
 }
 
 .logo {
 	display: inline-block;
+	width: 142px;
 	margin-left: 64px;
 	margin-right: 120px;
 	margin-bottom: 8px;
@@ -253,7 +257,7 @@ header {
 nav {
 	display: flex;
 	width: 100%;
-	margin-top: 35px;
+	padding: 16px 0;
 }
 
 nav ul {
@@ -330,10 +334,9 @@ nav li .dropdown-icon {
 
 .btn {
 	width: 150px;
-	height: 45px;
-	border-radius: 45px;
+	height: 44px;
+	border-radius: 44px;
 	padding: 14px 20px;
-
 	flex-direction: column;
 	display: inline-flex;
 	align-items: center;
@@ -342,9 +345,8 @@ nav li .dropdown-icon {
 	font-size: 14px;
 	border: none;
 	text-transform: uppercase;
-
-	align-self: center;
 	cursor: pointer;
+	align-self: center;
 }
 
 .btn.red {
@@ -371,7 +373,7 @@ nav li .dropdown-icon {
 h5 {
 	font-weight: bold;
 	font-size: 18px;
-	line-height: 96.5%;
+	line-height: 100%;
 	text-decoration-line: underline;
 	color: var(--default-grey);
 	margin-top: 30px;
@@ -381,7 +383,7 @@ h1 {
 	/* MAIN/Headline */
 	font-weight: bold;
 	font-size: 36px;
-	line-height: 103.5%;
+	line-height: 100%;
 	text-decoration-line: underline;
 	color: var(--default-grey);
 	margin-top: 8px;
@@ -393,7 +395,7 @@ h4 {
 	font-style: italic;
 	font-weight: 300;
 	font-size: 20px;
-	line-height: 165%;
+	line-height: 164%;
 	margin-top: 16px;
 	color: var(--default-grey);
 	white-space: pre-wrap;

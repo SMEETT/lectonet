@@ -6,10 +6,6 @@
 	.hamburger-wrapper {
 		display: none;
 	}
-
-	.hamburger-content {
-		display: none;
-	}
 }
 
 /* ----------- 960-WIDTH */
@@ -18,13 +14,13 @@
 		display: none;
 	}
 
-	.hamburger-content {
-		display: none;
-	}
-
 	.wrapper {
 		width: 960px;
 		grid-template-columns: 63% 37%;
+	}
+
+	header {
+		justify-content: space-between;
 	}
 
 	.logo {
@@ -68,6 +64,10 @@
     } */
 
 	.hamburger-wrapper {
+		display: grid;
+	}
+
+	.hamburger-preisrechner-btn-container {
 		display: flex;
 	}
 
@@ -123,9 +123,25 @@
 
 /* ----------- 320-WIDTH */
 @media only screen and (max-width: 599px) {
+	.hamburger-preisrechner-btn-container {
+		display: none;
+	}
+
+	.hamburger-links-container {
+		display: none;
+	}
+
+	.hamburger-wrapper {
+		grid-template-columns: auto auto;
+		grid-template-rows: 60px auto auto;
+		grid-template-areas:
+			"logo hamburger"
+			"btn btn"
+			"links links";
+	}
 	.wrapper {
 		width: 320px;
-		border: 5px solid white;
+		border: 10px solid white;
 		grid-template-rows: 60px auto auto auto;
 		margin-top: 10px;
 	}
