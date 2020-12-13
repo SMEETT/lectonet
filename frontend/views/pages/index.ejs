@@ -4,6 +4,38 @@
 		<%- include ("../partials/head.ejs") %>
 	</head>
 	<body>
-		<h1>Tes!!t</h1>
+		<div class="wrapper index">
+			<header><%- include ("../partials/header.ejs") %></header>
+			<section class="text">
+				<h5><%= data.superheadline %></h5>
+				<h1><%= data.headline %></h1>
+				<h4><%= data.subheadline %></h4>
+				<p><%- md %></p>
+				<button class="btn red">PREISRECHNER</button>
+			</section>
+			<section class="picture index">
+				<img id="foto_rue" src="../../static/images/ruediger.png"" alt="Foto Ruediger Wackwitz" />
+			</section>
+			<section id="cards" class="cards">
+				<h1>Leistungen</h1>
+				<div class="cards-wrapper">
+					<div class="card">
+						<div class="card-header">Korrekturen</div>
+						<div class="cardbody">
+							<h1 class="cardheadline">Wir sind für richtige Texte lorem Ipsum dolor sit</h1>
+							<p class="cardcopy">
+								Fehlerhaft, fehlerarm oder fehlerfrei – daran werden auch heute noch Menschen gemessen
+								und Karrieren entschieden.
+							</p>
+							<button class="btn outline card">MEHR</button>
+						</div>
+					</div>
+					<div class="card"></div>
+					<div class="card"></div>
+					<div class="card"></div>
+				</div>
+			</section>
+			<footer><%- include ("../partials/footer.ejs") %></footer>
+		</div>
 	</body>
 </html>

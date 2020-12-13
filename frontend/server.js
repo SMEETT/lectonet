@@ -21,9 +21,11 @@ const apiPath = process.env.apiPath || "http://localhost:1337";
 
 // index route
 app.get("/", (req, res) => {
-	axios.get("http://localhost:1337/index").then((response) => {
+	axios.get(`${apiPath}/indices`).then((response) => {
+		console.log(response.data[0].copytext);
 		res.render("pages/index", {
-			data: response.data,
+			data: response.data[0],
+			md: md.renderInline(response.data[0].copytext),
 		});
 	});
 });

@@ -6,10 +6,20 @@
 	.hamburger-wrapper {
 		display: none;
 	}
+	#foto_rue {
+		width: 816px;
+		height: 715px;
+	}
 }
 
 /* ----------- 960-WIDTH */
 @media (max-width: 1279px) {
+	#foto_rue {
+		width: 736px;
+		height: 644px;
+		right: -140px;
+	}
+
 	.hamburger-wrapper {
 		display: none;
 	}
@@ -45,11 +55,11 @@
 	}
 
 	.leistungen-sublinks {
-		margin-left: 224px;
+		margin-left: 200px;
 	}
 
 	.ueber-uns-sublinks {
-		margin-left: 358px;
+		margin-left: 338px;
 	}
 
 	footer .logo-footer {
@@ -63,6 +73,18 @@
 		display: flex;
     } */
 
+	section.cards {
+		padding: 16px 0px;
+		align-items: center;
+	}
+
+	#foto_rue {
+		width: 542px;
+		height: 474px;
+		right: auto;
+		position: relative;
+	}
+
 	.hamburger-wrapper {
 		display: grid;
 	}
@@ -74,16 +96,17 @@
 	.wrapper {
 		width: 600px;
 		grid-template-columns: 100%;
-		grid-template-rows: 80px auto auto 180px;
+		grid-template-rows: 80px auto auto auto 180px;
 		grid-template-areas:
 			"header"
 			"picture"
 			"txt"
+			"cards"
 			"footer";
 	}
 
 	section.picture {
-		justify-content: flex-end;
+		justify-content: center;
 		display: flex;
 	}
 
@@ -106,6 +129,7 @@
 		text-align: center;
 		padding: 0px 30px;
 		margin-left: 0;
+		background-color: white;
 	}
 
 	footer {
@@ -123,8 +147,14 @@
 
 /* ----------- 320-WIDTH */
 @media only screen and (max-width: 599px) {
+	#foto_rue {
+		width: 288px;
+		height: 252px;
+	}
+
 	.hamburger-preisrechner-btn-container {
 		display: none;
+		margin-top: 8px;
 	}
 
 	.hamburger-links-container {
@@ -160,5 +190,21 @@
 	footer ul {
 		margin-bottom: 16px;
 		text-align: center;
+	}
+
+	h1 {
+		font-size: 22px;
+	}
+
+	h4 {
+		font-size: 14px;
+	}
+
+	h5 {
+		font-size: 14px;
+	}
+
+	p {
+		font-size: 12px;
 	}
 }

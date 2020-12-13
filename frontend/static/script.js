@@ -16,10 +16,25 @@ const hamburger_wrapper = document.getElementsByClassName("hamburger-wrapper")[0
 const hamburger_links_container = document.getElementsByClassName("hamburger-links-container")[0];
 // initially set links_container display to "none"
 hamburger_links_container.style.display = "none";
-
 const preisrechner_btn_container = document.getElementsByClassName("hamburger-preisrechner-btn-container")[0];
+const preisrechner_btn = preisrechner_btn_container.querySelector("button");
 const hamburger_logo = document.getElementById("hamburger-logo");
 const hamburger_icon = document.getElementById("hamburger-icon");
+
+const foto = document.getElementsByClassName("picture")[0];
+const wrapperTopMargin = parseInt(window.getComputedStyle(wrapper).marginTop.slice(0, 2));
+const foto_bottom = foto.offsetHeight + foto.offsetTop - wrapperTopMargin;
+wrapper.style.backgroundSize = `100% ${foto_bottom}px`;
+
+// console.log(foto_bottom);
+// console.log(foto);
+// console.log(foto.offsetLeft);
+// wrapper.style.backgroundSize = `100% ${foto_bottom}px`;
+
+// console.log(foto.getBoundingClientRect());
+
+// const foto_offsetHeight = foto.offsetHeight;
+// console.log(foto_offsetHeight);
 
 // #############################################
 // media queries
@@ -30,13 +45,54 @@ const mq_str_960 = "(max-width: 1279px) and (min-width: 960px)";
 const mq_str_600 = "(max-width: 959px) and (min-width: 600px)";
 const mq_str_320 = "(max-width: 599px)";
 
+// #############################################
+// handling the hamburger menu
+// #############################################
+
+let hamburgerMenuOpen = false;
+
+const closeHamburgerMenu = () => {
+	hamburger_links_container.style.display = "none";
+	hamburger_wrapper.style.background = "rgba(0, 0, 0, 0)";
+	hamburger_icon.classList.remove("bright");
+	hamburger_logo.classList.remove("bright");
+	preisrechner_btn.classList.remove("hamburger-menu-open");
+	hamburgerMenuOpen = false;
+	if (window.matchMedia(mq_str_320).matches) {
+		preisrechner_btn_container.style.display = "none";
+	}
+};
+
+const openHamburgerMenu = () => {
+	hamburger_links_container.style.display = "grid";
+	hamburger_wrapper.style.background = "rgba(0, 0, 0, 0.75)";
+	hamburger_icon.classList.add("bright");
+	hamburger_logo.classList.add("bright");
+	preisrechner_btn.classList.add("hamburger-menu-open");
+	hamburgerMenuOpen = true;
+	if (window.matchMedia(mq_str_320).matches) {
+		preisrechner_btn_container.style.display = "flex";
+	}
+};
+
+const toggleHamburgerMenu = () => {
+	if (hamburgerMenuOpen === false) {
+		openHamburgerMenu();
+	} else {
+		closeHamburgerMenu();
+	}
+};
+
+hamburger_icon.addEventListener("click", () => {
+	toggleHamburgerMenu();
+});
+
 const handleMediaQuery = (event) => {
 	if (event.media === mq_str_320 && event.matches) {
-		console.log("match 320");
-		hamburger_links_container.style.display = "none";
+		closeHamburgerMenu();
 		preisrechner_btn_container.style.display = "none";
 	} else if (event.media === mq_str_600 && event.matches) {
-		console.log("match 600");
+		closeHamburgerMenu();
 		preisrechner_btn_container.style.display = "flex";
 	}
 };
@@ -45,54 +101,6 @@ const mq_320 = window.matchMedia(mq_str_320);
 const mq_600 = window.matchMedia(mq_str_600);
 mq_320.addEventListener("change", handleMediaQuery);
 mq_600.addEventListener("change", handleMediaQuery);
-
-// const mediaQueries = [
-// 	window.matchMedia(mq_1280),
-// 	window.matchMedia(mq_960),
-// 	window.matchMedia(mq_600),
-// 	window.matchMedia(mq_320),
-// ];
-
-// const handleMediaQueryChange = (event) => {
-// 	if (event.media === mq_1280 && event.matches) {
-// 		return 1280;
-// 	} else if (event.media === mq_960 && event.matches) {
-// 		return 960;
-// 	} else if (event.media === mq_600 && event.matches) {
-// 		return 600;
-// 	} else if (event.media === mq_320 && event.matches) {
-// 		return 320;
-// 	}
-// };
-
-// mediaQueries.forEach((query) => {
-// 	query.addEventListener("change", handleMediaQueryChange);
-// });
-
-// #############################################
-// handling the hamburger menu
-// #############################################
-
-hamburger_icon.addEventListener("click", () => {
-	if (hamburger_links_container.style.display === "none") {
-		hamburger_links_container.style.display = "grid";
-		hamburger_wrapper.style.background = "rgba(0, 0, 0, 0.75)";
-		hamburger_icon.classList.toggle("bright");
-		hamburger_logo.classList.toggle("bright");
-		if (window.matchMedia(mq_str_320).matches) {
-			console.log("matches!!");
-			preisrechner_btn_container.style.display = "flex";
-		}
-	} else if (hamburger_links_container.style.display === "grid") {
-		hamburger_links_container.style.display = "none";
-		hamburger_wrapper.style.background = "rgba(0, 0, 0, 0)";
-		hamburger_icon.classList.toggle("bright");
-		hamburger_logo.classList.toggle("bright");
-		if (window.matchMedia(mq_str_320).matches) {
-			preisrechner_btn_container.style.display = "none";
-		}
-	}
-});
 
 // #############################################
 // handling the dropdown menu
@@ -115,7 +123,7 @@ ueberuns_link.addEventListener("mouseenter", () => {
 	ueberuns_sublinks.style.display = "block";
 });
 
-// check if the mouse is far away from top of the page,
+// check if the mouse is far enough away from the top of the page,
 // if it is hide the dropdown-menu background (wrapper)
 function onMouseOutHandler(event) {
 	if (event.pageY >= dropdown_wrapper.offsetHeight + 10) {
