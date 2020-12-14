@@ -1,0 +1,29 @@
+{
+  "kind": "collectionType",
+  "collectionName": "indices",
+  "info": {
+    "name": "index",
+    "displayName": "Index"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "headline": {
+      "type": "string"
+    },
+    "subheadline": {
+      "type": "string"
+    },
+    "copytext": {
+      "type": "richtext"
+    },
+    "card": {
+      "type": "component",
+      "repeatable": true,
+      "component": "component.card"
+    }
+  }
+}

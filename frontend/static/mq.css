@@ -24,6 +24,10 @@
 		display: none;
 	}
 
+	.cards-wrapper {
+		justify-content: flex-start;
+	}
+
 	.wrapper {
 		width: 960px;
 		grid-template-columns: 63% 37%;
@@ -73,9 +77,18 @@
 		display: flex;
     } */
 
+	.btn.red {
+		background: var(--default-red);
+		color: white;
+		margin: 16px 0px;
+	}
+
 	section.cards {
 		padding: 16px 0px;
 		align-items: center;
+	}
+	.cards-wrapper {
+		justify-content: center;
 	}
 
 	#foto_rue {

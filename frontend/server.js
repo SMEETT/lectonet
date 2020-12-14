@@ -15,6 +15,7 @@ app.set("view engine", "ejs");
 
 // set up static folder
 app.use("/static", express.static(path.resolve(__dirname, "static")));
+app.use("/svelte-components", express.static(path.resolve(__dirname, "svelte-components")));
 
 // api base path
 const apiPath = process.env.apiPath || "http://localhost:1337";

@@ -25,6 +25,14 @@ body {
 	background-color: white;
 }
 
+.bright {
+	filter: brightness(10);
+}
+
+.bright:hover {
+	filter: brightness(3);
+}
+
 .wrapper {
 	border-style: inset;
 	border: 10px solid white;
@@ -47,6 +55,9 @@ body {
 .wrapper.index {
 	background: linear-gradient(270.31deg, #ffffff 0.25%, rgba(255, 255, 255, 0) 99.71%), #c4c4c4;
 	background-repeat: no-repeat;
+}
+
+section {
 }
 
 #foto_rue {
@@ -80,27 +91,24 @@ section.cards {
 	grid-area: cards;
 	padding: 16px 64px;
 	background-color: white;
-	border: 1px solid red;
 	display: flex;
 	flex-direction: column;
+	border: 1px solid rgba(0, 0, 0, 0.25);
 }
 
 .cards-wrapper {
 	width: 100%;
 	height: auto;
 	display: flex;
-	justify-content: center;
+	justify-content: space-between;
 	margin-top: 32px;
-
 	flex-wrap: wrap;
-	align-self: center;
-	border: 1px solid blue;
 }
 
 .card {
 	width: 264px;
 	height: 380px;
-	margin: 8px;
+	margin: 4px 4px;
 	background: #ffffff;
 	border: 1px solid #bfbfbf;
 	box-shadow: 6px 6px 29px -13px rgba(0, 0, 0, 0.25);
@@ -164,7 +172,7 @@ a:hover {
 
 header {
 	grid-area: header;
-	border-bottom: 1px solid var(--default-grey);
+	border-bottom: 1px solid rgba(0, 0, 0, 0.25);
 	display: flex;
 	align-items: flex-start;
 	position: relative;
@@ -270,7 +278,7 @@ nav li .dropdown-icon {
 /* #################### */
 
 .btn {
-	width: 150px;
+	width: auto;
 	height: 44px;
 	border-radius: 44px;
 	padding: 14px 20px;
@@ -289,11 +297,15 @@ nav li .dropdown-icon {
 .btn.red {
 	background: var(--default-red);
 	color: white;
-	margin: 20px 0px;
+	margin: 32px 0px;
+	border: 2px solid var(--default-red);
 }
 
 .btn.red:hover {
-	background: var(--default-red-hover);
+	/* background: var(--default-red-hover); */
+	background: transparent;
+	border: 2px solid var(--default-red);
+	color: var(--default-grey);
 }
 
 .btn.outline {
@@ -305,14 +317,6 @@ nav li .dropdown-icon {
 .btn.outline:hover {
 	background: var(--default-grey);
 	color: white;
-}
-
-.btn.hamburger-menu-open {
-	border: 2px solid white;
-}
-
-.btn.hamburger-menu-open:hover {
-	border: 2px solid white;
 }
 
 /* #################### */
@@ -356,7 +360,7 @@ p {
 	font-weight: 300;
 	font-size: 16px;
 	line-height: 200%;
-	margin-top: 30px;
+	margin: 16px 0px;
 	color: var(--default-grey);
 	white-space: pre-wrap;
 }
@@ -428,10 +432,6 @@ p a {
 	justify-content: center;
 }
 
-.hamburger-btn {
-	outline: 2px solid white;
-}
-
 .hamburger-links-container {
 	width: 100%;
 	display: none;
@@ -451,14 +451,6 @@ p a {
 
 .hamburger-links-container ul li {
 	width: 300px;
-}
-
-.bright {
-	filter: brightness(10);
-}
-
-.bright:hover {
-	filter: brightness(3);
 }
 
 .hamburger-wrapper a {
@@ -492,6 +484,17 @@ p a {
 
 .hamburger-social-media a:hover {
 	filter: brightness(3);
+}
+
+.btn.hamburger-menu-open {
+	border: 2px solid white;
+	color: white;
+}
+
+.btn.hamburger-menu-open:hover {
+	border: 2px solid white;
+	color: var(--default-grey);
+	background-color: white;
 }
 
 /* #################### */

@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_component_cards",
+  "info": {
+    "name": "card",
+    "icon": "portrait"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "headline": {
+      "type": "string"
+    },
+    "teasertext": {
+      "type": "text"
+    }
+  }
+}
