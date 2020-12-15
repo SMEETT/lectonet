@@ -13,7 +13,7 @@ const app = express();
 // use EJS as template engine
 app.set("view engine", "ejs");
 
-// set up static folder
+// set up static folders
 app.use("/static", express.static(path.resolve(__dirname, "static")));
 app.use("/svelte-components", express.static(path.resolve(__dirname, "svelte-components")));
 
