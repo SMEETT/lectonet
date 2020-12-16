@@ -354,14 +354,13 @@ nav li .dropdown-icon {
 	background: var(--default-red);
 	color: white;
 	margin: 32px 0px;
-	border: 2px solid var(--default-red);
 }
 
 .btn.red:hover {
-	/* background: var(--default-red-hover); */
-	background: transparent;
+	background: var(--default-red-hover);
+	/* background: transparent;
 	border: 2px solid var(--default-red);
-	color: var(--default-grey);
+	color: var(--default-grey);*/
 }
 
 .btn.outline {
