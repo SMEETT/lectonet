@@ -50,6 +50,7 @@ app.get("/:path", (req, res) => {
 
 		// render template based on provided category
 		if (match.category === "leistungen") {
+			console.log(apiPath);
 			res.render("pages/genericSite", {
 				data: match,
 				apiPath: apiPath,
