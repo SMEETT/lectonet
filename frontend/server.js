@@ -52,6 +52,7 @@ app.get("/:path", (req, res) => {
 		if (match.category === "leistungen") {
 			res.render("pages/genericSite", {
 				data: match,
+				apiPath: apiPath,
 				md: md.renderInline(match.copytext),
 			});
 		}
