@@ -1,0 +1,20 @@
+{
+  "kind": "singleType",
+  "collectionName": "preises",
+  "info": {
+    "name": "Preise",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "Preis": {
+      "type": "component",
+      "repeatable": true,
+      "component": "component.preis"
+    }
+  }
+}

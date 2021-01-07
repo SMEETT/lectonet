@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_component_preis",
+  "info": {
+    "name": "Preise",
+    "icon": "file-invoice-dollar",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "leistung": {
+      "type": "string"
+    },
+    "CSV": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": false
+    }
+  }
+}

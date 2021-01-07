@@ -1,5 +1,8 @@
 // imports
 const express = require("express");
+const cors = require("cors");
+const { expressCspHeader, INLINE, NONE, SELF } = require("express-csp-header");
+
 const slugify = require("slugify");
 const axios = require("axios");
 const path = require("path");
@@ -9,6 +12,24 @@ const md = require("markdown-it")();
 
 // express init
 const app = express();
+
+// CSP Header
+app.use(
+	expressCspHeader({
+		directives: {
+			"default-src": [SELF, "http://localhost:1337"],
+			"script-src": [SELF, INLINE, "somehost.com"],
+			"style-src": [SELF, "https://fonts.googleapis.com", "https://fonts.gstatic.com"],
+			"img-src": [SELF, "data:", "images.com"],
+			"worker-src": [NONE],
+			"block-all-mixed-content": true,
+			"font-src": ["https://fonts.googleapis.com", "https://fonts.gstatic.com"],
+			"frame-ancestors": [NONE],
+		},
+	})
+);
+
+// app.use(cors());
 
 // use EJS as template engine
 app.set("view engine", "ejs");
@@ -20,7 +41,9 @@ app.use("/svelte-components", express.static(path.resolve(__dirname, "svelte-com
 // api base path
 const apiPath = process.env.apiPath || "http://localhost:1337";
 
+//////////////////////////////////
 // index route
+//////////////////////////////////
 app.get("/", (req, res) => {
 	axios.get(`${apiPath}/indices`).then((response) => {
 		console.log(response.data[0].copytext);
@@ -31,7 +54,9 @@ app.get("/", (req, res) => {
 	});
 });
 
+//////////////////////////////////
 // dynamic routing
+//////////////////////////////////
 app.get("/:path", (req, res) => {
 	axios.get(`${apiPath}/pages`).then((response) => {
 		// look for page with a title that matches the requested path

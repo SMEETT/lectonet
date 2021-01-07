@@ -1,0 +1,6 @@
+{
+  "svelteSortOrder": "scripts-markup-styles",
+  "svelteAllowShorthand": false,
+  "plugins": ["prettier-plugin-svelte"],
+  "tabWidth": 4
+}
