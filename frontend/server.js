@@ -1,7 +1,7 @@
 // imports
 const express = require("express");
 const cors = require("cors");
-const { expressCspHeader, INLINE, NONE, SELF } = require("express-csp-header");
+const { expressCspHeader, INLINE, NONE, SELF, EVAL } = require("express-csp-header");
 
 const slugify = require("slugify");
 const axios = require("axios");
@@ -18,7 +18,7 @@ app.use(
 	expressCspHeader({
 		directives: {
 			"default-src": [SELF, "http://localhost:1337"],
-			"script-src": [SELF, INLINE, "somehost.com"],
+			"script-src": [SELF, INLINE, EVAL],
 			"style-src": [SELF, "https://fonts.googleapis.com", "https://fonts.gstatic.com"],
 			"img-src": [SELF, "data:", "images.com"],
 			"worker-src": [NONE],

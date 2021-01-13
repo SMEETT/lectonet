@@ -1,85 +1,46 @@
 <script>
     import Dropdown from "../src/components/Dropdown.svelte";
-    import pp from "papaparse";
-    import axios from "axios";
 
-    const options = ["opt1", "opt2"];
+    import { services, groups, types } from "./stores/stores.js";
 
-    let dropdownDataGroups = [];
-    let dropdownDataServices = [];
-    let dropdownDataTypes = [];
+    let dropdownDataGroups;
+    let dropdownDataServices;
+    let dropdownDataTypes;
 
-    const apiPath = "http://localhost:1337";
+    groups.subscribe((data) => {
+        dropdownDataGroups = data;
+    });
+    services.subscribe((data) => {
+        dropdownDataServices = data;
+    });
+    types.subscribe((data) => {
+        dropdownDataTypes = data;
+    });
 
-    const fetchedCSVData = axios.get(`${apiPath}/preise`);
-
-    let prices = [];
-
-    const PPConfig = { header: true };
-
-    fetchedCSVData
-        .then((data) => {
-            const extractedData = data.data.Preis;
-            // get all "Services" and add them to dropdownData
-            extractedData.forEach((preis) => {
-                dropdownDataServices.push(preis.leistung);
-            });
-            return extractedData;
-        })
-        .then((data) => {
-            const promiseContainer = [];
-            const CSVData = [];
-            data.forEach((entry) => {
-                const csvString = axios.get(`${apiPath}${entry.CSV.url}`);
-                promiseContainer.push(csvString);
-            });
-            let allPromises = Promise.all(promiseContainer).then((data) => {
-                data.forEach((entry, index) => {
-                    CSVData.push({
-                        service: dropdownDataServices[index],
-                        csv: entry.data,
-                    });
-                });
-                return CSVData;
-            });
-            return allPromises;
-        })
-        .then((data) => {
-            const parsedData = [];
-            data.forEach((entry) => {
-                let service = entry.service;
-                let parsed = pp.parse(entry.csv, PPConfig).data;
-                parsed.forEach((element) => {
-                    let type;
-                    for (const [key, value] of Object.entries(element)) {
-                        if (`${key}` === "") {
-                            type = `${value}`;
-                        } else {
-                            let objectToPush = {
-                                group: `${key}`,
-                                service: service,
-                                type: type,
-                                price: `${value}`,
-                            };
-                            prices.push(objectToPush);
-                        }
-                    }
-                });
-                console.log(prices);
-            });
-        });
-
-    function handleDropdownChange(event) {
-        console.log("handleDropdownChange()");
-    }
+    function handleDropdownChange(event) {}
 </script>
 
 <!-- MARKUP /////////////////////////////////////////////////////////////////////////////////////// -->
 <div class="preisrechner-wrapper">
     <form on:change|preventDefault={handleDropdownChange}>
-        <Dropdown options={options} category={'group'} />
-        <Dropdown options={options} category={'service'} />
-        <Dropdown options={options} category={'type'} />
+        <Dropdown
+            options={dropdownDataGroups}
+            category={'group'}
+            id={'dropdown-group'}
+            dropdownClass={'regular-dropdown'}
+            disabledBoolean="false" />
+        <Dropdown
+            options={dropdownDataServices}
+            category={'service'}
+            id={'dropdown-service'}
+            dropdownClass={'disabled-dropdown'}
+            disabledBoolean="true" />
+        <Dropdown
+            options={dropdownDataTypes}
+            category={'type'}
+            id={'dropdown-type'}
+            dropdownClass={'disabled-dropdown'}
+            disabledBoolean="true" />
     </form>
 </div>
 
