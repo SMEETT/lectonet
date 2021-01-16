@@ -15,16 +15,16 @@
 	position: fixed;
 	background-color: rgba(0, 0, 0, 0.5);
 	top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
 	z-index: 15;
-	display: flex;
+	display: none;
 	border: 1px solid green;
 	transition: 0s;
-    padding: 0;
-    padding-left: 12px;
-    overflow-y: scroll;
+	padding: 0;
+	padding-left: 12px;
+	overflow-y: scroll;
 }
 
 * {
@@ -37,9 +37,17 @@
 	list-style: none;
 }
 
+html {
+	overflow: -moz-scrollbars-vertical;
+	overflow-y: scroll;
+}
+
 body {
-    background-color: white;
-    overflow: hidden;
+	background-color: white;
+}
+
+body.overflow {
+	overflow: hidden;
 }
 
 .bright {
@@ -106,7 +114,6 @@ section.cards {
 	background-color: white;
 	display: flex;
 	flex-direction: column;
-	border: 1px solid rgba(0, 0, 0, 0.25);
 }
 
 .cards-wrapper {
@@ -251,7 +258,7 @@ nav li .dropdown-icon {
 	background-color: rgba(255, 255, 255, 0.95);
 	z-index: 4;
 	transition: ease-in-out;
-	border-bottom: 1px solid var(--default-grey);1
+	border-bottom: 1px solid var(--default-grey);
 }
 
 .dropdown-wrapper ul {
@@ -304,8 +311,8 @@ nav li .dropdown-icon {
 	border: none;
 	text-transform: uppercase;
 	cursor: pointer;
-    align-self: center;
-    outline: none;
+	align-self: center;
+	outline: none;
 }
 
 .btn.red {

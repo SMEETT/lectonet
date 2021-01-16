@@ -12,6 +12,8 @@ export const quantity = writable(1);
 export const price = writable(0);
 export const calculatedPrice = writable("0.00");
 
+export const disableCalcButton = writable(true);
+
 export const selectedCategories = writable({
     group: null,
     service: null,
@@ -168,6 +170,7 @@ fetchedCSVData
 
                 console.log(filteredPrices[0].price);
                 price.set(filteredPrices[0].price);
+                disableCalcButton.set(false);
             }
         }); // end of subscribe()
     }); // end of then()

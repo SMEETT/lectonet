@@ -4,7 +4,7 @@
 		<%- include ("../partials/head.ejs") %>
 	</head>
 	<div id="preisrechner-hook"></div>
-	<body>
+	<body id="main-body">
 		<div class="wrapper index">
 			<header><%- include ("../partials/header.ejs") %></header>
 			<section class="text">
@@ -13,7 +13,7 @@
 				<h4><%= data.subheadline %></h4>
 				<p><%- md %></p>
 				<button class="btn outline">LEISTUNGEN</button>
-				<button class="btn red">PREISRECHNER</button>
+				<button id="open-calculator-btn" class="btn red">PREISRECHNER</button>
 			</section>
 			<section class="picture index">
 				<img id="foto_rue" src="../../static/images/ruediger.png"" alt="Foto Ruediger Wackwitz" />

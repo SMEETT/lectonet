@@ -3,21 +3,11 @@
     import QuantityTextfield from "../src/components/QuantityTextfield.svelte";
     import ButtonCalculate from "../src/components/ButtonCalculate.svelte";
 
-    import {
-        services,
-        groups,
-        types,
-        calculatedPrice,
-    } from "./stores/stores.js";
+    import { services, groups, types } from "./stores/stores.js";
 
     let dropdownDataGroups;
     let dropdownDataServices;
     let dropdownDataTypes;
-    let calculatedPriceOutput;
-
-    calculatedPrice.subscribe((price) => {
-        calculatedPriceOutput = price;
-    });
 
     groups.subscribe((data) => {
         dropdownDataGroups = data;
@@ -38,6 +28,7 @@
         <span class="title">Preisrechner</span>
         <img
             class="close-icon"
+            id="caluclator-close-icon"
             src="../../static/images/icon_close.svg"
             alt="" />
     </div>
@@ -77,7 +68,6 @@
 
         <div class="price">
             <ButtonCalculate />
-            <p>{calculatedPriceOutput} €</p>
         </div>
     </form>
     <hr style="width: 100%" />
@@ -190,14 +180,6 @@
         align-items: center;
         margin-top: 32px;
         /* border: 1px solid red; */
-    }
-
-    p {
-        font-size: 32px;
-        font-weight: 700;
-        font-family: Montserrat;
-        grid-area: price;
-        display: block;
     }
 
     /* ----------- 1280-WIDTH */

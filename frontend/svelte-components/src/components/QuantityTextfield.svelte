@@ -1,8 +1,14 @@
 <script>
     import { get } from "svelte/store";
-    import { quantity } from "../stores/stores.js";
+    import { quantity, disableCalcButton } from "../stores/stores.js";
 
     let quantityTEMP = 1;
+
+    let disabled;
+
+    disableCalcButton.subscribe((status) => {
+        disabled = status;
+    });
 
     const updateQuantity = () => {
         quantity.set(quantityTEMP);
@@ -14,12 +20,14 @@
 <label for="quantity">Umfang</label>
 <input
     name="quantity"
+    disabled={disabled}
+    class:inactive={disabled}
     type="number"
     min="1"
     bind:value={quantityTEMP}
     on:change={updateQuantity} />
 
-<span>{quantityTEMP > 1 ? 'Seiten' : 'Seite'}</span>
+<span class:inactive={disabled}>{quantityTEMP > 1 ? 'Seiten' : 'Seite'}</span>
 
 <!-- STYLING ------------------------------ -->
 <style>
@@ -47,15 +55,27 @@
         background-color: white;
     }
 
+    input.inactive {
+        border: 1px solid lightgray;
+        color: lightgray;
+        cursor: default;
+    }
+
+    span.inactive {
+        color: lightgray;
+    }
+
+    /* disable spinners */
+
     /* Chrome, Safari, Edge, Opera */
-    input::-webkit-outer-spin-button,
+    /* input::-webkit-outer-spin-button,
     input::-webkit-inner-spin-button {
         -webkit-appearance: none;
         margin: 0;
-    }
+    } */
 
     /* Firefox */
-    input[type="number"] {
+    /* input[type="number"] {
         -moz-appearance: textfield;
-    }
+    } */
 </style>

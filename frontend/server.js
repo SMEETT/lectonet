@@ -11,6 +11,11 @@ const ejs = require("ejs");
 const fs = require("fs");
 const md = require("markdown-it")();
 
+// api base path
+const apiPath = process.env.apiPath || "http://localhost:1337";
+const priceCalcMailPW = process.env.priceCalcMailPW || "Prei$rechner1";
+const priceCalcSMTP = process.env.priceCalcSMTP || "smtp.ionos.de";
+
 // express init
 const app = express();
 
@@ -18,14 +23,15 @@ const app = express();
 app.use(
 	expressCspHeader({
 		directives: {
-			"default-src": [SELF, "http://localhost:1337"],
-			"script-src": [SELF, INLINE],
+			"default-src": [SELF, apiPath, "http://localhost:*"],
+			"script-src": [SELF, INLINE, "http://localhost:*"],
 			"style-src": [SELF, "https://fonts.googleapis.com", "https://fonts.gstatic.com"],
 			"img-src": [SELF, "data:", "images.com"],
 			"worker-src": [NONE],
 			"block-all-mixed-content": true,
 			"font-src": ["https://fonts.googleapis.com", "https://fonts.gstatic.com"],
 			"frame-ancestors": [NONE],
+			"connect-src": [apiPath, "ws://localhost:*"],
 		},
 	})
 );
@@ -39,17 +45,12 @@ app.set("view engine", "ejs");
 app.use("/static", express.static(path.resolve(__dirname, "static")));
 app.use("/svelte-components", express.static(path.resolve(__dirname, "svelte-components")));
 
-// api base path
-const apiPath = process.env.apiPath || "http://localhost:1337";
-const priceCalcMailPW = process.env.priceCalcMailPW || "Prei$rechner1";
-const priceCalcSMTP = process.env.priceCalcSMTP || "smtp.ionos.de";
-
 //////////////////////////////////
 // index route
 //////////////////////////////////
 app.get("/", (req, res) => {
 	axios.get(`${apiPath}/indices`).then((response) => {
-		console.log(response.data[0].copytext);
+		// console.log(response.data[0].copytext);
 		res.render("pages/index", {
 			data: response.data[0],
 			md: md.renderInline(response.data[0].copytext),

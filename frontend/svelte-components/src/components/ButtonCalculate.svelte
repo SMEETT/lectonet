@@ -1,6 +1,22 @@
 <script>
-    import { price, quantity, calculatedPrice } from "../stores/stores.js";
+    import {
+        price,
+        quantity,
+        calculatedPrice,
+        disableCalcButton,
+    } from "../stores/stores.js";
     import { get } from "svelte/store";
+
+    let disabled;
+    disableCalcButton.subscribe((status) => {
+        console.log(status);
+        disabled = status;
+    });
+
+    let calculatedPriceOutput;
+    calculatedPrice.subscribe((price) => {
+        calculatedPriceOutput = price;
+    });
 
     const calculatePrice = () => {
         console.log(get(price));
@@ -9,17 +25,21 @@
         const priceTEMP = parseFloat(get(price));
         const quantityTEMP = parseFloat(get(quantity));
 
-        let calcPrice = quantityTEMP * priceTEMP;
-        let finalPrice = calcPrice.toFixed(2);
+        let finalPrice = (quantityTEMP * priceTEMP).toFixed(2);
         console.log(finalPrice);
-
         calculatedPrice.set(finalPrice);
     };
 </script>
 
 <!-- MARKUP ------------------------------ -->
-<button on:click|preventDefault={calculatePrice} class="btn outline">Preis
-    berechnen</button>
+<button
+    disabled={disabled}
+    on:click|preventDefault={calculatePrice}
+    class="btn outline"
+    class:inactive={disabled}>
+    Preis berechnen
+</button>
+<p id="price" class:inactive={disabled}>{calculatedPriceOutput} €</p>
 
 <!-- STYLING ------------------------------ -->
 <style>
@@ -28,6 +48,20 @@
         border-radius: 10px;
         font-weight: 500;
         font-size: 16px;
+    }
+
+    p {
+        font-size: 32px;
+        font-weight: 700;
+        margin: 0;
+        padding: 0;
+        font-family: Montserrat;
+        display: block;
+        /* border: 1px solid red; */
+    }
+
+    p.inactive {
+        color: lightgray;
     }
 
     .btn {
@@ -43,5 +77,16 @@
     .btn.outline:hover {
         background: var(--default-grey);
         color: white;
+    }
+
+    .btn.inactive {
+        border: 1px solid lightgray;
+        color: lightgray;
+        cursor: default;
+    }
+
+    .btn.inactive:hover {
+        color: lightgray;
+        background: transparent;
     }
 </style>

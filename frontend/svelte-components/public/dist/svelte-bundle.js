@@ -106,6 +106,9 @@ var app = (function () {
         const selected_option = select.querySelector(':checked') || select.options[0];
         return selected_option && selected_option.__value;
     }
+    function toggle_class(element, name, toggle) {
+        element.classList[toggle ? 'add' : 'remove'](name);
+    }
     function custom_event(type, detail) {
         const e = document.createEvent('CustomEvent');
         e.initCustomEvent(type, false, false, detail);
@@ -1963,6 +1966,8 @@ var app = (function () {
     const price = writable(0);
     const calculatedPrice = writable("0.00");
 
+    const disableCalcButton = writable(true);
+
     const selectedCategories = writable({
         group: null,
         service: null,
@@ -2119,6 +2124,7 @@ var app = (function () {
 
                     console.log(filteredPrices[0].price);
                     price.set(filteredPrices[0].price);
+                    disableCalcButton.set(false);
                 }
             }); // end of subscribe()
         }); // end of then()
@@ -2130,14 +2136,14 @@ var app = (function () {
 
     function get_each_context(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[11] = list[i];
+    	child_ctx[12] = list[i];
     	return child_ctx;
     }
 
-    // (72:8) {#each options as opt}
+    // (98:8) {#each options as opt}
     function create_each_block(ctx) {
     	let option;
-    	let t_value = /*opt*/ ctx[11] + "";
+    	let t_value = /*opt*/ ctx[12] + "";
     	let t;
     	let option_value_value;
 
@@ -2147,23 +2153,23 @@ var app = (function () {
     			t = text(t_value);
 
     			option.__value = option_value_value = {
-    				opt: /*opt*/ ctx[11],
+    				opt: /*opt*/ ctx[12],
     				category: /*category*/ ctx[1]
     			};
 
     			option.value = option.__value;
-    			attr_dev(option, "class", "svelte-kbbt0z");
-    			add_location(option, file, 72, 12, 2836);
+    			attr_dev(option, "class", "svelte-1frkbhz");
+    			add_location(option, file, 98, 12, 3917);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
     			append_dev(option, t);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*options*/ 1 && t_value !== (t_value = /*opt*/ ctx[11] + "")) set_data_dev(t, t_value);
+    			if (dirty & /*options*/ 1 && t_value !== (t_value = /*opt*/ ctx[12] + "")) set_data_dev(t, t_value);
 
     			if (dirty & /*options, category*/ 3 && option_value_value !== (option_value_value = {
-    				opt: /*opt*/ ctx[11],
+    				opt: /*opt*/ ctx[12],
     				category: /*category*/ ctx[1]
     			})) {
     				prop_dev(option, "__value", option_value_value);
@@ -2179,7 +2185,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(72:8) {#each options as opt}",
+    		source: "(98:8) {#each options as opt}",
     		ctx
     	});
 
@@ -2219,24 +2225,27 @@ var app = (function () {
     			}
 
     			attr_dev(label_1, "for", /*labelIdentifier*/ ctx[7]);
-    			attr_dev(label_1, "class", "svelte-kbbt0z");
-    			add_location(label_1, file, 62, 4, 2459);
+    			attr_dev(label_1, "class", "svelte-1frkbhz");
+    			add_location(label_1, file, 87, 4, 3499);
     			option.selected = true;
     			option.disabled = true;
     			option.hidden = true;
     			attr_dev(option, "id", /*resetId*/ ctx[6]);
     			option.__value = "Bitte auswählen";
     			option.value = option.__value;
-    			attr_dev(option, "class", "svelte-kbbt0z");
-    			add_location(option, file, 70, 8, 2722);
+    			attr_dev(option, "class", "svelte-1frkbhz");
+    			add_location(option, file, 96, 8, 3803);
     			attr_dev(select, "name", /*labelIdentifier*/ ctx[7]);
     			attr_dev(select, "id", /*id*/ ctx[2]);
     			select.disabled = /*disableDropdown*/ ctx[5];
-    			attr_dev(select, "class", "svelte-kbbt0z");
-    			if (/*currentSelection*/ ctx[4] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[10].call(select));
-    			add_location(select, file, 64, 4, 2552);
-    			attr_dev(div, "class", "select-wrapper svelte-kbbt0z");
-    			add_location(div, file, 61, 0, 2426);
+    			attr_dev(select, "class", "svelte-1frkbhz");
+    			if (/*currentSelection*/ ctx[4] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[11].call(select));
+    			toggle_class(select, "inactive", /*disableDropdown*/ ctx[5]);
+    			add_location(select, file, 89, 4, 3592);
+    			attr_dev(div, "id", /*selectWrapperId*/ ctx[8]);
+    			attr_dev(div, "class", "select-wrapper svelte-1frkbhz");
+    			toggle_class(div, "inactive", /*disableDropdown*/ ctx[5]);
+    			add_location(div, file, 83, 0, 3400);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -2258,8 +2267,8 @@ var app = (function () {
 
     			if (!mounted) {
     				dispose = [
-    					listen_dev(select, "change", /*select_change_handler*/ ctx[10]),
-    					listen_dev(select, "change", /*handleChange*/ ctx[8], false, false, false)
+    					listen_dev(select, "change", /*select_change_handler*/ ctx[11]),
+    					listen_dev(select, "change", /*handleChange*/ ctx[9], false, false, false)
     				];
 
     				mounted = true;
@@ -2299,6 +2308,14 @@ var app = (function () {
     			if (dirty & /*currentSelection, options, category*/ 19) {
     				select_option(select, /*currentSelection*/ ctx[4]);
     			}
+
+    			if (dirty & /*disableDropdown*/ 32) {
+    				toggle_class(select, "inactive", /*disableDropdown*/ ctx[5]);
+    			}
+
+    			if (dirty & /*disableDropdown*/ 32) {
+    				toggle_class(div, "inactive", /*disableDropdown*/ ctx[5]);
+    			}
     		},
     		i: noop,
     		o: noop,
@@ -2327,58 +2344,71 @@ var app = (function () {
     	let { options } = $$props;
     	let { category } = $$props;
     	let { id } = $$props;
-    	let { initialDisableStatus } = $$props;
     	let { label } = $$props;
+    	let { initialDisableStatus } = $$props;
 
     	// cast incoming string to boolean
     	let disableDropdown = initialDisableStatus == "true";
 
+    	// resetId is used to address the default 'Bitte auswahlen' option
     	let resetId = `reset-${category}`;
+
     	let labelIdentifier = `label-${category}`;
+    	let selectWrapperId = `wrapper-${category}`;
     	let currentSelection;
 
     	const handleChange = () => {
     		console.log(id);
+    		const defaultOptionService = document.getElementById("reset-service");
+    		const defaultOptionType = document.getElementById("reset-type");
+    		const dropdownService = document.getElementById("dropdown-service");
+    		const dropdownType = document.getElementById("dropdown-type");
+    		const selectWrapperService = document.getElementById("wrapper-service");
+    		const selectWrapperType = document.getElementById("wrapper-type");
 
     		// when a 'group' was selected reset all other selections;
     		// enable 'dropdownService' (it's disabled before a 'group' was selected)
     		// disable 'dropdownType' (since all was reset and therefor no 'service' is selected anymore either)
     		if (currentSelection.category === "group") {
+    			// reset the 'service' and 'type' selection
     			selectedCategories.update(obj => {
     				obj["service"] = null;
     				obj["type"] = null;
     				return obj;
     			});
 
-    			// change the dropdown's values back to "Bitte auswaehlen"
-    			document.getElementById("reset-service").selected = "true";
+    			// change the dropdown's values back to default "Bitte auswaehlen"
+    			// and disable the corresponding dropdowns
+    			dropdownService.classList.remove("inactive");
 
-    			document.getElementById("reset-type").selected = "true";
-
-    			// enable 'dropdownService'
-    			let dropdownService = document.getElementById("dropdown-service");
-
+    			selectWrapperService.classList.remove("inactive");
+    			dropdownType.classList.add("inactive");
+    			selectWrapperType.classList.add("inactive");
+    			defaultOptionService.selected = "true";
+    			defaultOptionType.selected = "true";
     			dropdownService.disabled = false;
-
-    			// disable 'dropdownType'
-    			let dropdownType = document.getElementById("dropdown-type");
-
     			dropdownType.disabled = true;
     		}
 
     		// when a 'service' was picked reset the selected 'type' and
     		// enable 'dropdown-type' (it's disabled before a 'service' was picked for the first time)
     		if (currentSelection.category === "service") {
+    			// reset 'type' selection
     			selectedCategories.update(obj => {
     				obj["type"] = null;
     				return obj;
     			});
 
-    			document.getElementById("reset-type").selected = "true";
-    			let dropdownType = document.getElementById("dropdown-type");
-
-    			// enable 'dropdownType'
+    			dropdownType.classList.remove("inactive");
+    			selectWrapperType.classList.remove("inactive");
+    			defaultOptionType.selected = "true";
     			dropdownType.disabled = false;
+    		} // dropdownType.classList.remove("inactive");
+
+    		if (currentSelection.category === "type") {
+    			disableCalcButton.set(false);
+    		} else {
+    			disableCalcButton.set(true);
     		}
 
     		// update the global 'selectedCategories' object
@@ -2390,7 +2420,7 @@ var app = (function () {
     		console.log(get_store_value(selectedCategories));
     	};
 
-    	const writable_props = ["options", "category", "id", "initialDisableStatus", "label"];
+    	const writable_props = ["options", "category", "id", "label", "initialDisableStatus"];
 
     	Object.keys($$props).forEach(key => {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console_1.warn(`<Dropdown> was created with unknown prop '${key}'`);
@@ -2407,21 +2437,23 @@ var app = (function () {
     		if ("options" in $$props) $$invalidate(0, options = $$props.options);
     		if ("category" in $$props) $$invalidate(1, category = $$props.category);
     		if ("id" in $$props) $$invalidate(2, id = $$props.id);
-    		if ("initialDisableStatus" in $$props) $$invalidate(9, initialDisableStatus = $$props.initialDisableStatus);
     		if ("label" in $$props) $$invalidate(3, label = $$props.label);
+    		if ("initialDisableStatus" in $$props) $$invalidate(10, initialDisableStatus = $$props.initialDisableStatus);
     	};
 
     	$$self.$capture_state = () => ({
     		selectedCategories,
+    		disableCalcButton,
     		get: get_store_value,
     		options,
     		category,
     		id,
-    		initialDisableStatus,
     		label,
+    		initialDisableStatus,
     		disableDropdown,
     		resetId,
     		labelIdentifier,
+    		selectWrapperId,
     		currentSelection,
     		handleChange
     	});
@@ -2430,11 +2462,12 @@ var app = (function () {
     		if ("options" in $$props) $$invalidate(0, options = $$props.options);
     		if ("category" in $$props) $$invalidate(1, category = $$props.category);
     		if ("id" in $$props) $$invalidate(2, id = $$props.id);
-    		if ("initialDisableStatus" in $$props) $$invalidate(9, initialDisableStatus = $$props.initialDisableStatus);
     		if ("label" in $$props) $$invalidate(3, label = $$props.label);
+    		if ("initialDisableStatus" in $$props) $$invalidate(10, initialDisableStatus = $$props.initialDisableStatus);
     		if ("disableDropdown" in $$props) $$invalidate(5, disableDropdown = $$props.disableDropdown);
     		if ("resetId" in $$props) $$invalidate(6, resetId = $$props.resetId);
     		if ("labelIdentifier" in $$props) $$invalidate(7, labelIdentifier = $$props.labelIdentifier);
+    		if ("selectWrapperId" in $$props) $$invalidate(8, selectWrapperId = $$props.selectWrapperId);
     		if ("currentSelection" in $$props) $$invalidate(4, currentSelection = $$props.currentSelection);
     	};
 
@@ -2451,6 +2484,7 @@ var app = (function () {
     		disableDropdown,
     		resetId,
     		labelIdentifier,
+    		selectWrapperId,
     		handleChange,
     		initialDisableStatus,
     		select_change_handler
@@ -2465,8 +2499,8 @@ var app = (function () {
     			options: 0,
     			category: 1,
     			id: 2,
-    			initialDisableStatus: 9,
-    			label: 3
+    			label: 3,
+    			initialDisableStatus: 10
     		});
 
     		dispatch_dev("SvelteRegisterComponent", {
@@ -2491,12 +2525,12 @@ var app = (function () {
     			console_1.warn("<Dropdown> was created without expected prop 'id'");
     		}
 
-    		if (/*initialDisableStatus*/ ctx[9] === undefined && !("initialDisableStatus" in props)) {
-    			console_1.warn("<Dropdown> was created without expected prop 'initialDisableStatus'");
-    		}
-
     		if (/*label*/ ctx[3] === undefined && !("label" in props)) {
     			console_1.warn("<Dropdown> was created without expected prop 'label'");
+    		}
+
+    		if (/*initialDisableStatus*/ ctx[10] === undefined && !("initialDisableStatus" in props)) {
+    			console_1.warn("<Dropdown> was created without expected prop 'initialDisableStatus'");
     		}
     	}
 
@@ -2524,19 +2558,19 @@ var app = (function () {
     		throw new Error("<Dropdown>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
 
-    	get initialDisableStatus() {
-    		throw new Error("<Dropdown>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    	}
-
-    	set initialDisableStatus(value) {
-    		throw new Error("<Dropdown>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
-    	}
-
     	get label() {
     		throw new Error("<Dropdown>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
 
     	set label(value) {
+    		throw new Error("<Dropdown>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get initialDisableStatus() {
+    		throw new Error("<Dropdown>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set initialDisableStatus(value) {
     		throw new Error("<Dropdown>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
     }
@@ -2567,14 +2601,18 @@ var app = (function () {
     			span = element("span");
     			t3 = text(t3_value);
     			attr_dev(label, "for", "quantity");
-    			attr_dev(label, "class", "svelte-aneu7o");
-    			add_location(label, file$1, 13, 0, 301);
+    			attr_dev(label, "class", "svelte-16oje02");
+    			add_location(label, file$1, 19, 0, 421);
     			attr_dev(input, "name", "quantity");
+    			input.disabled = /*disabled*/ ctx[1];
     			attr_dev(input, "type", "number");
     			attr_dev(input, "min", "1");
-    			attr_dev(input, "class", "svelte-aneu7o");
-    			add_location(input, file$1, 14, 0, 338);
-    			add_location(span, file$1, 21, 0, 460);
+    			attr_dev(input, "class", "svelte-16oje02");
+    			toggle_class(input, "inactive", /*disabled*/ ctx[1]);
+    			add_location(input, file$1, 20, 0, 458);
+    			attr_dev(span, "class", "svelte-16oje02");
+    			toggle_class(span, "inactive", /*disabled*/ ctx[1]);
+    			add_location(span, file$1, 29, 0, 634);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -2590,19 +2628,31 @@ var app = (function () {
 
     			if (!mounted) {
     				dispose = [
-    					listen_dev(input, "input", /*input_input_handler*/ ctx[2]),
-    					listen_dev(input, "change", /*updateQuantity*/ ctx[1], false, false, false)
+    					listen_dev(input, "input", /*input_input_handler*/ ctx[3]),
+    					listen_dev(input, "change", /*updateQuantity*/ ctx[2], false, false, false)
     				];
 
     				mounted = true;
     			}
     		},
     		p: function update(ctx, [dirty]) {
+    			if (dirty & /*disabled*/ 2) {
+    				prop_dev(input, "disabled", /*disabled*/ ctx[1]);
+    			}
+
     			if (dirty & /*quantityTEMP*/ 1 && to_number(input.value) !== /*quantityTEMP*/ ctx[0]) {
     				set_input_value(input, /*quantityTEMP*/ ctx[0]);
     			}
 
+    			if (dirty & /*disabled*/ 2) {
+    				toggle_class(input, "inactive", /*disabled*/ ctx[1]);
+    			}
+
     			if (dirty & /*quantityTEMP*/ 1 && t3_value !== (t3_value = (/*quantityTEMP*/ ctx[0] > 1 ? "Seiten" : "Seite") + "")) set_data_dev(t3, t3_value);
+
+    			if (dirty & /*disabled*/ 2) {
+    				toggle_class(span, "inactive", /*disabled*/ ctx[1]);
+    			}
     		},
     		i: noop,
     		o: noop,
@@ -2632,6 +2682,11 @@ var app = (function () {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots("QuantityTextfield", slots, []);
     	let quantityTEMP = 1;
+    	let disabled;
+
+    	disableCalcButton.subscribe(status => {
+    		$$invalidate(1, disabled = status);
+    	});
 
     	const updateQuantity = () => {
     		quantity.set(quantityTEMP);
@@ -2652,19 +2707,22 @@ var app = (function () {
     	$$self.$capture_state = () => ({
     		get: get_store_value,
     		quantity,
+    		disableCalcButton,
     		quantityTEMP,
+    		disabled,
     		updateQuantity
     	});
 
     	$$self.$inject_state = $$props => {
     		if ("quantityTEMP" in $$props) $$invalidate(0, quantityTEMP = $$props.quantityTEMP);
+    		if ("disabled" in $$props) $$invalidate(1, disabled = $$props.disabled);
     	};
 
     	if ($$props && "$$inject" in $$props) {
     		$$self.$inject_state($$props.$$inject);
     	}
 
-    	return [quantityTEMP, updateQuantity, input_input_handler];
+    	return [quantityTEMP, disabled, updateQuantity, input_input_handler];
     }
 
     class QuantityTextfield extends SvelteComponentDev {
@@ -2688,32 +2746,68 @@ var app = (function () {
 
     function create_fragment$2(ctx) {
     	let button;
+    	let t0;
+    	let t1;
+    	let p;
+    	let t2;
+    	let t3;
     	let mounted;
     	let dispose;
 
     	const block = {
     		c: function create() {
     			button = element("button");
-    			button.textContent = "Preis\n    berechnen";
-    			attr_dev(button, "class", "btn outline svelte-1a5cjlf");
-    			add_location(button, file$2, 20, 0, 575);
+    			t0 = text("Preis berechnen");
+    			t1 = space();
+    			p = element("p");
+    			t2 = text(/*calculatedPriceOutput*/ ctx[1]);
+    			t3 = text(" €");
+    			button.disabled = /*disabled*/ ctx[0];
+    			attr_dev(button, "class", "btn outline svelte-177vrbw");
+    			toggle_class(button, "inactive", /*disabled*/ ctx[0]);
+    			add_location(button, file$2, 34, 0, 848);
+    			attr_dev(p, "id", "price");
+    			attr_dev(p, "class", "svelte-177vrbw");
+    			toggle_class(p, "inactive", /*disabled*/ ctx[0]);
+    			add_location(p, file$2, 41, 0, 1010);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, button, anchor);
+    			append_dev(button, t0);
+    			insert_dev(target, t1, anchor);
+    			insert_dev(target, p, anchor);
+    			append_dev(p, t2);
+    			append_dev(p, t3);
 
     			if (!mounted) {
-    				dispose = listen_dev(button, "click", prevent_default(/*calculatePrice*/ ctx[0]), false, true, false);
+    				dispose = listen_dev(button, "click", prevent_default(/*calculatePrice*/ ctx[2]), false, true, false);
     				mounted = true;
     			}
     		},
-    		p: noop,
+    		p: function update(ctx, [dirty]) {
+    			if (dirty & /*disabled*/ 1) {
+    				prop_dev(button, "disabled", /*disabled*/ ctx[0]);
+    			}
+
+    			if (dirty & /*disabled*/ 1) {
+    				toggle_class(button, "inactive", /*disabled*/ ctx[0]);
+    			}
+
+    			if (dirty & /*calculatedPriceOutput*/ 2) set_data_dev(t2, /*calculatedPriceOutput*/ ctx[1]);
+
+    			if (dirty & /*disabled*/ 1) {
+    				toggle_class(p, "inactive", /*disabled*/ ctx[0]);
+    			}
+    		},
     		i: noop,
     		o: noop,
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(button);
+    			if (detaching) detach_dev(t1);
+    			if (detaching) detach_dev(p);
     			mounted = false;
     			dispose();
     		}
@@ -2733,14 +2827,25 @@ var app = (function () {
     function instance$2($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots("ButtonCalculate", slots, []);
+    	let disabled;
+
+    	disableCalcButton.subscribe(status => {
+    		console.log(status);
+    		$$invalidate(0, disabled = status);
+    	});
+
+    	let calculatedPriceOutput;
+
+    	calculatedPrice.subscribe(price => {
+    		$$invalidate(1, calculatedPriceOutput = price);
+    	});
 
     	const calculatePrice = () => {
     		console.log(get_store_value(price));
     		console.log(get_store_value(quantity));
     		const priceTEMP = parseFloat(get_store_value(price));
     		const quantityTEMP = parseFloat(get_store_value(quantity));
-    		let calcPrice = quantityTEMP * priceTEMP;
-    		let finalPrice = calcPrice.toFixed(2);
+    		let finalPrice = (quantityTEMP * priceTEMP).toFixed(2);
     		console.log(finalPrice);
     		calculatedPrice.set(finalPrice);
     	};
@@ -2755,11 +2860,23 @@ var app = (function () {
     		price,
     		quantity,
     		calculatedPrice,
+    		disableCalcButton,
     		get: get_store_value,
+    		disabled,
+    		calculatedPriceOutput,
     		calculatePrice
     	});
 
-    	return [calculatePrice];
+    	$$self.$inject_state = $$props => {
+    		if ("disabled" in $$props) $$invalidate(0, disabled = $$props.disabled);
+    		if ("calculatedPriceOutput" in $$props) $$invalidate(1, calculatedPriceOutput = $$props.calculatedPriceOutput);
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	return [disabled, calculatedPriceOutput, calculatePrice];
     }
 
     class ButtonCalculate extends SvelteComponentDev {
@@ -2803,10 +2920,6 @@ var app = (function () {
     	let div5;
     	let buttoncalculate;
     	let t7;
-    	let p;
-    	let t8;
-    	let t9;
-    	let t10;
     	let hr;
     	let current;
     	let mounted;
@@ -2873,38 +2986,33 @@ var app = (function () {
     			div5 = element("div");
     			create_component(buttoncalculate.$$.fragment);
     			t7 = space();
-    			p = element("p");
-    			t8 = text(/*calculatedPriceOutput*/ ctx[3]);
-    			t9 = text(" €");
-    			t10 = space();
     			hr = element("hr");
-    			attr_dev(span, "class", "title svelte-1k6ag6y");
-    			add_location(span, file$3, 37, 8, 1027);
-    			attr_dev(img, "class", "close-icon svelte-1k6ag6y");
+    			attr_dev(span, "class", "title svelte-1pju2mn");
+    			add_location(span, file$3, 27, 8, 851);
+    			attr_dev(img, "class", "close-icon svelte-1pju2mn");
+    			attr_dev(img, "id", "caluclator-close-icon");
     			if (img.src !== (img_src_value = "../../static/images/icon_close.svg")) attr_dev(img, "src", img_src_value);
     			attr_dev(img, "alt", "");
-    			add_location(img, file$3, 38, 8, 1075);
-    			attr_dev(div0, "class", "preisrechner-title svelte-1k6ag6y");
-    			add_location(div0, file$3, 36, 4, 986);
-    			attr_dev(div1, "class", "left-1 svelte-1k6ag6y");
-    			add_location(div1, file$3, 46, 8, 1304);
-    			attr_dev(div2, "class", "right-1 svelte-1k6ag6y");
-    			add_location(div2, file$3, 55, 8, 1572);
-    			attr_dev(div3, "class", "left-2 svelte-1k6ag6y");
-    			add_location(div3, file$3, 64, 8, 1851);
-    			attr_dev(div4, "class", "right-2 svelte-1k6ag6y");
-    			add_location(div4, file$3, 73, 8, 2121);
-    			attr_dev(p, "class", "svelte-1k6ag6y");
-    			add_location(p, file$3, 79, 12, 2265);
-    			attr_dev(div5, "class", "price svelte-1k6ag6y");
-    			add_location(div5, file$3, 77, 8, 2201);
-    			attr_dev(form, "class", "form-Calculator svelte-1k6ag6y");
-    			add_location(form, file$3, 43, 4, 1201);
+    			add_location(img, file$3, 28, 8, 899);
+    			attr_dev(div0, "class", "preisrechner-title svelte-1pju2mn");
+    			add_location(div0, file$3, 26, 4, 810);
+    			attr_dev(div1, "class", "left-1 svelte-1pju2mn");
+    			add_location(div1, file$3, 37, 8, 1167);
+    			attr_dev(div2, "class", "right-1 svelte-1pju2mn");
+    			add_location(div2, file$3, 46, 8, 1435);
+    			attr_dev(div3, "class", "left-2 svelte-1pju2mn");
+    			add_location(div3, file$3, 55, 8, 1714);
+    			attr_dev(div4, "class", "right-2 svelte-1pju2mn");
+    			add_location(div4, file$3, 64, 8, 1984);
+    			attr_dev(div5, "class", "price svelte-1pju2mn");
+    			add_location(div5, file$3, 68, 8, 2064);
+    			attr_dev(form, "class", "form-Calculator svelte-1pju2mn");
+    			add_location(form, file$3, 34, 4, 1064);
     			set_style(hr, "width", "100%");
-    			attr_dev(hr, "class", "svelte-1k6ag6y");
-    			add_location(hr, file$3, 82, 4, 2329);
-    			attr_dev(div6, "class", "preisrechner-wrapper svelte-1k6ag6y");
-    			add_location(div6, file$3, 35, 0, 947);
+    			attr_dev(hr, "class", "svelte-1pju2mn");
+    			add_location(hr, file$3, 72, 4, 2147);
+    			attr_dev(div6, "class", "preisrechner-wrapper svelte-1pju2mn");
+    			add_location(div6, file$3, 25, 0, 771);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -2931,11 +3039,7 @@ var app = (function () {
     			append_dev(form, t6);
     			append_dev(form, div5);
     			mount_component(buttoncalculate, div5, null);
-    			append_dev(div5, t7);
-    			append_dev(div5, p);
-    			append_dev(p, t8);
-    			append_dev(p, t9);
-    			append_dev(div6, t10);
+    			append_dev(div6, t7);
     			append_dev(div6, hr);
     			current = true;
 
@@ -2954,7 +3058,6 @@ var app = (function () {
     			const dropdown2_changes = {};
     			if (dirty & /*dropdownDataTypes*/ 4) dropdown2_changes.options = /*dropdownDataTypes*/ ctx[2];
     			dropdown2.$set(dropdown2_changes);
-    			if (!current || dirty & /*calculatedPriceOutput*/ 8) set_data_dev(t8, /*calculatedPriceOutput*/ ctx[3]);
     		},
     		i: function intro(local) {
     			if (current) return;
@@ -3006,11 +3109,6 @@ var app = (function () {
     	let dropdownDataGroups;
     	let dropdownDataServices;
     	let dropdownDataTypes;
-    	let calculatedPriceOutput;
-
-    	calculatedPrice.subscribe(price => {
-    		$$invalidate(3, calculatedPriceOutput = price);
-    	});
 
     	groups.subscribe(data => {
     		$$invalidate(0, dropdownDataGroups = data);
@@ -3037,11 +3135,9 @@ var app = (function () {
     		services,
     		groups,
     		types,
-    		calculatedPrice,
     		dropdownDataGroups,
     		dropdownDataServices,
     		dropdownDataTypes,
-    		calculatedPriceOutput,
     		handleDropdownChange
     	});
 
@@ -3049,19 +3145,13 @@ var app = (function () {
     		if ("dropdownDataGroups" in $$props) $$invalidate(0, dropdownDataGroups = $$props.dropdownDataGroups);
     		if ("dropdownDataServices" in $$props) $$invalidate(1, dropdownDataServices = $$props.dropdownDataServices);
     		if ("dropdownDataTypes" in $$props) $$invalidate(2, dropdownDataTypes = $$props.dropdownDataTypes);
-    		if ("calculatedPriceOutput" in $$props) $$invalidate(3, calculatedPriceOutput = $$props.calculatedPriceOutput);
     	};
 
     	if ($$props && "$$inject" in $$props) {
     		$$self.$inject_state($$props.$$inject);
     	}
 
-    	return [
-    		dropdownDataGroups,
-    		dropdownDataServices,
-    		dropdownDataTypes,
-    		calculatedPriceOutput
-    	];
+    	return [dropdownDataGroups, dropdownDataServices, dropdownDataTypes];
     }
 
     class App extends SvelteComponentDev {

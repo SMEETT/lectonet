@@ -30,6 +30,27 @@ window.addEventListener("DOMContentLoaded", () => {
 	// console.log(foto.offsetTop);
 	// console.log(foto_bottom);
 	wrapper.style.backgroundSize = `100% ${foto_bottom}px`;
+
+	let calculatorOpen = false;
+	const openCalculatorButton = document.getElementById("open-calculator-btn");
+	const priceCalculatorCloseIcon = document.getElementById("caluclator-close-icon");
+	const bodyTag = document.getElementById("main-body");
+	const calculatorHook = document.getElementById("preisrechner-hook");
+
+	const toggleCalculatorOverlay = () => {
+		if (calculatorOpen) {
+			bodyTag.classList.remove("overflow");
+			calculatorHook.style.display = "none";
+			calculatorOpen = false;
+		} else {
+			bodyTag.classList.add("overflow");
+			calculatorHook.style.display = "flex";
+			calculatorOpen = true;
+		}
+	};
+
+	openCalculatorButton.addEventListener("click", toggleCalculatorOverlay);
+	priceCalculatorCloseIcon.addEventListener("click", toggleCalculatorOverlay);
 });
 
 // console.log(foto_bottom);
