@@ -1,5 +1,5 @@
 
-(function(l, r) { if (l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (window.location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.getElementsByTagName('head')[0].appendChild(r) })(window.document);
+(function(l, r) { if (l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (window.location.host || 'localhost').split(':')[0] + ':35732/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.getElementsByTagName('head')[0].appendChild(r) })(window.document);
 var app = (function () {
     'use strict';
 
@@ -38,9 +38,6 @@ var app = (function () {
         let value;
         subscribe(store, _ => value = _)();
         return value;
-    }
-    function null_to_empty(value) {
-        return value == null ? '' : value;
     }
 
     function append(target, node) {
@@ -84,8 +81,17 @@ var app = (function () {
         else if (node.getAttribute(attribute) !== value)
             node.setAttribute(attribute, value);
     }
+    function to_number(value) {
+        return value === '' ? null : +value;
+    }
     function children(element) {
         return Array.from(element.childNodes);
+    }
+    function set_input_value(input, value) {
+        input.value = value == null ? '' : value;
+    }
+    function set_style(node, key, value, important) {
+        node.style.setProperty(key, value, important ? 'important' : '');
     }
     function select_option(select, value) {
         for (let i = 0; i < select.options.length; i += 1) {
@@ -1885,6 +1891,16 @@ var app = (function () {
     };
 
     /**
+     * Determines whether the payload is an error thrown by Axios
+     *
+     * @param {*} payload The value to test
+     * @returns {boolean} True if the payload is an error thrown by Axios, otherwise false
+     */
+    var isAxiosError = function isAxiosError(payload) {
+      return (typeof payload === 'object') && (payload.isAxiosError === true);
+    };
+
+    /**
      * Create an instance of Axios
      *
      * @param {Object} defaultConfig The default config for the instance
@@ -1925,6 +1941,9 @@ var app = (function () {
     };
     axios.spread = spread;
 
+    // Expose isAxiosError
+    axios.isAxiosError = isAxiosError;
+
     var axios_1 = axios;
 
     // Allow use of default import syntax in TypeScript
@@ -1939,6 +1958,10 @@ var app = (function () {
     const groups = writable([]);
     const services = writable([]);
     const types = writable([]);
+
+    const quantity = writable(1);
+    const price = writable(0);
+    const calculatedPrice = writable("0.00");
 
     const selectedCategories = writable({
         group: null,
@@ -2095,6 +2118,7 @@ var app = (function () {
                     });
 
                     console.log(filteredPrices[0].price);
+                    price.set(filteredPrices[0].price);
                 }
             }); // end of subscribe()
         }); // end of then()
@@ -2106,14 +2130,14 @@ var app = (function () {
 
     function get_each_context(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[10] = list[i];
+    	child_ctx[11] = list[i];
     	return child_ctx;
     }
 
-    // (69:8) {#each options as opt}
+    // (72:8) {#each options as opt}
     function create_each_block(ctx) {
     	let option;
-    	let t_value = /*opt*/ ctx[10] + "";
+    	let t_value = /*opt*/ ctx[11] + "";
     	let t;
     	let option_value_value;
 
@@ -2123,23 +2147,23 @@ var app = (function () {
     			t = text(t_value);
 
     			option.__value = option_value_value = {
-    				opt: /*opt*/ ctx[10],
+    				opt: /*opt*/ ctx[11],
     				category: /*category*/ ctx[1]
     			};
 
     			option.value = option.__value;
-    			attr_dev(option, "class", "svelte-12405ds");
-    			add_location(option, file, 69, 12, 2690);
+    			attr_dev(option, "class", "svelte-kbbt0z");
+    			add_location(option, file, 72, 12, 2836);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
     			append_dev(option, t);
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*options*/ 1 && t_value !== (t_value = /*opt*/ ctx[10] + "")) set_data_dev(t, t_value);
+    			if (dirty & /*options*/ 1 && t_value !== (t_value = /*opt*/ ctx[11] + "")) set_data_dev(t, t_value);
 
     			if (dirty & /*options, category*/ 3 && option_value_value !== (option_value_value = {
-    				opt: /*opt*/ ctx[10],
+    				opt: /*opt*/ ctx[11],
     				category: /*category*/ ctx[1]
     			})) {
     				prop_dev(option, "__value", option_value_value);
@@ -2155,7 +2179,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(69:8) {#each options as opt}",
+    		source: "(72:8) {#each options as opt}",
     		ctx
     	});
 
@@ -2164,10 +2188,12 @@ var app = (function () {
 
     function create_fragment(ctx) {
     	let div;
+    	let label_1;
+    	let t0;
+    	let t1;
     	let select;
     	let option;
-    	let t;
-    	let select_class_value;
+    	let t2;
     	let mounted;
     	let dispose;
     	let each_value = /*options*/ ctx[0];
@@ -2181,38 +2207,48 @@ var app = (function () {
     	const block = {
     		c: function create() {
     			div = element("div");
+    			label_1 = element("label");
+    			t0 = text(/*label*/ ctx[3]);
+    			t1 = space();
     			select = element("select");
     			option = element("option");
-    			t = text("Bitte auswählen");
+    			t2 = text("Bitte auswählen");
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].c();
     			}
 
+    			attr_dev(label_1, "for", /*labelIdentifier*/ ctx[7]);
+    			attr_dev(label_1, "class", "svelte-kbbt0z");
+    			add_location(label_1, file, 62, 4, 2459);
     			option.selected = true;
     			option.disabled = true;
     			option.hidden = true;
     			attr_dev(option, "id", /*resetId*/ ctx[6]);
     			option.__value = "Bitte auswählen";
     			option.value = option.__value;
-    			attr_dev(option, "class", "svelte-12405ds");
-    			add_location(option, file, 67, 8, 2576);
+    			attr_dev(option, "class", "svelte-kbbt0z");
+    			add_location(option, file, 70, 8, 2722);
+    			attr_dev(select, "name", /*labelIdentifier*/ ctx[7]);
     			attr_dev(select, "id", /*id*/ ctx[2]);
-    			attr_dev(select, "class", select_class_value = "" + (null_to_empty(/*dropdownClass*/ ctx[3]) + " svelte-12405ds"));
     			select.disabled = /*disableDropdown*/ ctx[5];
-    			if (/*currentSelection*/ ctx[4] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[9].call(select));
-    			add_location(select, file, 61, 4, 2407);
-    			attr_dev(div, "class", "select-wrapper svelte-12405ds");
-    			add_location(div, file, 59, 0, 2330);
+    			attr_dev(select, "class", "svelte-kbbt0z");
+    			if (/*currentSelection*/ ctx[4] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[10].call(select));
+    			add_location(select, file, 64, 4, 2552);
+    			attr_dev(div, "class", "select-wrapper svelte-kbbt0z");
+    			add_location(div, file, 61, 0, 2426);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
+    			append_dev(div, label_1);
+    			append_dev(label_1, t0);
+    			append_dev(div, t1);
     			append_dev(div, select);
     			append_dev(select, option);
-    			append_dev(option, t);
+    			append_dev(option, t2);
 
     			for (let i = 0; i < each_blocks.length; i += 1) {
     				each_blocks[i].m(select, null);
@@ -2222,14 +2258,16 @@ var app = (function () {
 
     			if (!mounted) {
     				dispose = [
-    					listen_dev(select, "change", /*select_change_handler*/ ctx[9]),
-    					listen_dev(select, "change", /*handleChange*/ ctx[7], false, false, false)
+    					listen_dev(select, "change", /*select_change_handler*/ ctx[10]),
+    					listen_dev(select, "change", /*handleChange*/ ctx[8], false, false, false)
     				];
 
     				mounted = true;
     			}
     		},
     		p: function update(ctx, [dirty]) {
+    			if (dirty & /*label*/ 8) set_data_dev(t0, /*label*/ ctx[3]);
+
     			if (dirty & /*options, category*/ 3) {
     				each_value = /*options*/ ctx[0];
     				validate_each_argument(each_value);
@@ -2256,10 +2294,6 @@ var app = (function () {
 
     			if (dirty & /*id*/ 4) {
     				attr_dev(select, "id", /*id*/ ctx[2]);
-    			}
-
-    			if (dirty & /*dropdownClass*/ 8 && select_class_value !== (select_class_value = "" + (null_to_empty(/*dropdownClass*/ ctx[3]) + " svelte-12405ds"))) {
-    				attr_dev(select, "class", select_class_value);
     			}
 
     			if (dirty & /*currentSelection, options, category*/ 19) {
@@ -2293,13 +2327,14 @@ var app = (function () {
     	let { options } = $$props;
     	let { category } = $$props;
     	let { id } = $$props;
-    	let { dropdownClass } = $$props;
-    	let { disabledBoolean } = $$props;
+    	let { initialDisableStatus } = $$props;
+    	let { label } = $$props;
 
     	// cast incoming string to boolean
-    	let disableDropdown = disabledBoolean == "true";
+    	let disableDropdown = initialDisableStatus == "true";
 
     	let resetId = `reset-${category}`;
+    	let labelIdentifier = `label-${category}`;
     	let currentSelection;
 
     	const handleChange = () => {
@@ -2355,7 +2390,7 @@ var app = (function () {
     		console.log(get_store_value(selectedCategories));
     	};
 
-    	const writable_props = ["options", "category", "id", "dropdownClass", "disabledBoolean"];
+    	const writable_props = ["options", "category", "id", "initialDisableStatus", "label"];
 
     	Object.keys($$props).forEach(key => {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console_1.warn(`<Dropdown> was created with unknown prop '${key}'`);
@@ -2372,8 +2407,8 @@ var app = (function () {
     		if ("options" in $$props) $$invalidate(0, options = $$props.options);
     		if ("category" in $$props) $$invalidate(1, category = $$props.category);
     		if ("id" in $$props) $$invalidate(2, id = $$props.id);
-    		if ("dropdownClass" in $$props) $$invalidate(3, dropdownClass = $$props.dropdownClass);
-    		if ("disabledBoolean" in $$props) $$invalidate(8, disabledBoolean = $$props.disabledBoolean);
+    		if ("initialDisableStatus" in $$props) $$invalidate(9, initialDisableStatus = $$props.initialDisableStatus);
+    		if ("label" in $$props) $$invalidate(3, label = $$props.label);
     	};
 
     	$$self.$capture_state = () => ({
@@ -2382,10 +2417,11 @@ var app = (function () {
     		options,
     		category,
     		id,
-    		dropdownClass,
-    		disabledBoolean,
+    		initialDisableStatus,
+    		label,
     		disableDropdown,
     		resetId,
+    		labelIdentifier,
     		currentSelection,
     		handleChange
     	});
@@ -2394,10 +2430,11 @@ var app = (function () {
     		if ("options" in $$props) $$invalidate(0, options = $$props.options);
     		if ("category" in $$props) $$invalidate(1, category = $$props.category);
     		if ("id" in $$props) $$invalidate(2, id = $$props.id);
-    		if ("dropdownClass" in $$props) $$invalidate(3, dropdownClass = $$props.dropdownClass);
-    		if ("disabledBoolean" in $$props) $$invalidate(8, disabledBoolean = $$props.disabledBoolean);
+    		if ("initialDisableStatus" in $$props) $$invalidate(9, initialDisableStatus = $$props.initialDisableStatus);
+    		if ("label" in $$props) $$invalidate(3, label = $$props.label);
     		if ("disableDropdown" in $$props) $$invalidate(5, disableDropdown = $$props.disableDropdown);
     		if ("resetId" in $$props) $$invalidate(6, resetId = $$props.resetId);
+    		if ("labelIdentifier" in $$props) $$invalidate(7, labelIdentifier = $$props.labelIdentifier);
     		if ("currentSelection" in $$props) $$invalidate(4, currentSelection = $$props.currentSelection);
     	};
 
@@ -2409,12 +2446,13 @@ var app = (function () {
     		options,
     		category,
     		id,
-    		dropdownClass,
+    		label,
     		currentSelection,
     		disableDropdown,
     		resetId,
+    		labelIdentifier,
     		handleChange,
-    		disabledBoolean,
+    		initialDisableStatus,
     		select_change_handler
     	];
     }
@@ -2427,8 +2465,8 @@ var app = (function () {
     			options: 0,
     			category: 1,
     			id: 2,
-    			dropdownClass: 3,
-    			disabledBoolean: 8
+    			initialDisableStatus: 9,
+    			label: 3
     		});
 
     		dispatch_dev("SvelteRegisterComponent", {
@@ -2453,12 +2491,12 @@ var app = (function () {
     			console_1.warn("<Dropdown> was created without expected prop 'id'");
     		}
 
-    		if (/*dropdownClass*/ ctx[3] === undefined && !("dropdownClass" in props)) {
-    			console_1.warn("<Dropdown> was created without expected prop 'dropdownClass'");
+    		if (/*initialDisableStatus*/ ctx[9] === undefined && !("initialDisableStatus" in props)) {
+    			console_1.warn("<Dropdown> was created without expected prop 'initialDisableStatus'");
     		}
 
-    		if (/*disabledBoolean*/ ctx[8] === undefined && !("disabledBoolean" in props)) {
-    			console_1.warn("<Dropdown> was created without expected prop 'disabledBoolean'");
+    		if (/*label*/ ctx[3] === undefined && !("label" in props)) {
+    			console_1.warn("<Dropdown> was created without expected prop 'label'");
     		}
     	}
 
@@ -2486,95 +2524,419 @@ var app = (function () {
     		throw new Error("<Dropdown>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
 
-    	get dropdownClass() {
+    	get initialDisableStatus() {
     		throw new Error("<Dropdown>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
 
-    	set dropdownClass(value) {
+    	set initialDisableStatus(value) {
     		throw new Error("<Dropdown>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
 
-    	get disabledBoolean() {
+    	get label() {
     		throw new Error("<Dropdown>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
 
-    	set disabledBoolean(value) {
+    	set label(value) {
     		throw new Error("<Dropdown>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
     }
 
-    /* src/App.svelte generated by Svelte v3.31.0 */
-    const file$1 = "src/App.svelte";
+    /* src/components/QuantityTextfield.svelte generated by Svelte v3.31.0 */
+
+    const { console: console_1$1 } = globals;
+    const file$1 = "src/components/QuantityTextfield.svelte";
 
     function create_fragment$1(ctx) {
-    	let div;
-    	let form;
-    	let dropdown0;
-    	let t0;
-    	let dropdown1;
+    	let label;
     	let t1;
+    	let input;
+    	let t2;
+    	let span;
+    	let t3_value = (/*quantityTEMP*/ ctx[0] > 1 ? "Seiten" : "Seite") + "";
+    	let t3;
+    	let mounted;
+    	let dispose;
+
+    	const block = {
+    		c: function create() {
+    			label = element("label");
+    			label.textContent = "Umfang";
+    			t1 = space();
+    			input = element("input");
+    			t2 = space();
+    			span = element("span");
+    			t3 = text(t3_value);
+    			attr_dev(label, "for", "quantity");
+    			attr_dev(label, "class", "svelte-aneu7o");
+    			add_location(label, file$1, 13, 0, 301);
+    			attr_dev(input, "name", "quantity");
+    			attr_dev(input, "type", "number");
+    			attr_dev(input, "min", "1");
+    			attr_dev(input, "class", "svelte-aneu7o");
+    			add_location(input, file$1, 14, 0, 338);
+    			add_location(span, file$1, 21, 0, 460);
+    		},
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, label, anchor);
+    			insert_dev(target, t1, anchor);
+    			insert_dev(target, input, anchor);
+    			set_input_value(input, /*quantityTEMP*/ ctx[0]);
+    			insert_dev(target, t2, anchor);
+    			insert_dev(target, span, anchor);
+    			append_dev(span, t3);
+
+    			if (!mounted) {
+    				dispose = [
+    					listen_dev(input, "input", /*input_input_handler*/ ctx[2]),
+    					listen_dev(input, "change", /*updateQuantity*/ ctx[1], false, false, false)
+    				];
+
+    				mounted = true;
+    			}
+    		},
+    		p: function update(ctx, [dirty]) {
+    			if (dirty & /*quantityTEMP*/ 1 && to_number(input.value) !== /*quantityTEMP*/ ctx[0]) {
+    				set_input_value(input, /*quantityTEMP*/ ctx[0]);
+    			}
+
+    			if (dirty & /*quantityTEMP*/ 1 && t3_value !== (t3_value = (/*quantityTEMP*/ ctx[0] > 1 ? "Seiten" : "Seite") + "")) set_data_dev(t3, t3_value);
+    		},
+    		i: noop,
+    		o: noop,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(label);
+    			if (detaching) detach_dev(t1);
+    			if (detaching) detach_dev(input);
+    			if (detaching) detach_dev(t2);
+    			if (detaching) detach_dev(span);
+    			mounted = false;
+    			run_all(dispose);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$1.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function instance$1($$self, $$props, $$invalidate) {
+    	let { $$slots: slots = {}, $$scope } = $$props;
+    	validate_slots("QuantityTextfield", slots, []);
+    	let quantityTEMP = 1;
+
+    	const updateQuantity = () => {
+    		quantity.set(quantityTEMP);
+    		console.log(get_store_value(quantity));
+    	};
+
+    	const writable_props = [];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console_1$1.warn(`<QuantityTextfield> was created with unknown prop '${key}'`);
+    	});
+
+    	function input_input_handler() {
+    		quantityTEMP = to_number(this.value);
+    		$$invalidate(0, quantityTEMP);
+    	}
+
+    	$$self.$capture_state = () => ({
+    		get: get_store_value,
+    		quantity,
+    		quantityTEMP,
+    		updateQuantity
+    	});
+
+    	$$self.$inject_state = $$props => {
+    		if ("quantityTEMP" in $$props) $$invalidate(0, quantityTEMP = $$props.quantityTEMP);
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	return [quantityTEMP, updateQuantity, input_input_handler];
+    }
+
+    class QuantityTextfield extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$1, create_fragment$1, safe_not_equal, {});
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "QuantityTextfield",
+    			options,
+    			id: create_fragment$1.name
+    		});
+    	}
+    }
+
+    /* src/components/ButtonCalculate.svelte generated by Svelte v3.31.0 */
+
+    const { console: console_1$2 } = globals;
+    const file$2 = "src/components/ButtonCalculate.svelte";
+
+    function create_fragment$2(ctx) {
+    	let button;
+    	let mounted;
+    	let dispose;
+
+    	const block = {
+    		c: function create() {
+    			button = element("button");
+    			button.textContent = "Preis\n    berechnen";
+    			attr_dev(button, "class", "btn outline svelte-1a5cjlf");
+    			add_location(button, file$2, 20, 0, 575);
+    		},
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, button, anchor);
+
+    			if (!mounted) {
+    				dispose = listen_dev(button, "click", prevent_default(/*calculatePrice*/ ctx[0]), false, true, false);
+    				mounted = true;
+    			}
+    		},
+    		p: noop,
+    		i: noop,
+    		o: noop,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(button);
+    			mounted = false;
+    			dispose();
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$2.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function instance$2($$self, $$props, $$invalidate) {
+    	let { $$slots: slots = {}, $$scope } = $$props;
+    	validate_slots("ButtonCalculate", slots, []);
+
+    	const calculatePrice = () => {
+    		console.log(get_store_value(price));
+    		console.log(get_store_value(quantity));
+    		const priceTEMP = parseFloat(get_store_value(price));
+    		const quantityTEMP = parseFloat(get_store_value(quantity));
+    		let calcPrice = quantityTEMP * priceTEMP;
+    		let finalPrice = calcPrice.toFixed(2);
+    		console.log(finalPrice);
+    		calculatedPrice.set(finalPrice);
+    	};
+
+    	const writable_props = [];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console_1$2.warn(`<ButtonCalculate> was created with unknown prop '${key}'`);
+    	});
+
+    	$$self.$capture_state = () => ({
+    		price,
+    		quantity,
+    		calculatedPrice,
+    		get: get_store_value,
+    		calculatePrice
+    	});
+
+    	return [calculatePrice];
+    }
+
+    class ButtonCalculate extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$2, create_fragment$2, safe_not_equal, {});
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "ButtonCalculate",
+    			options,
+    			id: create_fragment$2.name
+    		});
+    	}
+    }
+
+    /* src/App.svelte generated by Svelte v3.31.0 */
+    const file$3 = "src/App.svelte";
+
+    function create_fragment$3(ctx) {
+    	let div6;
+    	let div0;
+    	let span;
+    	let t1;
+    	let img;
+    	let img_src_value;
+    	let t2;
+    	let form;
+    	let div1;
+    	let dropdown0;
+    	let t3;
+    	let div2;
+    	let dropdown1;
+    	let t4;
+    	let div3;
     	let dropdown2;
+    	let t5;
+    	let div4;
+    	let quantitytextfield;
+    	let t6;
+    	let div5;
+    	let buttoncalculate;
+    	let t7;
+    	let p;
+    	let t8;
+    	let t9;
+    	let t10;
+    	let hr;
     	let current;
     	let mounted;
     	let dispose;
 
     	dropdown0 = new Dropdown({
     			props: {
+    				label: "Sie sind",
     				options: /*dropdownDataGroups*/ ctx[0],
     				category: "group",
     				id: "dropdown-group",
-    				dropdownClass: "regular-dropdown",
-    				disabledBoolean: "false"
+    				initialDisableStatus: "false"
     			},
     			$$inline: true
     		});
 
     	dropdown1 = new Dropdown({
     			props: {
+    				label: "Sie benötigen",
     				options: /*dropdownDataServices*/ ctx[1],
     				category: "service",
     				id: "dropdown-service",
-    				dropdownClass: "disabled-dropdown",
-    				disabledBoolean: "true"
+    				initialDisableStatus: "true"
     			},
     			$$inline: true
     		});
 
     	dropdown2 = new Dropdown({
     			props: {
+    				label: "Art der Arbeit",
     				options: /*dropdownDataTypes*/ ctx[2],
     				category: "type",
     				id: "dropdown-type",
-    				dropdownClass: "disabled-dropdown",
-    				disabledBoolean: "true"
+    				initialDisableStatus: "true"
     			},
     			$$inline: true
     		});
 
+    	quantitytextfield = new QuantityTextfield({ $$inline: true });
+    	buttoncalculate = new ButtonCalculate({ $$inline: true });
+
     	const block = {
     		c: function create() {
-    			div = element("div");
-    			form = element("form");
-    			create_component(dropdown0.$$.fragment);
-    			t0 = space();
-    			create_component(dropdown1.$$.fragment);
+    			div6 = element("div");
+    			div0 = element("div");
+    			span = element("span");
+    			span.textContent = "Preisrechner";
     			t1 = space();
+    			img = element("img");
+    			t2 = space();
+    			form = element("form");
+    			div1 = element("div");
+    			create_component(dropdown0.$$.fragment);
+    			t3 = space();
+    			div2 = element("div");
+    			create_component(dropdown1.$$.fragment);
+    			t4 = space();
+    			div3 = element("div");
     			create_component(dropdown2.$$.fragment);
-    			add_location(form, file$1, 24, 4, 654);
-    			attr_dev(div, "class", "preisrechner-wrapper svelte-ujj8v3");
-    			add_location(div, file$1, 23, 0, 615);
+    			t5 = space();
+    			div4 = element("div");
+    			create_component(quantitytextfield.$$.fragment);
+    			t6 = space();
+    			div5 = element("div");
+    			create_component(buttoncalculate.$$.fragment);
+    			t7 = space();
+    			p = element("p");
+    			t8 = text(/*calculatedPriceOutput*/ ctx[3]);
+    			t9 = text(" €");
+    			t10 = space();
+    			hr = element("hr");
+    			attr_dev(span, "class", "title svelte-1k6ag6y");
+    			add_location(span, file$3, 37, 8, 1027);
+    			attr_dev(img, "class", "close-icon svelte-1k6ag6y");
+    			if (img.src !== (img_src_value = "../../static/images/icon_close.svg")) attr_dev(img, "src", img_src_value);
+    			attr_dev(img, "alt", "");
+    			add_location(img, file$3, 38, 8, 1075);
+    			attr_dev(div0, "class", "preisrechner-title svelte-1k6ag6y");
+    			add_location(div0, file$3, 36, 4, 986);
+    			attr_dev(div1, "class", "left-1 svelte-1k6ag6y");
+    			add_location(div1, file$3, 46, 8, 1304);
+    			attr_dev(div2, "class", "right-1 svelte-1k6ag6y");
+    			add_location(div2, file$3, 55, 8, 1572);
+    			attr_dev(div3, "class", "left-2 svelte-1k6ag6y");
+    			add_location(div3, file$3, 64, 8, 1851);
+    			attr_dev(div4, "class", "right-2 svelte-1k6ag6y");
+    			add_location(div4, file$3, 73, 8, 2121);
+    			attr_dev(p, "class", "svelte-1k6ag6y");
+    			add_location(p, file$3, 79, 12, 2265);
+    			attr_dev(div5, "class", "price svelte-1k6ag6y");
+    			add_location(div5, file$3, 77, 8, 2201);
+    			attr_dev(form, "class", "form-Calculator svelte-1k6ag6y");
+    			add_location(form, file$3, 43, 4, 1201);
+    			set_style(hr, "width", "100%");
+    			attr_dev(hr, "class", "svelte-1k6ag6y");
+    			add_location(hr, file$3, 82, 4, 2329);
+    			attr_dev(div6, "class", "preisrechner-wrapper svelte-1k6ag6y");
+    			add_location(div6, file$3, 35, 0, 947);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, div, anchor);
-    			append_dev(div, form);
-    			mount_component(dropdown0, form, null);
-    			append_dev(form, t0);
-    			mount_component(dropdown1, form, null);
-    			append_dev(form, t1);
-    			mount_component(dropdown2, form, null);
+    			insert_dev(target, div6, anchor);
+    			append_dev(div6, div0);
+    			append_dev(div0, span);
+    			append_dev(div0, t1);
+    			append_dev(div0, img);
+    			append_dev(div6, t2);
+    			append_dev(div6, form);
+    			append_dev(form, div1);
+    			mount_component(dropdown0, div1, null);
+    			append_dev(form, t3);
+    			append_dev(form, div2);
+    			mount_component(dropdown1, div2, null);
+    			append_dev(form, t4);
+    			append_dev(form, div3);
+    			mount_component(dropdown2, div3, null);
+    			append_dev(form, t5);
+    			append_dev(form, div4);
+    			mount_component(quantitytextfield, div4, null);
+    			append_dev(form, t6);
+    			append_dev(form, div5);
+    			mount_component(buttoncalculate, div5, null);
+    			append_dev(div5, t7);
+    			append_dev(div5, p);
+    			append_dev(p, t8);
+    			append_dev(p, t9);
+    			append_dev(div6, t10);
+    			append_dev(div6, hr);
     			current = true;
 
     			if (!mounted) {
@@ -2592,25 +2954,32 @@ var app = (function () {
     			const dropdown2_changes = {};
     			if (dirty & /*dropdownDataTypes*/ 4) dropdown2_changes.options = /*dropdownDataTypes*/ ctx[2];
     			dropdown2.$set(dropdown2_changes);
+    			if (!current || dirty & /*calculatedPriceOutput*/ 8) set_data_dev(t8, /*calculatedPriceOutput*/ ctx[3]);
     		},
     		i: function intro(local) {
     			if (current) return;
     			transition_in(dropdown0.$$.fragment, local);
     			transition_in(dropdown1.$$.fragment, local);
     			transition_in(dropdown2.$$.fragment, local);
+    			transition_in(quantitytextfield.$$.fragment, local);
+    			transition_in(buttoncalculate.$$.fragment, local);
     			current = true;
     		},
     		o: function outro(local) {
     			transition_out(dropdown0.$$.fragment, local);
     			transition_out(dropdown1.$$.fragment, local);
     			transition_out(dropdown2.$$.fragment, local);
+    			transition_out(quantitytextfield.$$.fragment, local);
+    			transition_out(buttoncalculate.$$.fragment, local);
     			current = false;
     		},
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(div);
+    			if (detaching) detach_dev(div6);
     			destroy_component(dropdown0);
     			destroy_component(dropdown1);
     			destroy_component(dropdown2);
+    			destroy_component(quantitytextfield);
+    			destroy_component(buttoncalculate);
     			mounted = false;
     			dispose();
     		}
@@ -2618,7 +2987,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$1.name,
+    		id: create_fragment$3.name,
     		type: "component",
     		source: "",
     		ctx
@@ -2631,12 +3000,17 @@ var app = (function () {
     	
     }
 
-    function instance$1($$self, $$props, $$invalidate) {
+    function instance$3($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots("App", slots, []);
     	let dropdownDataGroups;
     	let dropdownDataServices;
     	let dropdownDataTypes;
+    	let calculatedPriceOutput;
+
+    	calculatedPrice.subscribe(price => {
+    		$$invalidate(3, calculatedPriceOutput = price);
+    	});
 
     	groups.subscribe(data => {
     		$$invalidate(0, dropdownDataGroups = data);
@@ -2658,12 +3032,16 @@ var app = (function () {
 
     	$$self.$capture_state = () => ({
     		Dropdown,
+    		QuantityTextfield,
+    		ButtonCalculate,
     		services,
     		groups,
     		types,
+    		calculatedPrice,
     		dropdownDataGroups,
     		dropdownDataServices,
     		dropdownDataTypes,
+    		calculatedPriceOutput,
     		handleDropdownChange
     	});
 
@@ -2671,25 +3049,31 @@ var app = (function () {
     		if ("dropdownDataGroups" in $$props) $$invalidate(0, dropdownDataGroups = $$props.dropdownDataGroups);
     		if ("dropdownDataServices" in $$props) $$invalidate(1, dropdownDataServices = $$props.dropdownDataServices);
     		if ("dropdownDataTypes" in $$props) $$invalidate(2, dropdownDataTypes = $$props.dropdownDataTypes);
+    		if ("calculatedPriceOutput" in $$props) $$invalidate(3, calculatedPriceOutput = $$props.calculatedPriceOutput);
     	};
 
     	if ($$props && "$$inject" in $$props) {
     		$$self.$inject_state($$props.$$inject);
     	}
 
-    	return [dropdownDataGroups, dropdownDataServices, dropdownDataTypes];
+    	return [
+    		dropdownDataGroups,
+    		dropdownDataServices,
+    		dropdownDataTypes,
+    		calculatedPriceOutput
+    	];
     }
 
     class App extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$1, create_fragment$1, safe_not_equal, {});
+    		init(this, options, instance$3, create_fragment$3, safe_not_equal, {});
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "App",
     			options,
-    			id: create_fragment$1.name
+    			id: create_fragment$3.name
     		});
     	}
     }

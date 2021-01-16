@@ -8,6 +8,10 @@ export const groups = writable([]);
 export const services = writable([]);
 export const types = writable([]);
 
+export const quantity = writable(1);
+export const price = writable(0);
+export const calculatedPrice = writable("0.00");
+
 export const selectedCategories = writable({
     group: null,
     service: null,
@@ -163,6 +167,7 @@ fetchedCSVData
                 });
 
                 console.log(filteredPrices[0].price);
+                price.set(filteredPrices[0].price);
             }
         }); // end of subscribe()
     }); // end of then()

@@ -1,0 +1,10 @@
+#!/bin/bash
+# Some comment
+
+pkill node
+cd frontend
+npm run dev
+cd svelte-components
+npm run dev
+cd  ../../strapi
+npm run develop

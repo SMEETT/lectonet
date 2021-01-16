@@ -24,11 +24,11 @@ const hamburger_icon = document.getElementById("hamburger-icon");
 window.addEventListener("DOMContentLoaded", () => {
 	const foto = document.getElementsByClassName("picture")[0];
 	const wrapperTopMargin = parseInt(window.getComputedStyle(wrapper).marginTop.slice(0, 2));
-	console.log(wrapperTopMargin);
+	// console.log(wrapperTopMargin);
 	const foto_bottom = foto.offsetHeight + foto.offsetTop - wrapperTopMargin;
-	console.log(foto.offsetHeight);
-	console.log(foto.offsetTop);
-	console.log(foto_bottom);
+	// console.log(foto.offsetHeight);
+	// console.log(foto.offsetTop);
+	// console.log(foto_bottom);
 	wrapper.style.backgroundSize = `100% ${foto_bottom}px`;
 });
 

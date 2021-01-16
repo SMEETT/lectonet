@@ -1,7 +1,8 @@
 // imports
 const express = require("express");
 const cors = require("cors");
-const { expressCspHeader, INLINE, NONE, SELF, EVAL } = require("express-csp-header");
+const nodemailer = require("nodemailer");
+const { expressCspHeader, INLINE, NONE, SELF } = require("express-csp-header");
 
 const slugify = require("slugify");
 const axios = require("axios");
@@ -18,7 +19,7 @@ app.use(
 	expressCspHeader({
 		directives: {
 			"default-src": [SELF, "http://localhost:1337"],
-			"script-src": [SELF, INLINE, EVAL],
+			"script-src": [SELF, INLINE],
 			"style-src": [SELF, "https://fonts.googleapis.com", "https://fonts.gstatic.com"],
 			"img-src": [SELF, "data:", "images.com"],
 			"worker-src": [NONE],
@@ -40,6 +41,8 @@ app.use("/svelte-components", express.static(path.resolve(__dirname, "svelte-com
 
 // api base path
 const apiPath = process.env.apiPath || "http://localhost:1337";
+const priceCalcMailPW = process.env.priceCalcMailPW || "Prei$rechner1";
+const priceCalcSMTP = process.env.priceCalcSMTP || "smtp.ionos.de";
 
 //////////////////////////////////
 // index route
@@ -83,6 +86,42 @@ app.get("/:path", (req, res) => {
 			});
 		}
 	});
+});
+
+//////////////////////////////////
+// send 'Preisrechner' E-Mail
+//////////////////////////////////
+
+app.get("/send/price", (req, res) => {
+	const receiver = req.query.email;
+
+	// create reusable transporter object using the default SMTP transport
+	const transporter = nodemailer.createTransport({
+		port: 587,
+		host: priceCalcSMTP,
+		auth: {
+			user: "preisrechner@lectonet.de",
+			pass: priceCalcMailPW,
+		},
+		tls: {
+			ciphers: "SSLv3",
+		},
+		secureConnection: false,
+	});
+
+	const mailData = {
+		from: "preisrechner@lectonet.de", // sender address
+		to: receiver, // list of receivers
+		subject: "Sending Email using Node.js",
+		text: "That was easy!",
+		html: "<b>Hey there! </b><br> This is our first message sent with Nodemailer<br/>",
+	};
+
+	transporter.sendMail(mailData, function (err, info) {
+		if (err) console.log(err);
+		else console.log(info);
+	});
+	return;
 });
 
 const port = process.env.PORT || 1338;

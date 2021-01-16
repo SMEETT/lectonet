@@ -1,17 +1,17 @@
 <script>
     import { selectedCategories } from "../stores/stores";
-
     import { get } from "svelte/store";
 
     export let options;
     export let category;
     export let id;
-    export let dropdownClass;
-    export let disabledBoolean;
+    export let initialDisableStatus;
+    export let label;
 
     // cast incoming string to boolean
-    let disableDropdown = disabledBoolean == "true";
+    let disableDropdown = initialDisableStatus == "true";
     let resetId = `reset-${category}`;
+    let labelIdentifier = `label-${category}`;
 
     let currentSelection;
     const handleChange = () => {
@@ -57,13 +57,16 @@
     };
 </script>
 
+<!-- MARKUP ------------------------------ -->
+
 <div class="select-wrapper">
+    <label for={labelIdentifier}>{label}</label>
     <!-- svelte-ignore a11y-no-onchange -->
     <select
+        name={labelIdentifier}
         bind:value={currentSelection}
         on:change={handleChange}
         id={id}
-        class={dropdownClass}
         disabled={disableDropdown}>
         <option selected disabled hidden id={resetId}>Bitte auswählen</option>
         {#each options as opt}
@@ -72,10 +75,28 @@
     </select>
 </div>
 
+<!-- STYLING ------------------------------ -->
 <style>
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        transition: 0.15s;
+        font-family: Montserrat;
+        font-style: normal;
+        list-style: none;
+    }
+    label {
+        /* border: 1px solid red; */
+        padding-left: 15px;
+        color: #c4c4c4;
+        display: inline-block;
+        margin-bottom: 5px;
+    }
+
     .select-wrapper {
         position: relative;
-        width: 300px;
+        width: 280px;
         display: inline-block;
     }
 
@@ -88,7 +109,7 @@
         padding-left: 20px;
         right: 15px;
         /* border: 1px solid red; */
-        border-left: 1px solid grey;
+        /* border-left: 1px solid grey; */
         width: 20px;
     }
 
@@ -103,9 +124,10 @@
         appearance: none;
         border: 1px solid #595959;
         border-radius: 24px;
-        color: grey;
+        color: #595959;
+        font-weight: 500;
         cursor: pointer;
-        font-family: "Open Sans", sans-serif;
+        font-family: Montserrat;
         font-size: 16px;
         height: 40px;
         outline: none;
