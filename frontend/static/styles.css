@@ -19,7 +19,8 @@
 	right: 0;
 	bottom: 0;
 	z-index: 15;
-	display: none;
+	/* TODO : change to 'none' */
+	display: flex;
 	border: 1px solid green;
 	transition: 0s;
 	padding: 0;

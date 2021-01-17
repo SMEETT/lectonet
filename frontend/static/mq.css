@@ -10,6 +10,9 @@
 		width: 816px;
 		height: 715px;
 	}
+	section.cards {
+		width: 1260px;
+	}
 }
 
 /* ----------- 960-WIDTH */
@@ -26,6 +29,9 @@
 
 	.cards-wrapper {
 		justify-content: flex-start;
+	}
+	section.cards {
+		width: 940px;
 	}
 
 	.wrapper {
@@ -86,6 +92,7 @@
 	section.cards {
 		padding: 16px 0px;
 		align-items: center;
+		width: 580px;
 	}
 	.cards-wrapper {
 		justify-content: center;
@@ -192,6 +199,10 @@
 	section.picture img {
 		width: 300px;
 		justify-content: center;
+	}
+
+	section.cards {
+		width: 300px;
 	}
 
 	footer {

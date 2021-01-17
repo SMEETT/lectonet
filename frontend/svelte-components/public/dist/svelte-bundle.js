@@ -1,5 +1,5 @@
 
-(function(l, r) { if (l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (window.location.host || 'localhost').split(':')[0] + ':35732/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.getElementsByTagName('head')[0].appendChild(r) })(window.document);
+(function(l, r) { if (l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (window.location.host || 'localhost').split(':')[0] + ':35731/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.getElementsByTagName('head')[0].appendChild(r) })(window.document);
 var app = (function () {
     'use strict';
 
@@ -2158,7 +2158,7 @@ var app = (function () {
     			};
 
     			option.value = option.__value;
-    			attr_dev(option, "class", "svelte-1frkbhz");
+    			attr_dev(option, "class", "svelte-sdabh1");
     			add_location(option, file, 98, 12, 3917);
     		},
     		m: function mount(target, anchor) {
@@ -2225,7 +2225,7 @@ var app = (function () {
     			}
 
     			attr_dev(label_1, "for", /*labelIdentifier*/ ctx[7]);
-    			attr_dev(label_1, "class", "svelte-1frkbhz");
+    			attr_dev(label_1, "class", "svelte-sdabh1");
     			add_location(label_1, file, 87, 4, 3499);
     			option.selected = true;
     			option.disabled = true;
@@ -2233,17 +2233,17 @@ var app = (function () {
     			attr_dev(option, "id", /*resetId*/ ctx[6]);
     			option.__value = "Bitte auswählen";
     			option.value = option.__value;
-    			attr_dev(option, "class", "svelte-1frkbhz");
+    			attr_dev(option, "class", "svelte-sdabh1");
     			add_location(option, file, 96, 8, 3803);
     			attr_dev(select, "name", /*labelIdentifier*/ ctx[7]);
     			attr_dev(select, "id", /*id*/ ctx[2]);
     			select.disabled = /*disableDropdown*/ ctx[5];
-    			attr_dev(select, "class", "svelte-1frkbhz");
+    			attr_dev(select, "class", "svelte-sdabh1");
     			if (/*currentSelection*/ ctx[4] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[11].call(select));
     			toggle_class(select, "inactive", /*disableDropdown*/ ctx[5]);
     			add_location(select, file, 89, 4, 3592);
     			attr_dev(div, "id", /*selectWrapperId*/ ctx[8]);
-    			attr_dev(div, "class", "select-wrapper svelte-1frkbhz");
+    			attr_dev(div, "class", "select-wrapper svelte-sdabh1");
     			toggle_class(div, "inactive", /*disableDropdown*/ ctx[5]);
     			add_location(div, file, 83, 0, 3400);
     		},
@@ -2897,27 +2897,26 @@ var app = (function () {
     const file$3 = "src/App.svelte";
 
     function create_fragment$3(ctx) {
-    	let div6;
-    	let div0;
+    	let div7;
+    	let div1;
     	let span;
     	let t1;
-    	let img;
-    	let img_src_value;
+    	let div0;
     	let t2;
     	let form;
-    	let div1;
+    	let div2;
     	let dropdown0;
     	let t3;
-    	let div2;
+    	let div3;
     	let dropdown1;
     	let t4;
-    	let div3;
+    	let div4;
     	let dropdown2;
     	let t5;
-    	let div4;
+    	let div5;
     	let quantitytextfield;
     	let t6;
-    	let div5;
+    	let div6;
     	let buttoncalculate;
     	let t7;
     	let hr;
@@ -2963,84 +2962,82 @@ var app = (function () {
 
     	const block = {
     		c: function create() {
-    			div6 = element("div");
-    			div0 = element("div");
+    			div7 = element("div");
+    			div1 = element("div");
     			span = element("span");
     			span.textContent = "Preisrechner";
     			t1 = space();
-    			img = element("img");
+    			div0 = element("div");
     			t2 = space();
     			form = element("form");
-    			div1 = element("div");
+    			div2 = element("div");
     			create_component(dropdown0.$$.fragment);
     			t3 = space();
-    			div2 = element("div");
+    			div3 = element("div");
     			create_component(dropdown1.$$.fragment);
     			t4 = space();
-    			div3 = element("div");
+    			div4 = element("div");
     			create_component(dropdown2.$$.fragment);
     			t5 = space();
-    			div4 = element("div");
+    			div5 = element("div");
     			create_component(quantitytextfield.$$.fragment);
     			t6 = space();
-    			div5 = element("div");
+    			div6 = element("div");
     			create_component(buttoncalculate.$$.fragment);
     			t7 = space();
     			hr = element("hr");
-    			attr_dev(span, "class", "title svelte-1pju2mn");
+    			attr_dev(span, "class", "title svelte-19h98h9");
     			add_location(span, file$3, 27, 8, 851);
-    			attr_dev(img, "class", "close-icon svelte-1pju2mn");
-    			attr_dev(img, "id", "caluclator-close-icon");
-    			if (img.src !== (img_src_value = "../../static/images/icon_close.svg")) attr_dev(img, "src", img_src_value);
-    			attr_dev(img, "alt", "");
-    			add_location(img, file$3, 28, 8, 899);
-    			attr_dev(div0, "class", "preisrechner-title svelte-1pju2mn");
-    			add_location(div0, file$3, 26, 4, 810);
-    			attr_dev(div1, "class", "left-1 svelte-1pju2mn");
-    			add_location(div1, file$3, 37, 8, 1167);
-    			attr_dev(div2, "class", "right-1 svelte-1pju2mn");
-    			add_location(div2, file$3, 46, 8, 1435);
-    			attr_dev(div3, "class", "left-2 svelte-1pju2mn");
-    			add_location(div3, file$3, 55, 8, 1714);
-    			attr_dev(div4, "class", "right-2 svelte-1pju2mn");
-    			add_location(div4, file$3, 64, 8, 1984);
-    			attr_dev(div5, "class", "price svelte-1pju2mn");
-    			add_location(div5, file$3, 68, 8, 2064);
-    			attr_dev(form, "class", "form-Calculator svelte-1pju2mn");
-    			add_location(form, file$3, 34, 4, 1064);
+    			attr_dev(div0, "class", "close-icon svelte-19h98h9");
+    			attr_dev(div0, "id", "caluclator-close-icon");
+    			add_location(div0, file$3, 28, 8, 899);
+    			attr_dev(div1, "class", "preisrechner-title svelte-19h98h9");
+    			add_location(div1, file$3, 26, 4, 810);
+    			attr_dev(div2, "class", "left-1 svelte-19h98h9");
+    			add_location(div2, file$3, 33, 8, 1071);
+    			attr_dev(div3, "class", "right-1 svelte-19h98h9");
+    			add_location(div3, file$3, 42, 8, 1339);
+    			attr_dev(div4, "class", "left-2 svelte-19h98h9");
+    			add_location(div4, file$3, 51, 8, 1618);
+    			attr_dev(div5, "class", "right-2 svelte-19h98h9");
+    			add_location(div5, file$3, 60, 8, 1888);
+    			attr_dev(div6, "class", "price svelte-19h98h9");
+    			add_location(div6, file$3, 64, 8, 1968);
+    			attr_dev(form, "class", "form-Calculator svelte-19h98h9");
+    			add_location(form, file$3, 30, 4, 968);
     			set_style(hr, "width", "100%");
-    			attr_dev(hr, "class", "svelte-1pju2mn");
-    			add_location(hr, file$3, 72, 4, 2147);
-    			attr_dev(div6, "class", "preisrechner-wrapper svelte-1pju2mn");
-    			add_location(div6, file$3, 25, 0, 771);
+    			attr_dev(hr, "class", "svelte-19h98h9");
+    			add_location(hr, file$3, 68, 4, 2051);
+    			attr_dev(div7, "class", "preisrechner-wrapper svelte-19h98h9");
+    			add_location(div7, file$3, 25, 0, 771);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, div6, anchor);
-    			append_dev(div6, div0);
-    			append_dev(div0, span);
-    			append_dev(div0, t1);
-    			append_dev(div0, img);
-    			append_dev(div6, t2);
-    			append_dev(div6, form);
-    			append_dev(form, div1);
-    			mount_component(dropdown0, div1, null);
-    			append_dev(form, t3);
+    			insert_dev(target, div7, anchor);
+    			append_dev(div7, div1);
+    			append_dev(div1, span);
+    			append_dev(div1, t1);
+    			append_dev(div1, div0);
+    			append_dev(div7, t2);
+    			append_dev(div7, form);
     			append_dev(form, div2);
-    			mount_component(dropdown1, div2, null);
-    			append_dev(form, t4);
+    			mount_component(dropdown0, div2, null);
+    			append_dev(form, t3);
     			append_dev(form, div3);
-    			mount_component(dropdown2, div3, null);
-    			append_dev(form, t5);
+    			mount_component(dropdown1, div3, null);
+    			append_dev(form, t4);
     			append_dev(form, div4);
-    			mount_component(quantitytextfield, div4, null);
-    			append_dev(form, t6);
+    			mount_component(dropdown2, div4, null);
+    			append_dev(form, t5);
     			append_dev(form, div5);
-    			mount_component(buttoncalculate, div5, null);
-    			append_dev(div6, t7);
-    			append_dev(div6, hr);
+    			mount_component(quantitytextfield, div5, null);
+    			append_dev(form, t6);
+    			append_dev(form, div6);
+    			mount_component(buttoncalculate, div6, null);
+    			append_dev(div7, t7);
+    			append_dev(div7, hr);
     			current = true;
 
     			if (!mounted) {
@@ -3077,7 +3074,7 @@ var app = (function () {
     			current = false;
     		},
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(div6);
+    			if (detaching) detach_dev(div7);
     			destroy_component(dropdown0);
     			destroy_component(dropdown1);
     			destroy_component(dropdown2);

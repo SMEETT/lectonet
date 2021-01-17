@@ -181,7 +181,6 @@
     option {
         color: var(--default-grey);
         background-color: white;
-        margin-top: 10px;
     }
 
     select::-ms-expand {

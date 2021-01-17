@@ -26,11 +26,7 @@
 <div class="preisrechner-wrapper">
     <div class="preisrechner-title">
         <span class="title">Preisrechner</span>
-        <img
-            class="close-icon"
-            id="caluclator-close-icon"
-            src="../../static/images/icon_close.svg"
-            alt="" />
+        <div class="close-icon" id="caluclator-close-icon" />
     </div>
     <form
         class="form-Calculator"
@@ -95,14 +91,13 @@
         width: 100%;
         height: auto;
         /* border: 1px solid red; */
-        padding: 10px 50px 10px 50px;
+        padding: 0 50px 10px 50px;
         grid-template-columns: 50% 50%;
         grid-template-rows: 80px 80px 150px auto;
         grid-template-areas:
             "left-1 right-1"
             "left-2 right-2"
-            "price price"
-            "e-mail e-mail";
+            "price price";
     }
 
     .form-Calculator {
@@ -114,12 +109,14 @@
     .preisrechner-title {
         text-transform: uppercase;
         width: 100%;
-        height: 38px;
+        height: 40px;
+        /* padding-top: 10px; */
         /* border: 1px solid red; */
         display: grid;
         grid-template-columns: 1fr repeat(8, 1fr) 1fr;
         justify-items: center;
         align-items: center;
+        background-color: #f5f5f5;
         /* align-items: center; */
         /* border: 1px solid red; */
     }
@@ -128,15 +125,27 @@
         /* border: 2px solid green; */
         grid-column-start: 2;
         grid-column-end: 10;
+        font-weight: 700;
+        font-size: 14px;
+        /* text-decoration: underline; */
     }
 
     .close-icon {
         /* border: 1px solid blue; */
+        background: url("../../../static/images/icon_calculator_close.svg")
+            no-repeat;
+        background-size: contain;
+        width: 20px;
+        height: 20px;
         grid-column-start: 10;
-        margin-left: 20px;
+        margin-left: 0px;
     }
 
     .close-icon:hover {
+        cursor: pointer;
+        background: url("../../../static/images/icon_calculator_close_hover.svg")
+            no-repeat;
+        background-size: contain;
     }
 
     .preisrechner-wrapper {
