@@ -20,11 +20,11 @@
     const handleChange = () => {
         console.log(id);
         const defaultOptionService = document.getElementById("reset-service");
-        const defaultOptionType = document.getElementById("reset-type");
         const dropdownService = document.getElementById("dropdown-service");
-        const dropdownType = document.getElementById("dropdown-type");
-
         const selectWrapperService = document.getElementById("wrapper-service");
+
+        const defaultOptionType = document.getElementById("reset-type");
+        const dropdownType = document.getElementById("dropdown-type");
         const selectWrapperType = document.getElementById("wrapper-type");
 
         // when a 'group' was selected reset all other selections;
@@ -37,34 +37,37 @@
                 obj["type"] = null;
                 return obj;
             });
-            // change the dropdown's values back to default "Bitte auswaehlen"
-            // and disable the corresponding dropdowns
+            // change the dropdown's values back to default "Bitte auswaehlen";
+            // enable the service dropdown
+            dropdownService.disabled = false;
             dropdownService.classList.remove("inactive");
             selectWrapperService.classList.remove("inactive");
+            defaultOptionService.selected = "true";
 
+            // disable the type dropdown
+            dropdownType.disabled = true;
             dropdownType.classList.add("inactive");
             selectWrapperType.classList.add("inactive");
-            defaultOptionService.selected = "true";
             defaultOptionType.selected = "true";
-            dropdownService.disabled = false;
-            dropdownType.disabled = true;
         }
 
         // when a 'service' was picked reset the selected 'type' and
-        // enable 'dropdown-type' (it's disabled before a 'service' was picked for the first time)
+        // enable 'dropdown-type' (it's disabled before a 'service' was picked)
         if (currentSelection.category === "service") {
             // reset 'type' selection
             selectedCategories.update((obj) => {
                 obj["type"] = null;
                 return obj;
             });
+            // enable dropdown for 'type'`s;
+            // remove all visual 'inactive' classes;
+            // reset back to default option ('Bitte auswaehlen');
+            dropdownType.disabled = false;
             dropdownType.classList.remove("inactive");
             selectWrapperType.classList.remove("inactive");
             defaultOptionType.selected = "true";
-            dropdownType.disabled = false;
-            // dropdownType.classList.remove("inactive");
         }
-
+        // when a 'type' was selected enable the button
         if (currentSelection.category === "type") {
             disableCalcButton.set(false);
         } else {
@@ -75,7 +78,6 @@
             obj[currentSelection.category] = currentSelection.opt;
             return obj;
         });
-        console.log(get(selectedCategories));
     };
 </script>
 
@@ -124,6 +126,7 @@
         position: relative;
         width: 280px;
         display: inline-block;
+        margin-top: 16px;
     }
 
     .select-wrapper::after {

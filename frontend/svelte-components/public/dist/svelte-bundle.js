@@ -2140,7 +2140,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (98:8) {#each options as opt}
+    // (100:8) {#each options as opt}
     function create_each_block(ctx) {
     	let option;
     	let t_value = /*opt*/ ctx[12] + "";
@@ -2158,8 +2158,8 @@ var app = (function () {
     			};
 
     			option.value = option.__value;
-    			attr_dev(option, "class", "svelte-sdabh1");
-    			add_location(option, file, 98, 12, 3917);
+    			attr_dev(option, "class", "svelte-a9pndh");
+    			add_location(option, file, 100, 12, 4043);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -2185,7 +2185,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(98:8) {#each options as opt}",
+    		source: "(100:8) {#each options as opt}",
     		ctx
     	});
 
@@ -2225,27 +2225,27 @@ var app = (function () {
     			}
 
     			attr_dev(label_1, "for", /*labelIdentifier*/ ctx[7]);
-    			attr_dev(label_1, "class", "svelte-sdabh1");
-    			add_location(label_1, file, 87, 4, 3499);
+    			attr_dev(label_1, "class", "svelte-a9pndh");
+    			add_location(label_1, file, 89, 4, 3625);
     			option.selected = true;
     			option.disabled = true;
     			option.hidden = true;
     			attr_dev(option, "id", /*resetId*/ ctx[6]);
     			option.__value = "Bitte auswählen";
     			option.value = option.__value;
-    			attr_dev(option, "class", "svelte-sdabh1");
-    			add_location(option, file, 96, 8, 3803);
+    			attr_dev(option, "class", "svelte-a9pndh");
+    			add_location(option, file, 98, 8, 3929);
     			attr_dev(select, "name", /*labelIdentifier*/ ctx[7]);
     			attr_dev(select, "id", /*id*/ ctx[2]);
     			select.disabled = /*disableDropdown*/ ctx[5];
-    			attr_dev(select, "class", "svelte-sdabh1");
+    			attr_dev(select, "class", "svelte-a9pndh");
     			if (/*currentSelection*/ ctx[4] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[11].call(select));
     			toggle_class(select, "inactive", /*disableDropdown*/ ctx[5]);
-    			add_location(select, file, 89, 4, 3592);
+    			add_location(select, file, 91, 4, 3718);
     			attr_dev(div, "id", /*selectWrapperId*/ ctx[8]);
-    			attr_dev(div, "class", "select-wrapper svelte-sdabh1");
+    			attr_dev(div, "class", "select-wrapper svelte-a9pndh");
     			toggle_class(div, "inactive", /*disableDropdown*/ ctx[5]);
-    			add_location(div, file, 83, 0, 3400);
+    			add_location(div, file, 85, 0, 3526);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -2360,10 +2360,10 @@ var app = (function () {
     	const handleChange = () => {
     		console.log(id);
     		const defaultOptionService = document.getElementById("reset-service");
-    		const defaultOptionType = document.getElementById("reset-type");
     		const dropdownService = document.getElementById("dropdown-service");
-    		const dropdownType = document.getElementById("dropdown-type");
     		const selectWrapperService = document.getElementById("wrapper-service");
+    		const defaultOptionType = document.getElementById("reset-type");
+    		const dropdownType = document.getElementById("dropdown-type");
     		const selectWrapperType = document.getElementById("wrapper-type");
 
     		// when a 'group' was selected reset all other selections;
@@ -2377,21 +2377,24 @@ var app = (function () {
     				return obj;
     			});
 
-    			// change the dropdown's values back to default "Bitte auswaehlen"
-    			// and disable the corresponding dropdowns
-    			dropdownService.classList.remove("inactive");
+    			// change the dropdown's values back to default "Bitte auswaehlen";
+    			// enable the service dropdown
+    			dropdownService.disabled = false;
 
+    			dropdownService.classList.remove("inactive");
     			selectWrapperService.classList.remove("inactive");
+    			defaultOptionService.selected = "true";
+
+    			// disable the type dropdown
+    			dropdownType.disabled = true;
+
     			dropdownType.classList.add("inactive");
     			selectWrapperType.classList.add("inactive");
-    			defaultOptionService.selected = "true";
     			defaultOptionType.selected = "true";
-    			dropdownService.disabled = false;
-    			dropdownType.disabled = true;
     		}
 
     		// when a 'service' was picked reset the selected 'type' and
-    		// enable 'dropdown-type' (it's disabled before a 'service' was picked for the first time)
+    		// enable 'dropdown-type' (it's disabled before a 'service' was picked)
     		if (currentSelection.category === "service") {
     			// reset 'type' selection
     			selectedCategories.update(obj => {
@@ -2399,12 +2402,17 @@ var app = (function () {
     				return obj;
     			});
 
+    			// enable dropdown for 'type'`s;
+    			// remove all visual 'inactive' classes;
+    			// reset back to default option ('Bitte auswaehlen');
+    			dropdownType.disabled = false;
+
     			dropdownType.classList.remove("inactive");
     			selectWrapperType.classList.remove("inactive");
     			defaultOptionType.selected = "true";
-    			dropdownType.disabled = false;
-    		} // dropdownType.classList.remove("inactive");
+    		}
 
+    		// when a 'type' was selected enable the button
     		if (currentSelection.category === "type") {
     			disableCalcButton.set(false);
     		} else {
@@ -2416,8 +2424,6 @@ var app = (function () {
     			obj[currentSelection.category] = currentSelection.opt;
     			return obj;
     		});
-
-    		console.log(get_store_value(selectedCategories));
     	};
 
     	const writable_props = ["options", "category", "id", "label", "initialDisableStatus"];
@@ -2581,6 +2587,7 @@ var app = (function () {
     const file$1 = "src/components/QuantityTextfield.svelte";
 
     function create_fragment$1(ctx) {
+    	let div;
     	let label;
     	let t1;
     	let input;
@@ -2593,6 +2600,7 @@ var app = (function () {
 
     	const block = {
     		c: function create() {
+    			div = element("div");
     			label = element("label");
     			label.textContent = "Umfang";
     			t1 = space();
@@ -2601,29 +2609,32 @@ var app = (function () {
     			span = element("span");
     			t3 = text(t3_value);
     			attr_dev(label, "for", "quantity");
-    			attr_dev(label, "class", "svelte-16oje02");
-    			add_location(label, file$1, 19, 0, 421);
+    			attr_dev(label, "class", "svelte-1pr4j6d");
+    			add_location(label, file$1, 20, 4, 455);
     			attr_dev(input, "name", "quantity");
     			input.disabled = /*disabled*/ ctx[1];
     			attr_dev(input, "type", "number");
     			attr_dev(input, "min", "1");
-    			attr_dev(input, "class", "svelte-16oje02");
+    			attr_dev(input, "class", "svelte-1pr4j6d");
     			toggle_class(input, "inactive", /*disabled*/ ctx[1]);
-    			add_location(input, file$1, 20, 0, 458);
-    			attr_dev(span, "class", "svelte-16oje02");
+    			add_location(input, file$1, 21, 4, 496);
+    			attr_dev(span, "class", "svelte-1pr4j6d");
     			toggle_class(span, "inactive", /*disabled*/ ctx[1]);
-    			add_location(span, file$1, 29, 0, 634);
+    			add_location(span, file$1, 30, 4, 704);
+    			attr_dev(div, "class", "quantityWrapper svelte-1pr4j6d");
+    			add_location(div, file$1, 19, 0, 421);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, label, anchor);
-    			insert_dev(target, t1, anchor);
-    			insert_dev(target, input, anchor);
+    			insert_dev(target, div, anchor);
+    			append_dev(div, label);
+    			append_dev(div, t1);
+    			append_dev(div, input);
     			set_input_value(input, /*quantityTEMP*/ ctx[0]);
-    			insert_dev(target, t2, anchor);
-    			insert_dev(target, span, anchor);
+    			append_dev(div, t2);
+    			append_dev(div, span);
     			append_dev(span, t3);
 
     			if (!mounted) {
@@ -2657,11 +2668,7 @@ var app = (function () {
     		i: noop,
     		o: noop,
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(label);
-    			if (detaching) detach_dev(t1);
-    			if (detaching) detach_dev(input);
-    			if (detaching) detach_dev(t2);
-    			if (detaching) detach_dev(span);
+    			if (detaching) detach_dev(div);
     			mounted = false;
     			run_all(dispose);
     		}
@@ -2745,6 +2752,7 @@ var app = (function () {
     const file$2 = "src/components/ButtonCalculate.svelte";
 
     function create_fragment$2(ctx) {
+    	let div;
     	let button;
     	let t0;
     	let t1;
@@ -2756,6 +2764,7 @@ var app = (function () {
 
     	const block = {
     		c: function create() {
+    			div = element("div");
     			button = element("button");
     			t0 = text("Preis berechnen");
     			t1 = space();
@@ -2763,22 +2772,25 @@ var app = (function () {
     			t2 = text(/*calculatedPriceOutput*/ ctx[1]);
     			t3 = text(" €");
     			button.disabled = /*disabled*/ ctx[0];
-    			attr_dev(button, "class", "btn outline svelte-177vrbw");
+    			attr_dev(button, "class", "btn outline svelte-40872i");
     			toggle_class(button, "inactive", /*disabled*/ ctx[0]);
-    			add_location(button, file$2, 34, 0, 848);
+    			add_location(button, file$2, 34, 4, 886);
     			attr_dev(p, "id", "price");
-    			attr_dev(p, "class", "svelte-177vrbw");
+    			attr_dev(p, "class", "svelte-40872i");
     			toggle_class(p, "inactive", /*disabled*/ ctx[0]);
-    			add_location(p, file$2, 41, 0, 1010);
+    			add_location(p, file$2, 41, 4, 1076);
+    			attr_dev(div, "class", "btnCalculate-wrapper svelte-40872i");
+    			add_location(div, file$2, 33, 0, 847);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, button, anchor);
+    			insert_dev(target, div, anchor);
+    			append_dev(div, button);
     			append_dev(button, t0);
-    			insert_dev(target, t1, anchor);
-    			insert_dev(target, p, anchor);
+    			append_dev(div, t1);
+    			append_dev(div, p);
     			append_dev(p, t2);
     			append_dev(p, t3);
 
@@ -2805,9 +2817,7 @@ var app = (function () {
     		i: noop,
     		o: noop,
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(button);
-    			if (detaching) detach_dev(t1);
-    			if (detaching) detach_dev(p);
+    			if (detaching) detach_dev(div);
     			mounted = false;
     			dispose();
     		}
@@ -2893,11 +2903,205 @@ var app = (function () {
     	}
     }
 
-    /* src/App.svelte generated by Svelte v3.31.0 */
-    const file$3 = "src/App.svelte";
+    /* src/components/BewerbungCheckboxes.svelte generated by Svelte v3.31.0 */
+
+    const { console: console_1$3 } = globals;
+    const file$3 = "src/components/BewerbungCheckboxes.svelte";
+
+    function get_each_context$1(ctx, list, i) {
+    	const child_ctx = ctx.slice();
+    	child_ctx[1] = list[i];
+    	return child_ctx;
+    }
+
+    // (19:4) {#each dropdownDataTypes as checkbox}
+    function create_each_block$1(ctx) {
+    	let div;
+    	let input;
+    	let input_name_value;
+    	let t0;
+    	let span;
+    	let t1_value = /*checkbox*/ ctx[1] + "";
+    	let t1;
+    	let t2;
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+    			input = element("input");
+    			t0 = space();
+    			span = element("span");
+    			t1 = text(t1_value);
+    			t2 = space();
+    			attr_dev(input, "type", "checkbox");
+    			attr_dev(input, "name", input_name_value = `${/*checkbox*/ ctx[1]}-name`);
+    			attr_dev(input, "class", "svelte-4ao7kp");
+    			add_location(input, file$3, 20, 12, 460);
+    			attr_dev(span, "class", "svelte-4ao7kp");
+    			add_location(span, file$3, 21, 12, 524);
+    			attr_dev(div, "class", "checkbox-wrapper svelte-4ao7kp");
+    			add_location(div, file$3, 19, 8, 417);
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div, anchor);
+    			append_dev(div, input);
+    			append_dev(div, t0);
+    			append_dev(div, span);
+    			append_dev(span, t1);
+    			append_dev(div, t2);
+    		},
+    		p: function update(ctx, dirty) {
+    			if (dirty & /*dropdownDataTypes*/ 1 && input_name_value !== (input_name_value = `${/*checkbox*/ ctx[1]}-name`)) {
+    				attr_dev(input, "name", input_name_value);
+    			}
+
+    			if (dirty & /*dropdownDataTypes*/ 1 && t1_value !== (t1_value = /*checkbox*/ ctx[1] + "")) set_data_dev(t1, t1_value);
+    		},
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_each_block$1.name,
+    		type: "each",
+    		source: "(19:4) {#each dropdownDataTypes as checkbox}",
+    		ctx
+    	});
+
+    	return block;
+    }
 
     function create_fragment$3(ctx) {
-    	let div7;
+    	let div;
+    	let each_value = /*dropdownDataTypes*/ ctx[0];
+    	validate_each_argument(each_value);
+    	let each_blocks = [];
+
+    	for (let i = 0; i < each_value.length; i += 1) {
+    		each_blocks[i] = create_each_block$1(get_each_context$1(ctx, each_value, i));
+    	}
+
+    	const block = {
+    		c: function create() {
+    			div = element("div");
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].c();
+    			}
+
+    			attr_dev(div, "class", "checkboxes-wrapper svelte-4ao7kp");
+    			add_location(div, file$3, 17, 0, 334);
+    		},
+    		l: function claim(nodes) {
+    			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
+    		},
+    		m: function mount(target, anchor) {
+    			insert_dev(target, div, anchor);
+
+    			for (let i = 0; i < each_blocks.length; i += 1) {
+    				each_blocks[i].m(div, null);
+    			}
+    		},
+    		p: function update(ctx, [dirty]) {
+    			if (dirty & /*dropdownDataTypes*/ 1) {
+    				each_value = /*dropdownDataTypes*/ ctx[0];
+    				validate_each_argument(each_value);
+    				let i;
+
+    				for (i = 0; i < each_value.length; i += 1) {
+    					const child_ctx = get_each_context$1(ctx, each_value, i);
+
+    					if (each_blocks[i]) {
+    						each_blocks[i].p(child_ctx, dirty);
+    					} else {
+    						each_blocks[i] = create_each_block$1(child_ctx);
+    						each_blocks[i].c();
+    						each_blocks[i].m(div, null);
+    					}
+    				}
+
+    				for (; i < each_blocks.length; i += 1) {
+    					each_blocks[i].d(1);
+    				}
+
+    				each_blocks.length = each_value.length;
+    			}
+    		},
+    		i: noop,
+    		o: noop,
+    		d: function destroy(detaching) {
+    			if (detaching) detach_dev(div);
+    			destroy_each(each_blocks, detaching);
+    		}
+    	};
+
+    	dispatch_dev("SvelteRegisterBlock", {
+    		block,
+    		id: create_fragment$3.name,
+    		type: "component",
+    		source: "",
+    		ctx
+    	});
+
+    	return block;
+    }
+
+    function instance$3($$self, $$props, $$invalidate) {
+    	let { $$slots: slots = {}, $$scope } = $$props;
+    	validate_slots("BewerbungCheckboxes", slots, []);
+    	let dropdownDataTypes;
+
+    	types.subscribe(data => {
+    		$$invalidate(0, dropdownDataTypes = data);
+    		console.log(dropdownDataTypes);
+    	});
+
+    	const writable_props = [];
+
+    	Object.keys($$props).forEach(key => {
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console_1$3.warn(`<BewerbungCheckboxes> was created with unknown prop '${key}'`);
+    	});
+
+    	$$self.$capture_state = () => ({
+    		services,
+    		groups,
+    		types,
+    		selectedCategories,
+    		dropdownDataTypes
+    	});
+
+    	$$self.$inject_state = $$props => {
+    		if ("dropdownDataTypes" in $$props) $$invalidate(0, dropdownDataTypes = $$props.dropdownDataTypes);
+    	};
+
+    	if ($$props && "$$inject" in $$props) {
+    		$$self.$inject_state($$props.$$inject);
+    	}
+
+    	return [dropdownDataTypes];
+    }
+
+    class BewerbungCheckboxes extends SvelteComponentDev {
+    	constructor(options) {
+    		super(options);
+    		init(this, options, instance$3, create_fragment$3, safe_not_equal, {});
+
+    		dispatch_dev("SvelteRegisterComponent", {
+    			component: this,
+    			tagName: "BewerbungCheckboxes",
+    			options,
+    			id: create_fragment$3.name
+    		});
+    	}
+    }
+
+    /* src/App.svelte generated by Svelte v3.31.0 */
+    const file$4 = "src/App.svelte";
+
+    function create_fragment$4(ctx) {
+    	let div6;
     	let div1;
     	let span;
     	let t1;
@@ -2907,18 +3111,19 @@ var app = (function () {
     	let div2;
     	let dropdown0;
     	let t3;
-    	let div3;
     	let dropdown1;
     	let t4;
-    	let div4;
+    	let div3;
     	let dropdown2;
     	let t5;
-    	let div5;
     	let quantitytextfield;
     	let t6;
-    	let div6;
-    	let buttoncalculate;
+    	let div4;
+    	let bewerbungencheckboxes;
     	let t7;
+    	let div5;
+    	let buttoncalculate;
+    	let t8;
     	let hr;
     	let current;
     	let mounted;
@@ -2958,11 +3163,12 @@ var app = (function () {
     		});
 
     	quantitytextfield = new QuantityTextfield({ $$inline: true });
+    	bewerbungencheckboxes = new BewerbungCheckboxes({ $$inline: true });
     	buttoncalculate = new ButtonCalculate({ $$inline: true });
 
     	const block = {
     		c: function create() {
-    			div7 = element("div");
+    			div6 = element("div");
     			div1 = element("div");
     			span = element("span");
     			span.textContent = "Preisrechner";
@@ -2973,75 +3179,77 @@ var app = (function () {
     			div2 = element("div");
     			create_component(dropdown0.$$.fragment);
     			t3 = space();
-    			div3 = element("div");
     			create_component(dropdown1.$$.fragment);
     			t4 = space();
-    			div4 = element("div");
+    			div3 = element("div");
     			create_component(dropdown2.$$.fragment);
     			t5 = space();
-    			div5 = element("div");
     			create_component(quantitytextfield.$$.fragment);
     			t6 = space();
-    			div6 = element("div");
-    			create_component(buttoncalculate.$$.fragment);
+    			div4 = element("div");
+    			create_component(bewerbungencheckboxes.$$.fragment);
     			t7 = space();
+    			div5 = element("div");
+    			create_component(buttoncalculate.$$.fragment);
+    			t8 = space();
     			hr = element("hr");
-    			attr_dev(span, "class", "title svelte-19h98h9");
-    			add_location(span, file$3, 27, 8, 851);
-    			attr_dev(div0, "class", "close-icon svelte-19h98h9");
-    			attr_dev(div0, "id", "caluclator-close-icon");
-    			add_location(div0, file$3, 28, 8, 899);
-    			attr_dev(div1, "class", "preisrechner-title svelte-19h98h9");
-    			add_location(div1, file$3, 26, 4, 810);
-    			attr_dev(div2, "class", "left-1 svelte-19h98h9");
-    			add_location(div2, file$3, 33, 8, 1071);
-    			attr_dev(div3, "class", "right-1 svelte-19h98h9");
-    			add_location(div3, file$3, 42, 8, 1339);
-    			attr_dev(div4, "class", "left-2 svelte-19h98h9");
-    			add_location(div4, file$3, 51, 8, 1618);
-    			attr_dev(div5, "class", "right-2 svelte-19h98h9");
-    			add_location(div5, file$3, 60, 8, 1888);
-    			attr_dev(div6, "class", "price svelte-19h98h9");
-    			add_location(div6, file$3, 64, 8, 1968);
-    			attr_dev(form, "class", "form-Calculator svelte-19h98h9");
-    			add_location(form, file$3, 30, 4, 968);
+    			attr_dev(span, "class", "title svelte-mty8um");
+    			add_location(span, file$4, 53, 8, 1656);
+    			attr_dev(div0, "class", "close-icon svelte-mty8um");
+    			attr_dev(div0, "id", "calculator-close-icon");
+    			add_location(div0, file$4, 54, 8, 1704);
+    			attr_dev(div1, "class", "preisrechner-title svelte-mty8um");
+    			add_location(div1, file$4, 52, 4, 1615);
+    			attr_dev(div2, "class", "calculator-top svelte-mty8um");
+    			add_location(div2, file$4, 57, 8, 1836);
+    			attr_dev(div3, "class", "calculator-mid-1 svelte-mty8um");
+    			attr_dev(div3, "id", "calculator-mid-1");
+    			add_location(div3, file$4, 73, 8, 2422);
+    			attr_dev(div4, "class", "calculator-mid-2 svelte-mty8um");
+    			attr_dev(div4, "id", "calculator-mid-2");
+    			add_location(div4, file$4, 83, 8, 2821);
+    			attr_dev(div5, "class", "calculator-button svelte-mty8um");
+    			add_location(div5, file$4, 87, 8, 2936);
+    			attr_dev(form, "class", "svelte-mty8um");
+    			add_location(form, file$4, 56, 4, 1773);
     			set_style(hr, "width", "100%");
-    			attr_dev(hr, "class", "svelte-19h98h9");
-    			add_location(hr, file$3, 68, 4, 2051);
-    			attr_dev(div7, "class", "preisrechner-wrapper svelte-19h98h9");
-    			add_location(div7, file$3, 25, 0, 771);
+    			attr_dev(hr, "class", "svelte-mty8um");
+    			add_location(hr, file$4, 91, 4, 3031);
+    			attr_dev(div6, "class", "preisrechner-wrapper svelte-mty8um");
+    			add_location(div6, file$4, 51, 0, 1576);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, div7, anchor);
-    			append_dev(div7, div1);
+    			insert_dev(target, div6, anchor);
+    			append_dev(div6, div1);
     			append_dev(div1, span);
     			append_dev(div1, t1);
     			append_dev(div1, div0);
-    			append_dev(div7, t2);
-    			append_dev(div7, form);
+    			append_dev(div6, t2);
+    			append_dev(div6, form);
     			append_dev(form, div2);
     			mount_component(dropdown0, div2, null);
-    			append_dev(form, t3);
-    			append_dev(form, div3);
-    			mount_component(dropdown1, div3, null);
+    			append_dev(div2, t3);
+    			mount_component(dropdown1, div2, null);
     			append_dev(form, t4);
-    			append_dev(form, div4);
-    			mount_component(dropdown2, div4, null);
-    			append_dev(form, t5);
-    			append_dev(form, div5);
-    			mount_component(quantitytextfield, div5, null);
+    			append_dev(form, div3);
+    			mount_component(dropdown2, div3, null);
+    			append_dev(div3, t5);
+    			mount_component(quantitytextfield, div3, null);
     			append_dev(form, t6);
-    			append_dev(form, div6);
-    			mount_component(buttoncalculate, div6, null);
-    			append_dev(div7, t7);
-    			append_dev(div7, hr);
+    			append_dev(form, div4);
+    			mount_component(bewerbungencheckboxes, div4, null);
+    			append_dev(form, t7);
+    			append_dev(form, div5);
+    			mount_component(buttoncalculate, div5, null);
+    			append_dev(div6, t8);
+    			append_dev(div6, hr);
     			current = true;
 
     			if (!mounted) {
-    				dispose = listen_dev(form, "change", prevent_default(handleDropdownChange), false, true, false);
+    				dispose = listen_dev(form, "change", prevent_default(/*handleDropdownChange*/ ctx[3]), false, true, false);
     				mounted = true;
     			}
     		},
@@ -3062,6 +3270,7 @@ var app = (function () {
     			transition_in(dropdown1.$$.fragment, local);
     			transition_in(dropdown2.$$.fragment, local);
     			transition_in(quantitytextfield.$$.fragment, local);
+    			transition_in(bewerbungencheckboxes.$$.fragment, local);
     			transition_in(buttoncalculate.$$.fragment, local);
     			current = true;
     		},
@@ -3070,15 +3279,17 @@ var app = (function () {
     			transition_out(dropdown1.$$.fragment, local);
     			transition_out(dropdown2.$$.fragment, local);
     			transition_out(quantitytextfield.$$.fragment, local);
+    			transition_out(bewerbungencheckboxes.$$.fragment, local);
     			transition_out(buttoncalculate.$$.fragment, local);
     			current = false;
     		},
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(div7);
+    			if (detaching) detach_dev(div6);
     			destroy_component(dropdown0);
     			destroy_component(dropdown1);
     			destroy_component(dropdown2);
     			destroy_component(quantitytextfield);
+    			destroy_component(bewerbungencheckboxes);
     			destroy_component(buttoncalculate);
     			mounted = false;
     			dispose();
@@ -3087,7 +3298,7 @@ var app = (function () {
 
     	dispatch_dev("SvelteRegisterBlock", {
     		block,
-    		id: create_fragment$3.name,
+    		id: create_fragment$4.name,
     		type: "component",
     		source: "",
     		ctx
@@ -3096,16 +3307,17 @@ var app = (function () {
     	return block;
     }
 
-    function handleDropdownChange(event) {
-    	
-    }
-
-    function instance$3($$self, $$props, $$invalidate) {
+    function instance$4($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots("App", slots, []);
     	let dropdownDataGroups;
     	let dropdownDataServices;
     	let dropdownDataTypes;
+    	let selectedCategoriesTEMP;
+
+    	selectedCategories.subscribe(data => {
+    		selectedCategoriesTEMP = data;
+    	});
 
     	groups.subscribe(data => {
     		$$invalidate(0, dropdownDataGroups = data);
@@ -3119,6 +3331,19 @@ var app = (function () {
     		$$invalidate(2, dropdownDataTypes = data);
     	});
 
+    	function handleDropdownChange(event) {
+    		const calculatorMidRegular = document.getElementById("calculator-mid-1");
+    		const calculatorMidBewerbung = document.getElementById("calculator-mid-2");
+
+    		if (selectedCategoriesTEMP.service === "Bewerbung") {
+    			calculatorMidRegular.style.display = "none";
+    			calculatorMidBewerbung.style.display = "flex";
+    		} else {
+    			calculatorMidRegular.style.display = "flex";
+    			calculatorMidBewerbung.style.display = "none";
+    		}
+    	}
+
     	const writable_props = [];
 
     	Object.keys($$props).forEach(key => {
@@ -3129,12 +3354,15 @@ var app = (function () {
     		Dropdown,
     		QuantityTextfield,
     		ButtonCalculate,
+    		BewerbungenCheckboxes: BewerbungCheckboxes,
     		services,
     		groups,
     		types,
+    		selectedCategories,
     		dropdownDataGroups,
     		dropdownDataServices,
     		dropdownDataTypes,
+    		selectedCategoriesTEMP,
     		handleDropdownChange
     	});
 
@@ -3142,25 +3370,31 @@ var app = (function () {
     		if ("dropdownDataGroups" in $$props) $$invalidate(0, dropdownDataGroups = $$props.dropdownDataGroups);
     		if ("dropdownDataServices" in $$props) $$invalidate(1, dropdownDataServices = $$props.dropdownDataServices);
     		if ("dropdownDataTypes" in $$props) $$invalidate(2, dropdownDataTypes = $$props.dropdownDataTypes);
+    		if ("selectedCategoriesTEMP" in $$props) selectedCategoriesTEMP = $$props.selectedCategoriesTEMP;
     	};
 
     	if ($$props && "$$inject" in $$props) {
     		$$self.$inject_state($$props.$$inject);
     	}
 
-    	return [dropdownDataGroups, dropdownDataServices, dropdownDataTypes];
+    	return [
+    		dropdownDataGroups,
+    		dropdownDataServices,
+    		dropdownDataTypes,
+    		handleDropdownChange
+    	];
     }
 
     class App extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$3, create_fragment$3, safe_not_equal, {});
+    		init(this, options, instance$4, create_fragment$4, safe_not_equal, {});
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
     			tagName: "App",
     			options,
-    			id: create_fragment$3.name
+    			id: create_fragment$4.name
     		});
     	}
     }

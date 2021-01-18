@@ -17,20 +17,29 @@
 </script>
 
 <!-- MARKUP ------------------------------ -->
-<label for="quantity">Umfang</label>
-<input
-    name="quantity"
-    disabled={disabled}
-    class:inactive={disabled}
-    type="number"
-    min="1"
-    bind:value={quantityTEMP}
-    on:change={updateQuantity} />
+<div class="quantityWrapper">
+    <label for="quantity">Umfang</label>
+    <input
+        name="quantity"
+        disabled={disabled}
+        class:inactive={disabled}
+        type="number"
+        min="1"
+        bind:value={quantityTEMP}
+        on:change={updateQuantity} />
 
-<span class:inactive={disabled}>{quantityTEMP > 1 ? 'Seiten' : 'Seite'}</span>
+    <span
+        class:inactive={disabled}>{quantityTEMP > 1 ? 'Seiten' : 'Seite'}</span>
+</div>
 
 <!-- STYLING ------------------------------ -->
 <style>
+    .quantityWrapper {
+        display: inline-block;
+        width: 280px;
+        margin-top: 16px;
+    }
+
     label {
         display: block;
         padding-left: 15px;

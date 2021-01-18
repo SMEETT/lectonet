@@ -33,7 +33,7 @@ window.addEventListener("DOMContentLoaded", () => {
 
 	let calculatorOpen = false;
 	const openCalculatorButton = document.getElementById("open-calculator-btn");
-	const priceCalculatorCloseIcon = document.getElementById("caluclator-close-icon");
+	const priceCalculatorCloseIcon = document.getElementById("calculator-close-icon");
 	const bodyTag = document.getElementById("main-body");
 	const calculatorHook = document.getElementById("preisrechner-hook");
 

@@ -12,7 +12,6 @@
         console.log(status);
         disabled = status;
     });
-
     let calculatedPriceOutput;
     calculatedPrice.subscribe((price) => {
         calculatedPriceOutput = price;
@@ -32,17 +31,25 @@
 </script>
 
 <!-- MARKUP ------------------------------ -->
-<button
-    disabled={disabled}
-    on:click|preventDefault={calculatePrice}
-    class="btn outline"
-    class:inactive={disabled}>
-    Preis berechnen
-</button>
-<p id="price" class:inactive={disabled}>{calculatedPriceOutput} €</p>
+<div class="btnCalculate-wrapper">
+    <button
+        disabled={disabled}
+        on:click|preventDefault={calculatePrice}
+        class="btn outline"
+        class:inactive={disabled}>
+        Preis berechnen
+    </button>
+    <p id="price" class:inactive={disabled}>{calculatedPriceOutput} €</p>
+</div>
 
 <!-- STYLING ------------------------------ -->
 <style>
+    .btnCalculate-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
     button {
         text-transform: none;
         border-radius: 10px;

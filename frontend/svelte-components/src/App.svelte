@@ -2,12 +2,24 @@
     import Dropdown from "../src/components/Dropdown.svelte";
     import QuantityTextfield from "../src/components/QuantityTextfield.svelte";
     import ButtonCalculate from "../src/components/ButtonCalculate.svelte";
+    import BewerbungenCheckboxes from "../src/components/BewerbungCheckboxes.svelte";
 
-    import { services, groups, types } from "./stores/stores.js";
+    import {
+        services,
+        groups,
+        types,
+        selectedCategories,
+    } from "./stores/stores.js";
 
     let dropdownDataGroups;
     let dropdownDataServices;
     let dropdownDataTypes;
+
+    let selectedCategoriesTEMP;
+
+    selectedCategories.subscribe((data) => {
+        selectedCategoriesTEMP = data;
+    });
 
     groups.subscribe((data) => {
         dropdownDataGroups = data;
@@ -19,28 +31,38 @@
         dropdownDataTypes = data;
     });
 
-    function handleDropdownChange(event) {}
+    function handleDropdownChange(event) {
+        const calculatorMidRegular = document.getElementById(
+            "calculator-mid-1"
+        );
+        const calculatorMidBewerbung = document.getElementById(
+            "calculator-mid-2"
+        );
+        if (selectedCategoriesTEMP.service === "Bewerbung") {
+            calculatorMidRegular.style.display = "none";
+            calculatorMidBewerbung.style.display = "flex";
+        } else {
+            calculatorMidRegular.style.display = "flex";
+            calculatorMidBewerbung.style.display = "none";
+        }
+    }
 </script>
 
 <!-- MARKUP /////////////////////////////////////////////////////////////////////////////////////// -->
 <div class="preisrechner-wrapper">
     <div class="preisrechner-title">
         <span class="title">Preisrechner</span>
-        <div class="close-icon" id="caluclator-close-icon" />
+        <div class="close-icon" id="calculator-close-icon" />
     </div>
-    <form
-        class="form-Calculator"
-        on:change|preventDefault={handleDropdownChange}>
-        <div class="left-1">
+    <form on:change|preventDefault={handleDropdownChange}>
+        <div class="calculator-top">
             <Dropdown
                 label={'Sie sind'}
                 options={dropdownDataGroups}
                 category={'group'}
                 id={'dropdown-group'}
                 initialDisableStatus="false" />
-        </div>
 
-        <div class="right-1">
             <Dropdown
                 label={'Sie benötigen'}
                 options={dropdownDataServices}
@@ -48,21 +70,22 @@
                 id={'dropdown-service'}
                 initialDisableStatus="true" />
         </div>
-
-        <div class="left-2">
+        <!-- the div rendered when anything but "Bewerbung" was selected -->
+        <div class="calculator-mid-1" id="calculator-mid-1">
             <Dropdown
                 label={'Art der Arbeit'}
                 options={dropdownDataTypes}
                 category={'type'}
                 id={'dropdown-type'}
                 initialDisableStatus="true" />
-        </div>
-
-        <div class="right-2">
             <QuantityTextfield />
         </div>
+        <!-- the div rendered when "Bewerbung" was selected -->
+        <div class="calculator-mid-2" id="calculator-mid-2">
+            <BewerbungenCheckboxes />
+        </div>
 
-        <div class="price">
+        <div class="calculator-button">
             <ButtonCalculate />
         </div>
     </form>
@@ -84,8 +107,48 @@
         font-style: normal;
         list-style: none;
     }
+    .calculator-top {
+        grid-column: 1 / 3;
+        grid-row: 1;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+    .calculator-mid-1 {
+        grid-column: 1 / 3;
+        grid-row: 2;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .calculator-mid-2 {
+        margin-top: 16px;
+        padding-left: 34px;
+        grid-column: 2 / 3;
+        grid-row: 2;
+        width: 100%;
+        display: none;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .calculator-button {
+        grid-column: 1 / 3;
+        grid-row: 3;
+        margin-top: 32px;
+    }
+
     form {
         display: grid;
+        /* column-gap: 20px; */
+        /* row-gap: 16px; */
+        /* grid-auto-flow: column; */
         justify-items: center;
         align-items: center;
         width: 100%;
@@ -93,17 +156,7 @@
         /* border: 1px solid red; */
         padding: 0 50px 10px 50px;
         grid-template-columns: 50% 50%;
-        grid-template-rows: 80px 80px 150px auto;
-        grid-template-areas:
-            "left-1 right-1"
-            "left-2 right-2"
-            "price price";
-    }
-
-    .form-Calculator {
-    }
-
-    .form-Email {
+        grid-template-rows: auto auto auto auto;
     }
 
     .preisrechner-title {
@@ -164,17 +217,6 @@
         overflow: hidden;
     }
 
-    .left-1 {
-        grid-area: left-1;
-    }
-    .right-1 {
-        grid-area: right-1;
-    }
-
-    .left-2 {
-        grid-area: left-2;
-    }
-
     .right-2 {
         grid-area: right-2;
         justify-self: start;
@@ -204,6 +246,24 @@
             height: 998px;
             margin: auto;
             margin-top: 40px;
+        }
+        .calculator-top {
+            flex-direction: column;
+        }
+        .calculator-mid-2 {
+            margin-top: 16px;
+            /* padding-left: 34px; */
+            grid-column: 1 / 3;
+            grid-row: 2;
+            width: 100%;
+            display: none;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid red;
+        }
+        .calculator-mid-1 {
+            flex-direction: column;
         }
     }
     /* ----------- 320-WIDTH */
