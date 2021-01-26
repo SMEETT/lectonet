@@ -1,5 +1,5 @@
 
-(function(l, r) { if (l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (window.location.host || 'localhost').split(':')[0] + ':35731/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.getElementsByTagName('head')[0].appendChild(r) })(window.document);
+(function(l, r) { if (l.getElementById('livereloadscript')) return; r = l.createElement('script'); r.async = 1; r.src = '//' + (window.location.host || 'localhost').split(':')[0] + ':35729/livereload.js?snipver=1'; r.id = 'livereloadscript'; l.getElementsByTagName('head')[0].appendChild(r) })(window.document);
 var app = (function () {
     'use strict';
 
@@ -118,6 +118,15 @@ var app = (function () {
     let current_component;
     function set_current_component(component) {
         current_component = component;
+    }
+    // TODO figure out if we still want to support
+    // shorthand events, or if we want to implement
+    // a real bubbling mechanism
+    function bubble(component, event) {
+        const callbacks = component.$$.callbacks[event.type];
+        if (callbacks) {
+            callbacks.slice().forEach(fn => fn(event));
+        }
     }
 
     const dirty_components = [];
@@ -1966,13 +1975,15 @@ var app = (function () {
     const price = writable(0);
     const calculatedPrice = writable("0.00");
 
-    const disableCalcButton = writable(true);
+    const priceDisableStatus = writable(true);
 
     const selectedCategories = writable({
         group: null,
         service: null,
         type: null,
     });
+
+    const bewerbungCheckboxes = writable();
 
     const prices = writable();
 
@@ -2056,8 +2067,14 @@ var app = (function () {
             return pricesTEMP;
         })
         .then((pricesTEMP) => {
+            console.log(
+                "------------------------then pricesTEMP=-------------------------"
+            );
             // object { group, service, type }
             selectedCategories.subscribe((object) => {
+                console.log(get_store_value(selectedCategories));
+                quantity.set(1);
+                calculatedPrice.set("0.00");
                 // construct a new set of distinct 'groups', sort them and
                 // assign resulting array to writable() "group"
                 const groupsTEMP = Array.from(
@@ -2104,6 +2121,15 @@ var app = (function () {
                     );
                     typesTEMP.sort();
                     types.set(typesTEMP);
+                    // console.log(object.service);
+                    // if (object.service !== "Bewerbung") {
+                    //     try {
+                    //         const checkboxes = get(bewerbungCheckboxes);
+                    //         for (let item of checkboxes) {
+                    //             item.checked = false;
+                    //         }
+                    //     } catch {}
+                    // }
                 }
                 // if a full, distinct selection was made,
                 // get the price
@@ -2118,13 +2144,19 @@ var app = (function () {
                     filteredPrices = filteredPrices.filter((entry) => {
                         return entry.service === object.service;
                     });
-                    filteredPrices = filteredPrices.filter((entry) => {
-                        return entry.type === object.type;
-                    });
 
-                    console.log(filteredPrices[0].price);
-                    price.set(filteredPrices[0].price);
-                    disableCalcButton.set(false);
+                    if (object.service !== "Bewerbung") {
+                        filteredPrices = filteredPrices.filter((entry) => {
+                            return entry.type === object.type;
+                        });
+                        price.set(filteredPrices[0].price);
+                    } else {
+                        console.log("price Bewerbungen set");
+                        console.log(filteredPrices);
+                        price.set(filteredPrices);
+                    }
+
+                    priceDisableStatus.set(false);
                 }
             }); // end of subscribe()
         }); // end of then()
@@ -2140,7 +2172,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (100:8) {#each options as opt}
+    // (125:8) {#each options as opt}
     function create_each_block(ctx) {
     	let option;
     	let t_value = /*opt*/ ctx[12] + "";
@@ -2159,7 +2191,7 @@ var app = (function () {
 
     			option.value = option.__value;
     			attr_dev(option, "class", "svelte-a9pndh");
-    			add_location(option, file, 100, 12, 4043);
+    			add_location(option, file, 125, 12, 4843);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -2185,7 +2217,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(100:8) {#each options as opt}",
+    		source: "(125:8) {#each options as opt}",
     		ctx
     	});
 
@@ -2226,7 +2258,7 @@ var app = (function () {
 
     			attr_dev(label_1, "for", /*labelIdentifier*/ ctx[7]);
     			attr_dev(label_1, "class", "svelte-a9pndh");
-    			add_location(label_1, file, 89, 4, 3625);
+    			add_location(label_1, file, 114, 4, 4425);
     			option.selected = true;
     			option.disabled = true;
     			option.hidden = true;
@@ -2234,18 +2266,18 @@ var app = (function () {
     			option.__value = "Bitte auswählen";
     			option.value = option.__value;
     			attr_dev(option, "class", "svelte-a9pndh");
-    			add_location(option, file, 98, 8, 3929);
+    			add_location(option, file, 123, 8, 4729);
     			attr_dev(select, "name", /*labelIdentifier*/ ctx[7]);
     			attr_dev(select, "id", /*id*/ ctx[2]);
     			select.disabled = /*disableDropdown*/ ctx[5];
     			attr_dev(select, "class", "svelte-a9pndh");
     			if (/*currentSelection*/ ctx[4] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[11].call(select));
     			toggle_class(select, "inactive", /*disableDropdown*/ ctx[5]);
-    			add_location(select, file, 91, 4, 3718);
+    			add_location(select, file, 116, 4, 4518);
     			attr_dev(div, "id", /*selectWrapperId*/ ctx[8]);
     			attr_dev(div, "class", "select-wrapper svelte-a9pndh");
     			toggle_class(div, "inactive", /*disableDropdown*/ ctx[5]);
-    			add_location(div, file, 85, 0, 3526);
+    			add_location(div, file, 110, 0, 4326);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -2358,7 +2390,6 @@ var app = (function () {
     	let currentSelection;
 
     	const handleChange = () => {
-    		console.log(id);
     		const defaultOptionService = document.getElementById("reset-service");
     		const dropdownService = document.getElementById("dropdown-service");
     		const selectWrapperService = document.getElementById("wrapper-service");
@@ -2366,9 +2397,9 @@ var app = (function () {
     		const dropdownType = document.getElementById("dropdown-type");
     		const selectWrapperType = document.getElementById("wrapper-type");
 
-    		// when a 'group' was selected reset all other selections;
+    		// when a 'group' was selected reset selections for 'service' and 'type';
     		// enable 'dropdownService' (it's disabled before a 'group' was selected)
-    		// disable 'dropdownType' (since all was reset and therefor no 'service' is selected anymore either)
+    		// disable 'dropdownType' (since all was reset and therefor no 'service' is selected anymore (or yet))
     		if (currentSelection.category === "group") {
     			// reset the 'service' and 'type' selection
     			selectedCategories.update(obj => {
@@ -2393,9 +2424,9 @@ var app = (function () {
     			defaultOptionType.selected = "true";
     		}
 
-    		// when a 'service' was picked reset the selected 'type' and
+    		// when a 'service' was selected, reset the selected 'type' and
     		// enable 'dropdown-type' (it's disabled before a 'service' was picked)
-    		if (currentSelection.category === "service") {
+    		if (currentSelection.category === "service" && currentSelection.category !== "Bewerbung") {
     			// reset 'type' selection
     			selectedCategories.update(obj => {
     				obj["type"] = null;
@@ -2412,11 +2443,30 @@ var app = (function () {
     			defaultOptionType.selected = "true";
     		}
 
-    		// when a 'type' was selected enable the button
+    		// when a 'type' is selected, remove the disabled status from 'priceDisplay'
     		if (currentSelection.category === "type") {
-    			disableCalcButton.set(false);
+    			// update current calculated price
+    			let priceTEMP;
+
+    			price.subscribe(p => {
+    				priceTEMP = p;
+    				const quantityTEMP = parseFloat(get_store_value(quantity));
+    				console.log(priceTEMP);
+    				console.log(quantityTEMP);
+    				let finalPrice = (quantityTEMP * priceTEMP).toFixed(2);
+    				console.log(finalPrice);
+
+    				if (finalPrice == "NaN") {
+    					finalPrice = "0.00";
+    				}
+
+    				quantity.set(quantityTEMP);
+    				calculatedPrice.set(finalPrice);
+    			});
+
+    			priceDisableStatus.set(false);
     		} else {
-    			disableCalcButton.set(true);
+    			priceDisableStatus.set(true);
     		}
 
     		// update the global 'selectedCategories' object
@@ -2449,7 +2499,10 @@ var app = (function () {
 
     	$$self.$capture_state = () => ({
     		selectedCategories,
-    		disableCalcButton,
+    		priceDisableStatus,
+    		price,
+    		quantity,
+    		calculatedPrice,
     		get: get_store_value,
     		options,
     		category,
@@ -2581,94 +2634,143 @@ var app = (function () {
     	}
     }
 
-    /* src/components/QuantityTextfield.svelte generated by Svelte v3.31.0 */
+    /* src/components/TextfieldQuantity.svelte generated by Svelte v3.31.0 */
 
-    const { console: console_1$1 } = globals;
-    const file$1 = "src/components/QuantityTextfield.svelte";
+    const file$1 = "src/components/TextfieldQuantity.svelte";
 
     function create_fragment$1(ctx) {
-    	let div;
+    	let div2;
     	let label;
     	let t1;
+    	let div1;
     	let input;
     	let t2;
-    	let span;
-    	let t3_value = (/*quantityTEMP*/ ctx[0] > 1 ? "Seiten" : "Seite") + "";
+    	let div0;
+    	let button0;
     	let t3;
+    	let button1;
+    	let t4;
+    	let span;
+    	let t5_value = (/*quantityTEMP*/ ctx[1] > 1 ? "Seiten" : "Seite") + "";
+    	let t5;
     	let mounted;
     	let dispose;
 
     	const block = {
     		c: function create() {
-    			div = element("div");
+    			div2 = element("div");
     			label = element("label");
     			label.textContent = "Umfang";
     			t1 = space();
+    			div1 = element("div");
     			input = element("input");
     			t2 = space();
+    			div0 = element("div");
+    			button0 = element("button");
+    			t3 = space();
+    			button1 = element("button");
+    			t4 = space();
     			span = element("span");
-    			t3 = text(t3_value);
+    			t5 = text(t5_value);
     			attr_dev(label, "for", "quantity");
-    			attr_dev(label, "class", "svelte-1pr4j6d");
-    			add_location(label, file$1, 20, 4, 455);
+    			attr_dev(label, "class", "svelte-10jhfs0");
+    			add_location(label, file$1, 57, 4, 1413);
     			attr_dev(input, "name", "quantity");
-    			input.disabled = /*disabled*/ ctx[1];
+    			input.disabled = /*disabled*/ ctx[0];
     			attr_dev(input, "type", "number");
     			attr_dev(input, "min", "1");
-    			attr_dev(input, "class", "svelte-1pr4j6d");
-    			toggle_class(input, "inactive", /*disabled*/ ctx[1]);
-    			add_location(input, file$1, 21, 4, 496);
-    			attr_dev(span, "class", "svelte-1pr4j6d");
-    			toggle_class(span, "inactive", /*disabled*/ ctx[1]);
-    			add_location(span, file$1, 30, 4, 704);
-    			attr_dev(div, "class", "quantityWrapper svelte-1pr4j6d");
-    			add_location(div, file$1, 19, 0, 421);
+    			attr_dev(input, "class", "svelte-10jhfs0");
+    			toggle_class(input, "inactive", /*disabled*/ ctx[0]);
+    			add_location(input, file$1, 59, 8, 1486);
+    			attr_dev(button0, "alt", "up");
+    			attr_dev(button0, "class", "up svelte-10jhfs0");
+    			button0.disabled = /*disabled*/ ctx[0];
+    			toggle_class(button0, "inactive", /*disabled*/ ctx[0]);
+    			add_location(button0, file$1, 68, 12, 1772);
+    			attr_dev(button1, "alt", "down");
+    			attr_dev(button1, "class", "down svelte-10jhfs0");
+    			button1.disabled = /*disabled*/ ctx[0];
+    			toggle_class(button1, "inactive", /*disabled*/ ctx[0]);
+    			add_location(button1, file$1, 74, 12, 1961);
+    			attr_dev(div0, "class", "arrows svelte-10jhfs0");
+    			add_location(div0, file$1, 67, 8, 1739);
+    			attr_dev(span, "class", "svelte-10jhfs0");
+    			toggle_class(span, "inactive", /*disabled*/ ctx[0]);
+    			add_location(span, file$1, 82, 8, 2239);
+    			attr_dev(div1, "class", "lower-row svelte-10jhfs0");
+    			add_location(div1, file$1, 58, 4, 1454);
+    			attr_dev(div2, "class", "wrapper-quantity svelte-10jhfs0");
+    			add_location(div2, file$1, 56, 0, 1378);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
     		m: function mount(target, anchor) {
-    			insert_dev(target, div, anchor);
-    			append_dev(div, label);
-    			append_dev(div, t1);
-    			append_dev(div, input);
-    			set_input_value(input, /*quantityTEMP*/ ctx[0]);
-    			append_dev(div, t2);
-    			append_dev(div, span);
-    			append_dev(span, t3);
+    			insert_dev(target, div2, anchor);
+    			append_dev(div2, label);
+    			append_dev(div2, t1);
+    			append_dev(div2, div1);
+    			append_dev(div1, input);
+    			set_input_value(input, /*quantityTEMP*/ ctx[1]);
+    			append_dev(div1, t2);
+    			append_dev(div1, div0);
+    			append_dev(div0, button0);
+    			append_dev(div0, t3);
+    			append_dev(div0, button1);
+    			append_dev(div1, t4);
+    			append_dev(div1, span);
+    			append_dev(span, t5);
 
     			if (!mounted) {
     				dispose = [
-    					listen_dev(input, "input", /*input_input_handler*/ ctx[3]),
-    					listen_dev(input, "change", /*updateQuantity*/ ctx[2], false, false, false)
+    					listen_dev(input, "input", /*input_input_handler*/ ctx[5]),
+    					listen_dev(input, "input", prevent_default(/*calculatePrice*/ ctx[4]), false, true, false),
+    					listen_dev(button0, "click", /*increase*/ ctx[2], false, false, false),
+    					listen_dev(button1, "click", /*decrease*/ ctx[3], false, false, false)
     				];
 
     				mounted = true;
     			}
     		},
     		p: function update(ctx, [dirty]) {
-    			if (dirty & /*disabled*/ 2) {
-    				prop_dev(input, "disabled", /*disabled*/ ctx[1]);
+    			if (dirty & /*disabled*/ 1) {
+    				prop_dev(input, "disabled", /*disabled*/ ctx[0]);
     			}
 
-    			if (dirty & /*quantityTEMP*/ 1 && to_number(input.value) !== /*quantityTEMP*/ ctx[0]) {
-    				set_input_value(input, /*quantityTEMP*/ ctx[0]);
+    			if (dirty & /*quantityTEMP*/ 2 && to_number(input.value) !== /*quantityTEMP*/ ctx[1]) {
+    				set_input_value(input, /*quantityTEMP*/ ctx[1]);
     			}
 
-    			if (dirty & /*disabled*/ 2) {
-    				toggle_class(input, "inactive", /*disabled*/ ctx[1]);
+    			if (dirty & /*disabled*/ 1) {
+    				toggle_class(input, "inactive", /*disabled*/ ctx[0]);
     			}
 
-    			if (dirty & /*quantityTEMP*/ 1 && t3_value !== (t3_value = (/*quantityTEMP*/ ctx[0] > 1 ? "Seiten" : "Seite") + "")) set_data_dev(t3, t3_value);
+    			if (dirty & /*disabled*/ 1) {
+    				prop_dev(button0, "disabled", /*disabled*/ ctx[0]);
+    			}
 
-    			if (dirty & /*disabled*/ 2) {
-    				toggle_class(span, "inactive", /*disabled*/ ctx[1]);
+    			if (dirty & /*disabled*/ 1) {
+    				toggle_class(button0, "inactive", /*disabled*/ ctx[0]);
+    			}
+
+    			if (dirty & /*disabled*/ 1) {
+    				prop_dev(button1, "disabled", /*disabled*/ ctx[0]);
+    			}
+
+    			if (dirty & /*disabled*/ 1) {
+    				toggle_class(button1, "inactive", /*disabled*/ ctx[0]);
+    			}
+
+    			if (dirty & /*quantityTEMP*/ 2 && t5_value !== (t5_value = (/*quantityTEMP*/ ctx[1] > 1 ? "Seiten" : "Seite") + "")) set_data_dev(t5, t5_value);
+
+    			if (dirty & /*disabled*/ 1) {
+    				toggle_class(span, "inactive", /*disabled*/ ctx[0]);
     			}
     		},
     		i: noop,
     		o: noop,
     		d: function destroy(detaching) {
-    			if (detaching) detach_dev(div);
+    			if (detaching) detach_dev(div2);
     			mounted = false;
     			run_all(dispose);
     		}
@@ -2685,130 +2787,158 @@ var app = (function () {
     	return block;
     }
 
+    function sleep(milliseconds) {
+    	var start = new Date().getTime();
+
+    	for (var i = 0; i < 10000000; i++) {
+    		if (new Date().getTime() - start > milliseconds) {
+    			break;
+    		}
+    	}
+    }
+
     function instance$1($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
-    	validate_slots("QuantityTextfield", slots, []);
-    	let quantityTEMP = 1;
+    	validate_slots("TextfieldQuantity", slots, []);
     	let disabled;
 
-    	disableCalcButton.subscribe(status => {
-    		$$invalidate(1, disabled = status);
+    	priceDisableStatus.subscribe(status => {
+    		$$invalidate(0, disabled = status);
     	});
 
-    	const updateQuantity = () => {
+    	let quantityTEMP;
+
+    	quantity.subscribe(qty => {
+    		$$invalidate(1, quantityTEMP = qty);
+    	});
+
+    	let priceTEMP;
+
+    	price.subscribe(p => {
+    		priceTEMP = p;
+    	});
+
+    	const increase = e => {
+    		$$invalidate(1, quantityTEMP = quantityTEMP + 1);
+    		calculatePrice();
+    	};
+
+    	const decrease = () => {
+    		$$invalidate(1, quantityTEMP = quantityTEMP - 1);
+
+    		quantityTEMP < 1
+    		? $$invalidate(1, quantityTEMP = 1)
+    		: $$invalidate(1, quantityTEMP);
+
+    		calculatePrice();
+    	};
+
+    	const calculatePrice = event => {
+    		let calculatedPriceTEMP = (quantityTEMP * priceTEMP).toFixed(2);
+
+    		if (calculatedPriceTEMP == "NaN") {
+    			calculatedPriceTEMP = "0.00";
+    		}
+
     		quantity.set(quantityTEMP);
-    		console.log(get_store_value(quantity));
+    		calculatedPrice.set(calculatedPriceTEMP);
     	};
 
     	const writable_props = [];
 
     	Object.keys($$props).forEach(key => {
-    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console_1$1.warn(`<QuantityTextfield> was created with unknown prop '${key}'`);
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<TextfieldQuantity> was created with unknown prop '${key}'`);
     	});
 
     	function input_input_handler() {
     		quantityTEMP = to_number(this.value);
-    		$$invalidate(0, quantityTEMP);
+    		$$invalidate(1, quantityTEMP);
     	}
 
     	$$self.$capture_state = () => ({
-    		get: get_store_value,
+    		priceDisableStatus,
+    		calculatedPrice,
+    		price,
     		quantity,
-    		disableCalcButton,
-    		quantityTEMP,
     		disabled,
-    		updateQuantity
+    		quantityTEMP,
+    		priceTEMP,
+    		sleep,
+    		increase,
+    		decrease,
+    		calculatePrice
     	});
 
     	$$self.$inject_state = $$props => {
-    		if ("quantityTEMP" in $$props) $$invalidate(0, quantityTEMP = $$props.quantityTEMP);
-    		if ("disabled" in $$props) $$invalidate(1, disabled = $$props.disabled);
+    		if ("disabled" in $$props) $$invalidate(0, disabled = $$props.disabled);
+    		if ("quantityTEMP" in $$props) $$invalidate(1, quantityTEMP = $$props.quantityTEMP);
+    		if ("priceTEMP" in $$props) priceTEMP = $$props.priceTEMP;
     	};
 
     	if ($$props && "$$inject" in $$props) {
     		$$self.$inject_state($$props.$$inject);
     	}
 
-    	return [quantityTEMP, disabled, updateQuantity, input_input_handler];
+    	return [
+    		disabled,
+    		quantityTEMP,
+    		increase,
+    		decrease,
+    		calculatePrice,
+    		input_input_handler
+    	];
     }
 
-    class QuantityTextfield extends SvelteComponentDev {
+    class TextfieldQuantity extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
     		init(this, options, instance$1, create_fragment$1, safe_not_equal, {});
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
-    			tagName: "QuantityTextfield",
+    			tagName: "TextfieldQuantity",
     			options,
     			id: create_fragment$1.name
     		});
     	}
     }
 
-    /* src/components/ButtonCalculate.svelte generated by Svelte v3.31.0 */
-
-    const { console: console_1$2 } = globals;
-    const file$2 = "src/components/ButtonCalculate.svelte";
+    /* src/components/PriceDisplay.svelte generated by Svelte v3.31.0 */
+    const file$2 = "src/components/PriceDisplay.svelte";
 
     function create_fragment$2(ctx) {
     	let div;
-    	let button;
-    	let t0;
-    	let t1;
     	let p;
-    	let t2;
-    	let t3;
-    	let mounted;
-    	let dispose;
+    	let t_value = `${/*literalPrice*/ ctx[1]} €` + "";
+    	let t;
 
     	const block = {
     		c: function create() {
     			div = element("div");
-    			button = element("button");
-    			t0 = text("Preis berechnen");
-    			t1 = space();
     			p = element("p");
-    			t2 = text(/*calculatedPriceOutput*/ ctx[1]);
-    			t3 = text(" €");
-    			button.disabled = /*disabled*/ ctx[0];
-    			attr_dev(button, "class", "btn outline svelte-40872i");
-    			toggle_class(button, "inactive", /*disabled*/ ctx[0]);
-    			add_location(button, file$2, 34, 4, 886);
+    			t = text(t_value);
     			attr_dev(p, "id", "price");
-    			attr_dev(p, "class", "svelte-40872i");
+    			attr_dev(p, "disabled", /*disabled*/ ctx[0]);
+    			attr_dev(p, "class", "svelte-s0vx7z");
     			toggle_class(p, "inactive", /*disabled*/ ctx[0]);
-    			add_location(p, file$2, 41, 4, 1076);
-    			attr_dev(div, "class", "btnCalculate-wrapper svelte-40872i");
-    			add_location(div, file$2, 33, 0, 847);
+    			add_location(p, file$2, 23, 4, 518);
+    			attr_dev(div, "class", "wrapper-price svelte-s0vx7z");
+    			add_location(div, file$2, 22, 0, 486);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
-    			append_dev(div, button);
-    			append_dev(button, t0);
-    			append_dev(div, t1);
     			append_dev(div, p);
-    			append_dev(p, t2);
-    			append_dev(p, t3);
-
-    			if (!mounted) {
-    				dispose = listen_dev(button, "click", prevent_default(/*calculatePrice*/ ctx[2]), false, true, false);
-    				mounted = true;
-    			}
+    			append_dev(p, t);
     		},
     		p: function update(ctx, [dirty]) {
-    			if (dirty & /*disabled*/ 1) {
-    				prop_dev(button, "disabled", /*disabled*/ ctx[0]);
-    			}
+    			if (dirty & /*literalPrice*/ 2 && t_value !== (t_value = `${/*literalPrice*/ ctx[1]} €` + "")) set_data_dev(t, t_value);
 
     			if (dirty & /*disabled*/ 1) {
-    				toggle_class(button, "inactive", /*disabled*/ ctx[0]);
+    				attr_dev(p, "disabled", /*disabled*/ ctx[0]);
     			}
-
-    			if (dirty & /*calculatedPriceOutput*/ 2) set_data_dev(t2, /*calculatedPriceOutput*/ ctx[1]);
 
     			if (dirty & /*disabled*/ 1) {
     				toggle_class(p, "inactive", /*disabled*/ ctx[0]);
@@ -2818,8 +2948,6 @@ var app = (function () {
     		o: noop,
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(div);
-    			mounted = false;
-    			dispose();
     		}
     	};
 
@@ -2836,67 +2964,56 @@ var app = (function () {
 
     function instance$2($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
-    	validate_slots("ButtonCalculate", slots, []);
+    	validate_slots("PriceDisplay", slots, []);
     	let disabled;
 
-    	disableCalcButton.subscribe(status => {
-    		console.log(status);
+    	priceDisableStatus.subscribe(status => {
+    		// console.log(status);
     		$$invalidate(0, disabled = status);
     	});
 
-    	let calculatedPriceOutput;
+    	let literalPrice = "0.00";
 
     	calculatedPrice.subscribe(price => {
-    		$$invalidate(1, calculatedPriceOutput = price);
+    		$$invalidate(1, literalPrice = price);
     	});
-
-    	const calculatePrice = () => {
-    		console.log(get_store_value(price));
-    		console.log(get_store_value(quantity));
-    		const priceTEMP = parseFloat(get_store_value(price));
-    		const quantityTEMP = parseFloat(get_store_value(quantity));
-    		let finalPrice = (quantityTEMP * priceTEMP).toFixed(2);
-    		console.log(finalPrice);
-    		calculatedPrice.set(finalPrice);
-    	};
 
     	const writable_props = [];
 
     	Object.keys($$props).forEach(key => {
-    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console_1$2.warn(`<ButtonCalculate> was created with unknown prop '${key}'`);
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<PriceDisplay> was created with unknown prop '${key}'`);
     	});
 
     	$$self.$capture_state = () => ({
     		price,
     		quantity,
     		calculatedPrice,
-    		disableCalcButton,
+    		priceDisableStatus,
     		get: get_store_value,
     		disabled,
-    		calculatedPriceOutput,
-    		calculatePrice
+    		literalPrice
     	});
 
     	$$self.$inject_state = $$props => {
     		if ("disabled" in $$props) $$invalidate(0, disabled = $$props.disabled);
-    		if ("calculatedPriceOutput" in $$props) $$invalidate(1, calculatedPriceOutput = $$props.calculatedPriceOutput);
+    		if ("literalPrice" in $$props) $$invalidate(1, literalPrice = $$props.literalPrice);
     	};
 
     	if ($$props && "$$inject" in $$props) {
     		$$self.$inject_state($$props.$$inject);
     	}
 
-    	return [disabled, calculatedPriceOutput, calculatePrice];
+    	return [disabled, literalPrice];
     }
 
-    class ButtonCalculate extends SvelteComponentDev {
+    class PriceDisplay extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
     		init(this, options, instance$2, create_fragment$2, safe_not_equal, {});
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
-    			tagName: "ButtonCalculate",
+    			tagName: "PriceDisplay",
     			options,
     			id: create_fragment$2.name
     		});
@@ -2905,60 +3022,72 @@ var app = (function () {
 
     /* src/components/BewerbungCheckboxes.svelte generated by Svelte v3.31.0 */
 
-    const { console: console_1$3 } = globals;
     const file$3 = "src/components/BewerbungCheckboxes.svelte";
 
     function get_each_context$1(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[1] = list[i];
+    	child_ctx[5] = list[i];
+    	child_ctx[7] = i;
     	return child_ctx;
     }
 
-    // (19:4) {#each dropdownDataTypes as checkbox}
+    // (84:4) {#each dropdownDataTypes as checkbox, index}
     function create_each_block$1(ctx) {
     	let div;
     	let input;
-    	let input_name_value;
+    	let input_id_value;
     	let t0;
-    	let span;
-    	let t1_value = /*checkbox*/ ctx[1] + "";
+    	let a;
+    	let t1_value = /*checkbox*/ ctx[5] + "";
     	let t1;
+    	let a_id_value;
     	let t2;
+    	let mounted;
+    	let dispose;
 
     	const block = {
     		c: function create() {
     			div = element("div");
     			input = element("input");
     			t0 = space();
-    			span = element("span");
+    			a = element("a");
     			t1 = text(t1_value);
     			t2 = space();
     			attr_dev(input, "type", "checkbox");
-    			attr_dev(input, "name", input_name_value = `${/*checkbox*/ ctx[1]}-name`);
-    			attr_dev(input, "class", "svelte-4ao7kp");
-    			add_location(input, file$3, 20, 12, 460);
-    			attr_dev(span, "class", "svelte-4ao7kp");
-    			add_location(span, file$3, 21, 12, 524);
-    			attr_dev(div, "class", "checkbox-wrapper svelte-4ao7kp");
-    			add_location(div, file$3, 19, 8, 417);
+    			attr_dev(input, "name", "checkbox");
+    			attr_dev(input, "id", input_id_value = /*index*/ ctx[7]);
+    			add_location(input, file$3, 85, 12, 2759);
+    			attr_dev(a, "name", "a-handler");
+    			attr_dev(a, "id", a_id_value = /*index*/ ctx[7]);
+    			attr_dev(a, "class", "svelte-4x5tgs");
+    			add_location(a, file$3, 90, 12, 2929);
+    			attr_dev(div, "class", "checkbox-wrapper svelte-4x5tgs");
+    			add_location(div, file$3, 84, 8, 2716);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
     			append_dev(div, input);
     			append_dev(div, t0);
-    			append_dev(div, span);
-    			append_dev(span, t1);
+    			append_dev(div, a);
+    			append_dev(a, t1);
     			append_dev(div, t2);
+
+    			if (!mounted) {
+    				dispose = [
+    					listen_dev(input, "change", prevent_default(/*handleChecked*/ ctx[1]), false, true, false),
+    					listen_dev(a, "click", /*handleChecked*/ ctx[1], false, false, false)
+    				];
+
+    				mounted = true;
+    			}
     		},
     		p: function update(ctx, dirty) {
-    			if (dirty & /*dropdownDataTypes*/ 1 && input_name_value !== (input_name_value = `${/*checkbox*/ ctx[1]}-name`)) {
-    				attr_dev(input, "name", input_name_value);
-    			}
-
-    			if (dirty & /*dropdownDataTypes*/ 1 && t1_value !== (t1_value = /*checkbox*/ ctx[1] + "")) set_data_dev(t1, t1_value);
+    			if (dirty & /*dropdownDataTypes*/ 1 && t1_value !== (t1_value = /*checkbox*/ ctx[5] + "")) set_data_dev(t1, t1_value);
     		},
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(div);
+    			mounted = false;
+    			run_all(dispose);
     		}
     	};
 
@@ -2966,7 +3095,7 @@ var app = (function () {
     		block,
     		id: create_each_block$1.name,
     		type: "each",
-    		source: "(19:4) {#each dropdownDataTypes as checkbox}",
+    		source: "(84:4) {#each dropdownDataTypes as checkbox, index}",
     		ctx
     	});
 
@@ -2991,8 +3120,8 @@ var app = (function () {
     				each_blocks[i].c();
     			}
 
-    			attr_dev(div, "class", "checkboxes-wrapper svelte-4ao7kp");
-    			add_location(div, file$3, 17, 0, 334);
+    			attr_dev(div, "class", "checkboxes-wrapper svelte-4x5tgs");
+    			add_location(div, file$3, 82, 0, 2626);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -3005,7 +3134,7 @@ var app = (function () {
     			}
     		},
     		p: function update(ctx, [dirty]) {
-    			if (dirty & /*dropdownDataTypes*/ 1) {
+    			if (dirty & /*handleChecked, dropdownDataTypes*/ 3) {
     				each_value = /*dropdownDataTypes*/ ctx[0];
     				validate_each_argument(each_value);
     				let i;
@@ -3051,42 +3180,130 @@ var app = (function () {
     function instance$3($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots("BewerbungCheckboxes", slots, []);
-    	let dropdownDataTypes;
+    	let { dropdownDataTypes } = $$props;
 
-    	types.subscribe(data => {
-    		$$invalidate(0, dropdownDataTypes = data);
-    		console.log(dropdownDataTypes);
+    	// temporary store for all prices
+    	let pricesBewerbungen = [];
+
+    	// we get a collection of prices, therefor we loop over them
+    	// and store all prices in an array
+    	price.subscribe(p => {
+    		try {
+    			p.forEach((object, index) => {
+    				pricesBewerbungen[index] = parseFloat(object.price);
+    			});
+    		} catch {
+    			
+    		}
     	});
 
-    	const writable_props = [];
+    	let priceTEMP = 0;
+
+    	const resetMe = () => {
+    		priceTEMP = 0;
+    		pricesBewerbungen = [];
+
+    		try {
+    			const checkboxes = get_store_value(bewerbungCheckboxes);
+
+    			for (let item of checkboxes) {
+    				item.checked = false;
+    			}
+    		} catch {
+    			
+    		}
+    	};
+
+    	const handleChecked = event => {
+    		// get all checkboxes
+    		const allCheckboxes = document.getElementsByName("checkbox");
+
+    		// set store so we can reset all checkboxes later
+    		bewerbungCheckboxes.set(allCheckboxes);
+
+    		// the current checkbox
+    		let currentCheckbox;
+
+    		// if the function was invoked from the link instead of the checkbox itself
+    		if (event.srcElement.name === "a-handler") {
+    			currentCheckbox = allCheckboxes.item(event.srcElement.id);
+    			currentCheckbox.checked = !currentCheckbox.checked;
+    		} else {
+    			currentCheckbox = event.srcElement;
+    		}
+
+    		let srcElementId = event.srcElement.id;
+
+    		// lastCheckbox = dropdownDataTypes[srcElementId];
+    		if (currentCheckbox.checked) {
+    			selectedCategories.update(obj => {
+    				obj["type"] = dropdownDataTypes[srcElementId];
+    				return obj;
+    			});
+
+    			priceTEMP += pricesBewerbungen[srcElementId];
+    		} else {
+    			selectedCategories.update(obj => {
+    				obj["type"] = null;
+    				return obj;
+    			});
+
+    			priceTEMP -= pricesBewerbungen[srcElementId];
+    		}
+
+    		if (priceTEMP === 0) {
+    			priceTEMP = "0.00";
+    		} else {
+    			// cast to float, toFixed returns a string
+    			priceTEMP = parseFloat(priceTEMP).toFixed(2);
+    		}
+
+    		calculatedPrice.set(priceTEMP);
+
+    		// cast string back to float
+    		priceTEMP = parseFloat(priceTEMP);
+    	};
+
+    	const writable_props = ["dropdownDataTypes"];
 
     	Object.keys($$props).forEach(key => {
-    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console_1$3.warn(`<BewerbungCheckboxes> was created with unknown prop '${key}'`);
+    		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<BewerbungCheckboxes> was created with unknown prop '${key}'`);
     	});
 
+    	$$self.$$set = $$props => {
+    		if ("dropdownDataTypes" in $$props) $$invalidate(0, dropdownDataTypes = $$props.dropdownDataTypes);
+    	};
+
     	$$self.$capture_state = () => ({
-    		services,
-    		groups,
-    		types,
+    		get: get_store_value,
     		selectedCategories,
-    		dropdownDataTypes
+    		price,
+    		calculatedPrice,
+    		bewerbungCheckboxes,
+    		dropdownDataTypes,
+    		pricesBewerbungen,
+    		priceTEMP,
+    		resetMe,
+    		handleChecked
     	});
 
     	$$self.$inject_state = $$props => {
     		if ("dropdownDataTypes" in $$props) $$invalidate(0, dropdownDataTypes = $$props.dropdownDataTypes);
+    		if ("pricesBewerbungen" in $$props) pricesBewerbungen = $$props.pricesBewerbungen;
+    		if ("priceTEMP" in $$props) priceTEMP = $$props.priceTEMP;
     	};
 
     	if ($$props && "$$inject" in $$props) {
     		$$self.$inject_state($$props.$$inject);
     	}
 
-    	return [dropdownDataTypes];
+    	return [dropdownDataTypes, handleChecked, resetMe];
     }
 
     class BewerbungCheckboxes extends SvelteComponentDev {
     	constructor(options) {
     		super(options);
-    		init(this, options, instance$3, create_fragment$3, safe_not_equal, {});
+    		init(this, options, instance$3, create_fragment$3, safe_not_equal, { dropdownDataTypes: 0, resetMe: 2 });
 
     		dispatch_dev("SvelteRegisterComponent", {
     			component: this,
@@ -3094,6 +3311,29 @@ var app = (function () {
     			options,
     			id: create_fragment$3.name
     		});
+
+    		const { ctx } = this.$$;
+    		const props = options.props || {};
+
+    		if (/*dropdownDataTypes*/ ctx[0] === undefined && !("dropdownDataTypes" in props)) {
+    			console.warn("<BewerbungCheckboxes> was created without expected prop 'dropdownDataTypes'");
+    		}
+    	}
+
+    	get dropdownDataTypes() {
+    		throw new Error("<BewerbungCheckboxes>: Props cannot be read directly from the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	set dropdownDataTypes(value) {
+    		throw new Error("<BewerbungCheckboxes>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+    	}
+
+    	get resetMe() {
+    		return this.$$.ctx[2];
+    	}
+
+    	set resetMe(value) {
+    		throw new Error("<BewerbungCheckboxes>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
     	}
     }
 
@@ -3116,13 +3356,13 @@ var app = (function () {
     	let div3;
     	let dropdown2;
     	let t5;
-    	let quantitytextfield;
+    	let textfieldquantity;
     	let t6;
     	let div4;
     	let bewerbungencheckboxes;
     	let t7;
     	let div5;
-    	let buttoncalculate;
+    	let pricedisplay;
     	let t8;
     	let hr;
     	let current;
@@ -3132,7 +3372,7 @@ var app = (function () {
     	dropdown0 = new Dropdown({
     			props: {
     				label: "Sie sind",
-    				options: /*dropdownDataGroups*/ ctx[0],
+    				options: /*dropdownDataGroups*/ ctx[1],
     				category: "group",
     				id: "dropdown-group",
     				initialDisableStatus: "false"
@@ -3143,7 +3383,7 @@ var app = (function () {
     	dropdown1 = new Dropdown({
     			props: {
     				label: "Sie benötigen",
-    				options: /*dropdownDataServices*/ ctx[1],
+    				options: /*dropdownDataServices*/ ctx[2],
     				category: "service",
     				id: "dropdown-service",
     				initialDisableStatus: "true"
@@ -3154,7 +3394,7 @@ var app = (function () {
     	dropdown2 = new Dropdown({
     			props: {
     				label: "Art der Arbeit",
-    				options: /*dropdownDataTypes*/ ctx[2],
+    				options: /*dropdownDataTypes*/ ctx[3],
     				category: "type",
     				id: "dropdown-type",
     				initialDisableStatus: "true"
@@ -3162,9 +3402,19 @@ var app = (function () {
     			$$inline: true
     		});
 
-    	quantitytextfield = new QuantityTextfield({ $$inline: true });
-    	bewerbungencheckboxes = new BewerbungCheckboxes({ $$inline: true });
-    	buttoncalculate = new ButtonCalculate({ $$inline: true });
+    	textfieldquantity = new TextfieldQuantity({ $$inline: true });
+
+    	let bewerbungencheckboxes_props = {
+    		dropdownDataTypes: /*dropdownDataTypes*/ ctx[3]
+    	};
+
+    	bewerbungencheckboxes = new BewerbungCheckboxes({
+    			props: bewerbungencheckboxes_props,
+    			$$inline: true
+    		});
+
+    	/*bewerbungencheckboxes_binding*/ ctx[6](bewerbungencheckboxes);
+    	pricedisplay = new PriceDisplay({ $$inline: true });
 
     	const block = {
     		c: function create() {
@@ -3184,39 +3434,39 @@ var app = (function () {
     			div3 = element("div");
     			create_component(dropdown2.$$.fragment);
     			t5 = space();
-    			create_component(quantitytextfield.$$.fragment);
+    			create_component(textfieldquantity.$$.fragment);
     			t6 = space();
     			div4 = element("div");
     			create_component(bewerbungencheckboxes.$$.fragment);
     			t7 = space();
     			div5 = element("div");
-    			create_component(buttoncalculate.$$.fragment);
+    			create_component(pricedisplay.$$.fragment);
     			t8 = space();
     			hr = element("hr");
-    			attr_dev(span, "class", "title svelte-mty8um");
-    			add_location(span, file$4, 53, 8, 1656);
-    			attr_dev(div0, "class", "close-icon svelte-mty8um");
+    			attr_dev(span, "class", "preisrechner-title svelte-198etr2");
+    			add_location(span, file$4, 61, 8, 1855);
+    			attr_dev(div0, "class", "close-icon svelte-198etr2");
     			attr_dev(div0, "id", "calculator-close-icon");
-    			add_location(div0, file$4, 54, 8, 1704);
-    			attr_dev(div1, "class", "preisrechner-title svelte-mty8um");
-    			add_location(div1, file$4, 52, 4, 1615);
-    			attr_dev(div2, "class", "calculator-top svelte-mty8um");
-    			add_location(div2, file$4, 57, 8, 1836);
-    			attr_dev(div3, "class", "calculator-mid-1 svelte-mty8um");
-    			attr_dev(div3, "id", "calculator-mid-1");
-    			add_location(div3, file$4, 73, 8, 2422);
-    			attr_dev(div4, "class", "calculator-mid-2 svelte-mty8um");
-    			attr_dev(div4, "id", "calculator-mid-2");
-    			add_location(div4, file$4, 83, 8, 2821);
-    			attr_dev(div5, "class", "calculator-button svelte-mty8um");
-    			add_location(div5, file$4, 87, 8, 2936);
-    			attr_dev(form, "class", "svelte-mty8um");
-    			add_location(form, file$4, 56, 4, 1773);
+    			add_location(div0, file$4, 62, 8, 1916);
+    			attr_dev(div1, "class", "preisrechner-title-wrapper svelte-198etr2");
+    			add_location(div1, file$4, 60, 4, 1806);
+    			attr_dev(div2, "class", "calculator-top svelte-198etr2");
+    			add_location(div2, file$4, 67, 8, 2089);
+    			attr_dev(div3, "class", "calculator-mid-regular svelte-198etr2");
+    			attr_dev(div3, "id", "calculator-mid-regular");
+    			add_location(div3, file$4, 83, 8, 2671);
+    			attr_dev(div4, "class", "calculator-mid-bewerbung svelte-198etr2");
+    			attr_dev(div4, "id", "calculator-mid-bewerbung");
+    			add_location(div4, file$4, 93, 8, 3078);
+    			attr_dev(div5, "class", "wrapper-price-display svelte-198etr2");
+    			add_location(div5, file$4, 99, 8, 3321);
+    			attr_dev(form, "class", "svelte-198etr2");
+    			add_location(form, file$4, 64, 4, 1985);
     			set_style(hr, "width", "100%");
-    			attr_dev(hr, "class", "svelte-mty8um");
-    			add_location(hr, file$4, 91, 4, 3031);
-    			attr_dev(div6, "class", "preisrechner-wrapper svelte-mty8um");
-    			add_location(div6, file$4, 51, 0, 1576);
+    			attr_dev(hr, "class", "svelte-198etr2");
+    			add_location(hr, file$4, 103, 4, 3417);
+    			attr_dev(div6, "class", "preisrechner-wrapper svelte-198etr2");
+    			add_location(div6, file$4, 59, 0, 1767);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -3237,50 +3487,57 @@ var app = (function () {
     			append_dev(form, div3);
     			mount_component(dropdown2, div3, null);
     			append_dev(div3, t5);
-    			mount_component(quantitytextfield, div3, null);
+    			mount_component(textfieldquantity, div3, null);
     			append_dev(form, t6);
     			append_dev(form, div4);
     			mount_component(bewerbungencheckboxes, div4, null);
     			append_dev(form, t7);
     			append_dev(form, div5);
-    			mount_component(buttoncalculate, div5, null);
+    			mount_component(pricedisplay, div5, null);
     			append_dev(div6, t8);
     			append_dev(div6, hr);
     			current = true;
 
     			if (!mounted) {
-    				dispose = listen_dev(form, "change", prevent_default(/*handleDropdownChange*/ ctx[3]), false, true, false);
+    				dispose = [
+    					listen_dev(form, "submit", prevent_default(/*submit_handler*/ ctx[5]), false, true, false),
+    					listen_dev(form, "change", prevent_default(/*handleDropdownChange*/ ctx[4]), false, true, false)
+    				];
+
     				mounted = true;
     			}
     		},
     		p: function update(ctx, [dirty]) {
     			const dropdown0_changes = {};
-    			if (dirty & /*dropdownDataGroups*/ 1) dropdown0_changes.options = /*dropdownDataGroups*/ ctx[0];
+    			if (dirty & /*dropdownDataGroups*/ 2) dropdown0_changes.options = /*dropdownDataGroups*/ ctx[1];
     			dropdown0.$set(dropdown0_changes);
     			const dropdown1_changes = {};
-    			if (dirty & /*dropdownDataServices*/ 2) dropdown1_changes.options = /*dropdownDataServices*/ ctx[1];
+    			if (dirty & /*dropdownDataServices*/ 4) dropdown1_changes.options = /*dropdownDataServices*/ ctx[2];
     			dropdown1.$set(dropdown1_changes);
     			const dropdown2_changes = {};
-    			if (dirty & /*dropdownDataTypes*/ 4) dropdown2_changes.options = /*dropdownDataTypes*/ ctx[2];
+    			if (dirty & /*dropdownDataTypes*/ 8) dropdown2_changes.options = /*dropdownDataTypes*/ ctx[3];
     			dropdown2.$set(dropdown2_changes);
+    			const bewerbungencheckboxes_changes = {};
+    			if (dirty & /*dropdownDataTypes*/ 8) bewerbungencheckboxes_changes.dropdownDataTypes = /*dropdownDataTypes*/ ctx[3];
+    			bewerbungencheckboxes.$set(bewerbungencheckboxes_changes);
     		},
     		i: function intro(local) {
     			if (current) return;
     			transition_in(dropdown0.$$.fragment, local);
     			transition_in(dropdown1.$$.fragment, local);
     			transition_in(dropdown2.$$.fragment, local);
-    			transition_in(quantitytextfield.$$.fragment, local);
+    			transition_in(textfieldquantity.$$.fragment, local);
     			transition_in(bewerbungencheckboxes.$$.fragment, local);
-    			transition_in(buttoncalculate.$$.fragment, local);
+    			transition_in(pricedisplay.$$.fragment, local);
     			current = true;
     		},
     		o: function outro(local) {
     			transition_out(dropdown0.$$.fragment, local);
     			transition_out(dropdown1.$$.fragment, local);
     			transition_out(dropdown2.$$.fragment, local);
-    			transition_out(quantitytextfield.$$.fragment, local);
+    			transition_out(textfieldquantity.$$.fragment, local);
     			transition_out(bewerbungencheckboxes.$$.fragment, local);
-    			transition_out(buttoncalculate.$$.fragment, local);
+    			transition_out(pricedisplay.$$.fragment, local);
     			current = false;
     		},
     		d: function destroy(detaching) {
@@ -3288,11 +3545,12 @@ var app = (function () {
     			destroy_component(dropdown0);
     			destroy_component(dropdown1);
     			destroy_component(dropdown2);
-    			destroy_component(quantitytextfield);
+    			destroy_component(textfieldquantity);
+    			/*bewerbungencheckboxes_binding*/ ctx[6](null);
     			destroy_component(bewerbungencheckboxes);
-    			destroy_component(buttoncalculate);
+    			destroy_component(pricedisplay);
     			mounted = false;
-    			dispose();
+    			run_all(dispose);
     		}
     	};
 
@@ -3310,35 +3568,44 @@ var app = (function () {
     function instance$4($$self, $$props, $$invalidate) {
     	let { $$slots: slots = {}, $$scope } = $$props;
     	validate_slots("App", slots, []);
-    	let dropdownDataGroups;
-    	let dropdownDataServices;
-    	let dropdownDataTypes;
+    	let BewerbungenCheckboxesInstance;
     	let selectedCategoriesTEMP;
 
     	selectedCategories.subscribe(data => {
     		selectedCategoriesTEMP = data;
     	});
 
+    	let dropdownDataGroups;
+
     	groups.subscribe(data => {
-    		$$invalidate(0, dropdownDataGroups = data);
+    		$$invalidate(1, dropdownDataGroups = data);
     	});
+
+    	let dropdownDataServices;
 
     	services.subscribe(data => {
-    		$$invalidate(1, dropdownDataServices = data);
+    		$$invalidate(2, dropdownDataServices = data);
     	});
+
+    	let dropdownDataTypes;
 
     	types.subscribe(data => {
-    		$$invalidate(2, dropdownDataTypes = data);
+    		$$invalidate(3, dropdownDataTypes = data);
     	});
 
+    	const bewerbungenReset = () => {
+    		BewerbungenCheckboxesInstance.resetMe();
+    	};
+
     	function handleDropdownChange(event) {
-    		const calculatorMidRegular = document.getElementById("calculator-mid-1");
-    		const calculatorMidBewerbung = document.getElementById("calculator-mid-2");
+    		const calculatorMidRegular = document.getElementById("calculator-mid-regular");
+    		const calculatorMidBewerbung = document.getElementById("calculator-mid-bewerbung");
 
     		if (selectedCategoriesTEMP.service === "Bewerbung") {
     			calculatorMidRegular.style.display = "none";
     			calculatorMidBewerbung.style.display = "flex";
     		} else {
+    			BewerbungenCheckboxesInstance.resetMe();
     			calculatorMidRegular.style.display = "flex";
     			calculatorMidBewerbung.style.display = "none";
     		}
@@ -3350,27 +3617,41 @@ var app = (function () {
     		if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$") console.warn(`<App> was created with unknown prop '${key}'`);
     	});
 
+    	function submit_handler(event) {
+    		bubble($$self, event);
+    	}
+
+    	function bewerbungencheckboxes_binding($$value) {
+    		binding_callbacks[$$value ? "unshift" : "push"](() => {
+    			BewerbungenCheckboxesInstance = $$value;
+    			$$invalidate(0, BewerbungenCheckboxesInstance);
+    		});
+    	}
+
     	$$self.$capture_state = () => ({
     		Dropdown,
-    		QuantityTextfield,
-    		ButtonCalculate,
+    		TextfieldQuantity,
+    		PriceDisplay,
     		BewerbungenCheckboxes: BewerbungCheckboxes,
+    		BewerbungenCheckboxesInstance,
     		services,
     		groups,
     		types,
     		selectedCategories,
+    		selectedCategoriesTEMP,
     		dropdownDataGroups,
     		dropdownDataServices,
     		dropdownDataTypes,
-    		selectedCategoriesTEMP,
+    		bewerbungenReset,
     		handleDropdownChange
     	});
 
     	$$self.$inject_state = $$props => {
-    		if ("dropdownDataGroups" in $$props) $$invalidate(0, dropdownDataGroups = $$props.dropdownDataGroups);
-    		if ("dropdownDataServices" in $$props) $$invalidate(1, dropdownDataServices = $$props.dropdownDataServices);
-    		if ("dropdownDataTypes" in $$props) $$invalidate(2, dropdownDataTypes = $$props.dropdownDataTypes);
+    		if ("BewerbungenCheckboxesInstance" in $$props) $$invalidate(0, BewerbungenCheckboxesInstance = $$props.BewerbungenCheckboxesInstance);
     		if ("selectedCategoriesTEMP" in $$props) selectedCategoriesTEMP = $$props.selectedCategoriesTEMP;
+    		if ("dropdownDataGroups" in $$props) $$invalidate(1, dropdownDataGroups = $$props.dropdownDataGroups);
+    		if ("dropdownDataServices" in $$props) $$invalidate(2, dropdownDataServices = $$props.dropdownDataServices);
+    		if ("dropdownDataTypes" in $$props) $$invalidate(3, dropdownDataTypes = $$props.dropdownDataTypes);
     	};
 
     	if ($$props && "$$inject" in $$props) {
@@ -3378,10 +3659,13 @@ var app = (function () {
     	}
 
     	return [
+    		BewerbungenCheckboxesInstance,
     		dropdownDataGroups,
     		dropdownDataServices,
     		dropdownDataTypes,
-    		handleDropdownChange
+    		handleDropdownChange,
+    		submit_handler,
+    		bewerbungencheckboxes_binding
     	];
     }
 

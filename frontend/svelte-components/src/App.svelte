@@ -1,8 +1,10 @@
 <script>
     import Dropdown from "../src/components/Dropdown.svelte";
-    import QuantityTextfield from "../src/components/QuantityTextfield.svelte";
-    import ButtonCalculate from "../src/components/ButtonCalculate.svelte";
+    import TextfieldQuantity from "../src/components/TextfieldQuantity.svelte";
+    import PriceDisplay from "./components/PriceDisplay.svelte";
     import BewerbungenCheckboxes from "../src/components/BewerbungCheckboxes.svelte";
+
+    let BewerbungenCheckboxesInstance;
 
     import {
         services,
@@ -11,37 +13,43 @@
         selectedCategories,
     } from "./stores/stores.js";
 
-    let dropdownDataGroups;
-    let dropdownDataServices;
-    let dropdownDataTypes;
-
     let selectedCategoriesTEMP;
-
     selectedCategories.subscribe((data) => {
         selectedCategoriesTEMP = data;
     });
 
+    let dropdownDataGroups;
     groups.subscribe((data) => {
         dropdownDataGroups = data;
     });
+
+    let dropdownDataServices;
     services.subscribe((data) => {
         dropdownDataServices = data;
     });
+
+    let dropdownDataTypes;
+
     types.subscribe((data) => {
         dropdownDataTypes = data;
     });
 
+    const bewerbungenReset = () => {
+        BewerbungenCheckboxesInstance.resetMe();
+    };
+
     function handleDropdownChange(event) {
         const calculatorMidRegular = document.getElementById(
-            "calculator-mid-1"
+            "calculator-mid-regular"
         );
         const calculatorMidBewerbung = document.getElementById(
-            "calculator-mid-2"
+            "calculator-mid-bewerbung"
         );
         if (selectedCategoriesTEMP.service === "Bewerbung") {
             calculatorMidRegular.style.display = "none";
             calculatorMidBewerbung.style.display = "flex";
         } else {
+            BewerbungenCheckboxesInstance.resetMe();
             calculatorMidRegular.style.display = "flex";
             calculatorMidBewerbung.style.display = "none";
         }
@@ -50,11 +58,13 @@
 
 <!-- MARKUP /////////////////////////////////////////////////////////////////////////////////////// -->
 <div class="preisrechner-wrapper">
-    <div class="preisrechner-title">
-        <span class="title">Preisrechner</span>
+    <div class="preisrechner-title-wrapper">
+        <span class="preisrechner-title">Preisrechner</span>
         <div class="close-icon" id="calculator-close-icon" />
     </div>
-    <form on:change|preventDefault={handleDropdownChange}>
+    <form
+        on:submit|preventDefault
+        on:change|preventDefault={handleDropdownChange}>
         <div class="calculator-top">
             <Dropdown
                 label={'Sie sind'}
@@ -70,23 +80,25 @@
                 id={'dropdown-service'}
                 initialDisableStatus="true" />
         </div>
-        <!-- the div rendered when anything but "Bewerbung" was selected -->
-        <div class="calculator-mid-1" id="calculator-mid-1">
+        <!-- div rendered when anything but "Bewerbung" was selected -->
+        <div class="calculator-mid-regular" id="calculator-mid-regular">
             <Dropdown
                 label={'Art der Arbeit'}
                 options={dropdownDataTypes}
                 category={'type'}
                 id={'dropdown-type'}
                 initialDisableStatus="true" />
-            <QuantityTextfield />
+            <TextfieldQuantity />
         </div>
-        <!-- the div rendered when "Bewerbung" was selected -->
-        <div class="calculator-mid-2" id="calculator-mid-2">
-            <BewerbungenCheckboxes />
+        <!-- div rendered when "Bewerbung" was selected -->
+        <div class="calculator-mid-bewerbung" id="calculator-mid-bewerbung">
+            <BewerbungenCheckboxes
+                bind:this={BewerbungenCheckboxesInstance}
+                dropdownDataTypes={dropdownDataTypes} />
         </div>
 
-        <div class="calculator-button">
-            <ButtonCalculate />
+        <div class="wrapper-price-display">
+            <PriceDisplay />
         </div>
     </form>
     <hr style="width: 100%" />
@@ -116,7 +128,7 @@
         justify-content: space-between;
         align-items: center;
     }
-    .calculator-mid-1 {
+    .calculator-mid-regular {
         grid-column: 1 / 3;
         grid-row: 2;
         width: 100%;
@@ -126,7 +138,7 @@
         align-items: center;
     }
 
-    .calculator-mid-2 {
+    .calculator-mid-bewerbung {
         margin-top: 16px;
         padding-left: 34px;
         grid-column: 2 / 3;
@@ -138,10 +150,10 @@
         align-items: center;
     }
 
-    .calculator-button {
+    .wrapper-price-display {
         grid-column: 1 / 3;
         grid-row: 3;
-        margin-top: 32px;
+        margin-top: 16px;
     }
 
     form {
@@ -159,10 +171,10 @@
         grid-template-rows: auto auto auto auto;
     }
 
-    .preisrechner-title {
+    .preisrechner-title-wrapper {
         text-transform: uppercase;
         width: 100%;
-        height: 40px;
+        height: 60px;
         /* padding-top: 10px; */
         /* border: 1px solid red; */
         display: grid;
@@ -174,12 +186,12 @@
         /* border: 1px solid red; */
     }
 
-    .title {
+    .preisrechner-title {
         /* border: 2px solid green; */
-        grid-column-start: 2;
-        grid-column-end: 10;
-        font-weight: 700;
-        font-size: 14px;
+        grid-column: 3 / 9;
+        font-weight: 500;
+        font-size: 16px;
+        display: inline;
         /* text-decoration: underline; */
     }
 
@@ -188,10 +200,10 @@
         background: url("../../../static/images/icon_calculator_close.svg")
             no-repeat;
         background-size: contain;
+        margin-left: 70px;
         width: 20px;
         height: 20px;
-        grid-column-start: 10;
-        margin-left: 0px;
+        grid-column: 9 / 11;
     }
 
     .close-icon:hover {
@@ -217,22 +229,6 @@
         overflow: hidden;
     }
 
-    .right-2 {
-        grid-area: right-2;
-        justify-self: start;
-        margin-left: 10px;
-    }
-
-    .price {
-        grid-area: price;
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        margin-top: 32px;
-        /* border: 1px solid red; */
-    }
-
     /* ----------- 1280-WIDTH */
     @media (min-width: 1280px) {
     }
@@ -241,38 +237,74 @@
     }
     /* ----------- 600-WIDTH */
     @media (max-width: 959px) {
+        .close-icon {
+            margin-left: 30px;
+        }
+
         .preisrechner-wrapper {
             width: 512px;
             height: 998px;
             margin: auto;
             margin-top: 40px;
         }
+
         .calculator-top {
             flex-direction: column;
         }
-        .calculator-mid-2 {
-            margin-top: 16px;
-            /* padding-left: 34px; */
+        .calculator-mid-bewerbung {
+            padding: 0;
+            padding-left: 80px;
             grid-column: 1 / 3;
-            grid-row: 2;
-            width: 100%;
             display: none;
             flex-direction: row;
-            justify-content: center;
+            justify-content: start;
             align-items: center;
-            border: 1px solid red;
         }
-        .calculator-mid-1 {
+        .calculator-mid-regular {
             flex-direction: column;
         }
     }
     /* ----------- 320-WIDTH */
     @media (max-width: 599px) {
+        .close-icon {
+            margin-left: 0;
+        }
+        form {
+            padding: 0 10px 0px 10px;
+        }
+
+        .calculator-mid-bewerbung {
+            padding-left: 16px;
+        }
+
         .preisrechner-wrapper {
             width: 300px;
             height: 1068px;
             margin: auto;
             margin-top: 10px;
+        }
+
+        .preisrechner-title-wrapper {
+            height: 50px;
+        }
+
+        .preisrechner-title {
+            /* border: 2px solid green; */
+            grid-column-start: 3;
+            grid-column-end: 9;
+            font-weight: 500;
+            font-size: 16px;
+
+            display: inline;
+            /* text-decoration: underline; */
+        }
+        .close-icon {
+            display: flex;
+            justify-content: center;
+            grid-column-start: 9;
+            grid-column-end: 11;
+            margin-left: 0px;
+            grid-row: 1;
         }
     }
 </style>

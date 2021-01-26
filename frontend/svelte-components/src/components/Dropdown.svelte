@@ -1,5 +1,12 @@
 <script>
-    import { selectedCategories, disableCalcButton } from "../stores/stores";
+    import {
+        selectedCategories,
+        priceDisableStatus,
+        price,
+        quantity,
+        calculatedPrice,
+    } from "../stores/stores";
+
     import { get } from "svelte/store";
 
     export let options;
@@ -15,10 +22,9 @@
     let resetId = `reset-${category}`;
     let labelIdentifier = `label-${category}`;
     let selectWrapperId = `wrapper-${category}`;
-
     let currentSelection;
+
     const handleChange = () => {
-        console.log(id);
         const defaultOptionService = document.getElementById("reset-service");
         const dropdownService = document.getElementById("dropdown-service");
         const selectWrapperService = document.getElementById("wrapper-service");
@@ -27,9 +33,9 @@
         const dropdownType = document.getElementById("dropdown-type");
         const selectWrapperType = document.getElementById("wrapper-type");
 
-        // when a 'group' was selected reset all other selections;
+        // when a 'group' was selected reset selections for 'service' and 'type';
         // enable 'dropdownService' (it's disabled before a 'group' was selected)
-        // disable 'dropdownType' (since all was reset and therefor no 'service' is selected anymore either)
+        // disable 'dropdownType' (since all was reset and therefor no 'service' is selected anymore (or yet))
         if (currentSelection.category === "group") {
             // reset the 'service' and 'type' selection
             selectedCategories.update((obj) => {
@@ -51,9 +57,12 @@
             defaultOptionType.selected = "true";
         }
 
-        // when a 'service' was picked reset the selected 'type' and
+        // when a 'service' was selected, reset the selected 'type' and
         // enable 'dropdown-type' (it's disabled before a 'service' was picked)
-        if (currentSelection.category === "service") {
+        if (
+            currentSelection.category === "service" &&
+            currentSelection.category !== "Bewerbung"
+        ) {
             // reset 'type' selection
             selectedCategories.update((obj) => {
                 obj["type"] = null;
@@ -67,11 +76,27 @@
             selectWrapperType.classList.remove("inactive");
             defaultOptionType.selected = "true";
         }
-        // when a 'type' was selected enable the button
+        // when a 'type' is selected, remove the disabled status from 'priceDisplay'
         if (currentSelection.category === "type") {
-            disableCalcButton.set(false);
+            // update current calculated price
+            let priceTEMP;
+            price.subscribe((p) => {
+                priceTEMP = p;
+                const quantityTEMP = parseFloat(get(quantity));
+                console.log(priceTEMP);
+                console.log(quantityTEMP);
+
+                let finalPrice = (quantityTEMP * priceTEMP).toFixed(2);
+                console.log(finalPrice);
+                if (finalPrice == "NaN") {
+                    finalPrice = "0.00";
+                }
+                quantity.set(quantityTEMP);
+                calculatedPrice.set(finalPrice);
+            });
+            priceDisableStatus.set(false);
         } else {
-            disableCalcButton.set(true);
+            priceDisableStatus.set(true);
         }
         // update the global 'selectedCategories' object
         selectedCategories.update((obj) => {

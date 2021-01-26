@@ -2,6 +2,7 @@ import { writable, get } from "svelte/store";
 import pp from "papaparse";
 const ppConfig = { header: true };
 import axios from "axios";
+import { subscribe } from "svelte/internal";
 const apiPath = "http://localhost:1337";
 
 export const groups = writable([]);
@@ -12,13 +13,15 @@ export const quantity = writable(1);
 export const price = writable(0);
 export const calculatedPrice = writable("0.00");
 
-export const disableCalcButton = writable(true);
+export const priceDisableStatus = writable(true);
 
 export const selectedCategories = writable({
     group: null,
     service: null,
     type: null,
 });
+
+export const bewerbungCheckboxes = writable();
 
 export const prices = writable();
 
@@ -102,8 +105,14 @@ fetchedCSVData
         return pricesTEMP;
     })
     .then((pricesTEMP) => {
+        console.log(
+            "------------------------then pricesTEMP=-------------------------"
+        );
         // object { group, service, type }
         selectedCategories.subscribe((object) => {
+            console.log(get(selectedCategories));
+            quantity.set(1);
+            calculatedPrice.set("0.00");
             // construct a new set of distinct 'groups', sort them and
             // assign resulting array to writable() "group"
             const groupsTEMP = Array.from(
@@ -150,6 +159,15 @@ fetchedCSVData
                 );
                 typesTEMP.sort();
                 types.set(typesTEMP);
+                // console.log(object.service);
+                // if (object.service !== "Bewerbung") {
+                //     try {
+                //         const checkboxes = get(bewerbungCheckboxes);
+                //         for (let item of checkboxes) {
+                //             item.checked = false;
+                //         }
+                //     } catch {}
+                // }
             }
             // if a full, distinct selection was made,
             // get the price
@@ -164,13 +182,19 @@ fetchedCSVData
                 filteredPrices = filteredPrices.filter((entry) => {
                     return entry.service === object.service;
                 });
-                filteredPrices = filteredPrices.filter((entry) => {
-                    return entry.type === object.type;
-                });
 
-                console.log(filteredPrices[0].price);
-                price.set(filteredPrices[0].price);
-                disableCalcButton.set(false);
+                if (object.service !== "Bewerbung") {
+                    filteredPrices = filteredPrices.filter((entry) => {
+                        return entry.type === object.type;
+                    });
+                    price.set(filteredPrices[0].price);
+                } else {
+                    console.log("price Bewerbungen set");
+                    console.log(filteredPrices);
+                    price.set(filteredPrices);
+                }
+
+                priceDisableStatus.set(false);
             }
         }); // end of subscribe()
     }); // end of then()
