@@ -3,6 +3,7 @@
     import TextfieldQuantity from "../src/components/TextfieldQuantity.svelte";
     import PriceDisplay from "./components/PriceDisplay.svelte";
     import BewerbungenCheckboxes from "../src/components/BewerbungCheckboxes.svelte";
+    import MailForm from "../src/components/MailForm.svelte";
 
     let BewerbungenCheckboxesInstance;
 
@@ -102,10 +103,7 @@
         </div>
     </form>
     <hr style="width: 100%" />
-
-    <!-- <form class="form-Email" on:submit|preventDefault>
-        <p>email form</p>
-    </form> -->
+    <MailForm />
 </div>
 
 <!-- STYLES /////////////////////////////////////////////////////////////////////////////////////// -->
@@ -119,6 +117,7 @@
         font-style: normal;
         list-style: none;
     }
+
     .calculator-top {
         grid-column: 1 / 3;
         grid-row: 1;
@@ -215,7 +214,7 @@
 
     .preisrechner-wrapper {
         width: 700px;
-        height: 800px;
+        height: auto;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -227,6 +226,7 @@
         box-shadow: 10px 10px 40px rgba(0, 0, 0, 0.25);
         border-radius: 25px;
         overflow: hidden;
+        padding-bottom: 32px;
     }
 
     /* ----------- 1280-WIDTH */
@@ -243,7 +243,7 @@
 
         .preisrechner-wrapper {
             width: 512px;
-            height: 998px;
+            height: auto;
             margin: auto;
             margin-top: 40px;
         }
@@ -279,7 +279,7 @@
 
         .preisrechner-wrapper {
             width: 300px;
-            height: 1068px;
+            height: auto;
             margin: auto;
             margin-top: 10px;
         }

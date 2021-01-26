@@ -45,14 +45,14 @@
         bewerbungCheckboxes.set(allCheckboxes);
         // the current checkbox
         let currentCheckbox;
-        // if the function was invoked from the link instead of the checkbox itself
+        // if the function was invoked from link instead of checkbox
         if (event.srcElement.name === "a-handler") {
             currentCheckbox = allCheckboxes.item(event.srcElement.id);
             currentCheckbox.checked = !currentCheckbox.checked;
         } else {
             currentCheckbox = event.srcElement;
         }
-        let srcElementId = event.srcElement.id;
+        const srcElementId = event.srcElement.id;
         // lastCheckbox = dropdownDataTypes[srcElementId];
         if (currentCheckbox.checked) {
             selectedCategories.update((obj) => {

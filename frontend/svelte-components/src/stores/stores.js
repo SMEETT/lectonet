@@ -105,12 +105,8 @@ fetchedCSVData
         return pricesTEMP;
     })
     .then((pricesTEMP) => {
-        console.log(
-            "------------------------then pricesTEMP=-------------------------"
-        );
         // object { group, service, type }
         selectedCategories.subscribe((object) => {
-            console.log(get(selectedCategories));
             quantity.set(1);
             calculatedPrice.set("0.00");
             // construct a new set of distinct 'groups', sort them and
@@ -159,16 +155,8 @@ fetchedCSVData
                 );
                 typesTEMP.sort();
                 types.set(typesTEMP);
-                // console.log(object.service);
-                // if (object.service !== "Bewerbung") {
-                //     try {
-                //         const checkboxes = get(bewerbungCheckboxes);
-                //         for (let item of checkboxes) {
-                //             item.checked = false;
-                //         }
-                //     } catch {}
-                // }
             }
+
             // if a full, distinct selection was made,
             // get the price
             if (
@@ -183,6 +171,8 @@ fetchedCSVData
                     return entry.service === object.service;
                 });
 
+                // for 'Bewerbungen' set 'price' to whole object
+                // including all prices for all 'types'
                 if (object.service !== "Bewerbung") {
                     filteredPrices = filteredPrices.filter((entry) => {
                         return entry.type === object.type;
