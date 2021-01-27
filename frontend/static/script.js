@@ -22,15 +22,6 @@ const hamburger_logo = document.getElementById("hamburger-logo");
 const hamburger_icon = document.getElementById("hamburger-icon");
 
 window.addEventListener("DOMContentLoaded", () => {
-	const foto = document.getElementsByClassName("picture")[0];
-	const wrapperTopMargin = parseInt(window.getComputedStyle(wrapper).marginTop.slice(0, 2));
-	// console.log(wrapperTopMargin);
-	const foto_bottom = foto.offsetHeight + foto.offsetTop - wrapperTopMargin;
-	// console.log(foto.offsetHeight);
-	// console.log(foto.offsetTop);
-	// console.log(foto_bottom);
-	wrapper.style.backgroundSize = `100% ${foto_bottom}px`;
-
 	let calculatorOpen = false;
 	const openCalculatorButton = document.getElementById("open-calculator-btn");
 	const priceCalculatorCloseIcon = document.getElementById("calculator-close-icon");
@@ -52,16 +43,6 @@ window.addEventListener("DOMContentLoaded", () => {
 	openCalculatorButton.addEventListener("click", toggleCalculatorOverlay);
 	priceCalculatorCloseIcon.addEventListener("click", toggleCalculatorOverlay);
 });
-
-// console.log(foto_bottom);
-// console.log(foto);
-// console.log(foto.offsetLeft);
-// wrapper.style.backgroundSize = `100% ${foto_bottom}px`;
-
-// console.log(foto.getBoundingClientRect());
-
-// const foto_offsetHeight = foto.offsetHeight;
-// console.log(foto_offsetHeight);
 
 // #############################################
 // media queries
@@ -132,8 +113,6 @@ mq_600.addEventListener("change", handleMediaQuery);
 // #############################################
 // handling the dropdown menu
 // #############################################
-
-// const wrapperTopMargin = parseInt(window.getComputedStyle(wrapper).marginTop.slice(0, 2));
 
 // eventListener to show the dropdown-menu background (wrapper)
 dropdown_wrapper.addEventListener("mouseout", onMouseOutHandler, true);

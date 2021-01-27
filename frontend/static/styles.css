@@ -78,6 +78,11 @@ body.overflow {
 }
 
 .wrapper.index {
+}
+
+.gradient {
+	grid-column: 1/3;
+	grid-row: 1/3;
 	background: linear-gradient(270.31deg, #ffffff 0.25%, rgba(255, 255, 255, 0) 99.71%), #c4c4c4;
 	background-repeat: no-repeat;
 }

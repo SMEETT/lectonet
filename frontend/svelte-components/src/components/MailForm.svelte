@@ -1,33 +1,149 @@
 <script>
+    import { regSchema } from "../helpers/schema.js";
+    import axios from "axios";
+
+    import {
+        priceDisableStatus,
+        selectedCategories,
+        calculatedPrice,
+        quantity,
+    } from "../stores/stores.js";
+
+    const fields = {
+        firstname: "",
+        lastname: "",
+        email: "",
+        agreed: false,
+        priceCalculated: "",
+    };
+    let errors = {};
+    let foundError = false;
+    let formSuccessfullySubmitted = false;
+
+    const extractErrors = ({ inner }) => {
+        return inner.reduce((acc, err) => {
+            return { ...acc, [err.path]: err.message };
+        }, {});
+    };
+
+    priceDisableStatus.subscribe((status) => {
+        fields.priceCalculated = !status;
+    });
+
+    const handleSubmit = () => {
+        console.log(fields);
+        const result = regSchema.validate(fields, { abortEarly: false });
+        result
+            .then((res) => {
+                console.log(res);
+                errors = {};
+                foundError = false;
+                axios
+                    .post(
+                        "http://localhost:1338/send/price",
+                        {},
+                        {
+                            params: {
+                                firstname: fields.firstname,
+                                lastname: fields.lastname,
+                                email: fields.email,
+                                service: $selectedCategories.service,
+                                type: $selectedCategories.type,
+                                price: $calculatedPrice,
+                                quantity: $quantity,
+                            },
+                        }
+                    )
+                    .then((response) => {
+                        console.log(response);
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                    });
+
+                formSuccessfullySubmitted = true;
+            })
+            .catch((err) => {
+                errors = extractErrors(err);
+                foundError = true;
+                console.log(errors);
+                formSuccessfullySubmitted = false;
+            });
+    };
+
+    const handleBack = () => {
+        formSuccessfullySubmitted = false;
+    };
 </script>
 
-<form class="email" on:submit|preventDefault>
-    <div class="email-form-desc">
-        Sit dui diam, suspendisse in nunc. Leo lacus, eget pretium consectetur.
+{#if !formSuccessfullySubmitted}
+    <form class="email" on:submit|preventDefault>
+        <div class="email-form-desc">
+            Sit dui diam, suspendisse in nunc. Leo lacus, eget pretium
+            consectetur.
+        </div>
+        <div class="email-form-name">
+            <input
+                bind:value={fields.firstname}
+                type="text"
+                name="firstname"
+                class="name"
+                placeholder="Vorname" />
+            <input
+                bind:value={fields.lastname}
+                type="text"
+                name="lastname"
+                class="name"
+                placeholder="Name" />
+        </div>
+        <div class="email-form-address">
+            <input
+                bind:value={fields.email}
+                class="email"
+                type="text"
+                name="email"
+                placeholder="E-Mail Adresse" />
+        </div>
+        <div class="email-form-checkboxes">
+            <input
+                bind:checked={fields.agreed}
+                type="checkbox"
+                class="checkbox"
+                name="checkbox" />
+            <label for="checkbox">Mit Datenschutzerklärung einverstanden</label>
+        </div>
+        {#if foundError}
+            <div class="errors">
+                <ul />
+                {#if errors.priceCalculated}
+                    <li>{errors.priceCalculated}</li>
+                {/if}
+                {#if errors.firstname}
+                    <li>{errors.firstname}</li>
+                {/if}
+                {#if errors.lastname}
+                    <li>{errors.lastname}</li>
+                {/if}
+                {#if errors.email}
+                    <li>{errors.email}</li>
+                {/if}
+                {#if errors.agreed}
+                    <li>{errors.agreed}</li>
+                {/if}
+            </div>
+        {/if}
+        <div class="email-form-button">
+            <button
+                on:click|preventDefault={handleSubmit}
+                class="btn outline">Abschicken</button>
+        </div>
+    </form>
+{:else}
+    <div class="success">
+        <p>Danke dass Sie Lectonet nutzen. Bei weiteren Fragen...</p>
+        <button class="btn outline back" on:click={handleBack}>Zurück</button>
     </div>
-    <div class="email-form-name">
-        <input type="text" name="lastname" class="name" placeholder="Name" />
-        <input
-            type="text"
-            name="firstname"
-            class="name"
-            placeholder="Vorname" />
-    </div>
-    <div class="email-form-address">
-        <input
-            class="email"
-            type="text"
-            name="email"
-            placeholder="E-Mail Adresse" />
-    </div>
-    <div class="email-form-checkboxes">
-        <input type="checkbox" class="checkbox" name="checkbox" />
-        <label for="checkbox">Mit Datenschutzerklärung einverstanden</label>
-    </div>
-    <div class="email-form-button">
-        <button class="btn outline">Abschicken</button>
-    </div>
-</form>
+{/if}
 
 <style>
     * {
@@ -37,7 +153,31 @@
         transition: 0.15s;
         font-family: Montserrat;
         font-style: normal;
-        list-style: none;
+    }
+
+    li {
+        list-style: square;
+        margin-top: 4px;
+    }
+
+    .success {
+        display: flex;
+        flex-direction: column;
+        margin-top: 32px;
+        padding: 0 10px;
+    }
+
+    p {
+        font-weight: 500;
+    }
+
+    .errors {
+        margin-top: 16px;
+        padding: 16px 16px;
+        border: 3px solid red;
+        border-radius: 10px;
+        grid-row: 5;
+        font-size: 14px;
     }
     form.email {
         display: grid;
@@ -51,7 +191,7 @@
         /* border: 1px solid red; */
         padding: 0 50px 10px 50px;
         grid-template-columns: 100%;
-        grid-template-rows: auto auto auto auto auto;
+        grid-template-rows: auto auto auto auto auto auto;
     }
 
     .email-form-desc {
@@ -109,7 +249,7 @@
     }
 
     .email-form-button {
-        grid-row: 5;
+        grid-row: 6;
         margin-top: 16px;
     }
 
@@ -128,6 +268,11 @@
         background: transparent;
         color: var(--default-grey);
     }
+
+    .btn.outline.back {
+        margin-top: 16px;
+    }
+
     .btn.outline:hover {
         background: var(--default-grey);
         color: white;

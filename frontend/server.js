@@ -31,7 +31,7 @@ app.use(
 			"block-all-mixed-content": true,
 			"font-src": ["https://fonts.googleapis.com", "https://fonts.gstatic.com"],
 			"frame-ancestors": [NONE],
-			"connect-src": [apiPath, "ws://localhost:*"],
+			"connect-src": [apiPath, "http://localhost:*", "ws://localhost:*"],
 		},
 	})
 );
@@ -93,8 +93,38 @@ app.get("/:path", (req, res) => {
 // send 'Preisrechner' E-Mail
 //////////////////////////////////
 
-app.get("/send/price", (req, res) => {
+app.post("/send/price", (req, res) => {
 	const receiver = req.query.email;
+	const firstname = req.query.firstname;
+	const lastname = req.query.lastname;
+	const price = req.query.price;
+	const service = req.query.service;
+	const type = req.query.type;
+	const quantity = req.query.quantity;
+	const subject = "Ihre Preisanfrage auf Lectonet.de";
+	const html = `<b>Sehr geehrte(r) ${firstname} ${lastname}! </b><br>
+    <br>
+    Anbei finden Sie den von Ihnen berechneten Preis:<br>
+    <br>
+    <b>Leistung: </b>${service}<br>
+    <b>Art: </b>${type}<br>
+    <b>Umfang: </b>${quantity} Seite(n)<br>
+    <b>Preis: </b>${price} €<br>
+    <br>
+    Bei weiteren Fragen stehen wir Ihnen gerne zur Verfügung.<br/>
+    <br>
+    Mit freundlichen Grüßen, <br>
+    R. Wackwitz, Geschäftsführer<br>
+    <br>
+    <img src="cid:unique@kreata.ee"/><br>
+    Rüdiger Wackwitz<br>
+    Eine Straße 17<br>
+    53215 Ort<br>
+    <br>
+    02214 / 4236231<br>
+    info@lectonet.de<br>
+    www.lectonet.de<br>
+    `;
 
 	// create reusable transporter object using the default SMTP transport
 	const transporter = nodemailer.createTransport({
@@ -113,16 +143,22 @@ app.get("/send/price", (req, res) => {
 	const mailData = {
 		from: "preisrechner@lectonet.de", // sender address
 		to: receiver, // list of receivers
-		subject: "Sending Email using Node.js",
-		text: "That was easy!",
-		html: "<b>Hey there! </b><br> This is our first message sent with Nodemailer<br/>",
+		subject: subject,
+		html: html,
+		attachments: [
+			{
+				filename: "logo_grey.svg",
+				path: "../frontend/static/images/logo_grey.svg",
+				cid: "unique@kreata.ee", //same cid value as in the html img src
+			},
+		],
 	};
 
 	transporter.sendMail(mailData, function (err, info) {
 		if (err) console.log(err);
 		else console.log(info);
 	});
-	return;
+	res.end();
 });
 
 const port = process.env.PORT || 1338;

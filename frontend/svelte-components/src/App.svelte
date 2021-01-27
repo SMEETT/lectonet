@@ -5,6 +5,7 @@
     import BewerbungenCheckboxes from "../src/components/BewerbungCheckboxes.svelte";
     import MailForm from "../src/components/MailForm.svelte";
 
+    // instance used to invoke 'resetMe' in componenent 'BewerbungenCheckboxes'
     let BewerbungenCheckboxesInstance;
 
     import {
