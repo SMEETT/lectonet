@@ -1,15 +1,8 @@
 <script>
-    import {
-        price,
-        quantity,
-        calculatedPrice,
-        priceDisableStatus,
-    } from "../stores/stores.js";
-    import { get } from "svelte/store";
+    import { calculatedPrice, priceDisableStatus } from "../stores/stores.js";
 
     let disabled;
     priceDisableStatus.subscribe((status) => {
-        // console.log(status);
         disabled = status;
     });
 
@@ -41,9 +34,6 @@
         padding: 0;
         font-family: Montserrat;
         display: block;
-        /* text-decoration-line: underline;
-        text-decoration-style: double; */
-        /* border: 1px solid red; */
     }
 
     p.inactive {

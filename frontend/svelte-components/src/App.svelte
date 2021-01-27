@@ -31,7 +31,6 @@
     });
 
     let dropdownDataTypes;
-
     types.subscribe((data) => {
         dropdownDataTypes = data;
     });
@@ -98,7 +97,6 @@
                 bind:this={BewerbungenCheckboxesInstance}
                 dropdownDataTypes={dropdownDataTypes} />
         </div>
-
         <div class="wrapper-price-display">
             <PriceDisplay />
         </div>
@@ -158,14 +156,10 @@
 
     form {
         display: grid;
-        /* column-gap: 20px; */
-        /* row-gap: 16px; */
-        /* grid-auto-flow: column; */
         justify-items: center;
         align-items: center;
         width: 100%;
         height: auto;
-        /* border: 1px solid red; */
         padding: 0 50px 10px 50px;
         grid-template-columns: 50% 50%;
         grid-template-rows: auto auto auto auto;
@@ -175,28 +169,21 @@
         text-transform: uppercase;
         width: 100%;
         height: 60px;
-        /* padding-top: 10px; */
-        /* border: 1px solid red; */
         display: grid;
         grid-template-columns: 1fr repeat(8, 1fr) 1fr;
         justify-items: center;
         align-items: center;
         background-color: #f5f5f5;
-        /* align-items: center; */
-        /* border: 1px solid red; */
     }
 
     .preisrechner-title {
-        /* border: 2px solid green; */
         grid-column: 3 / 9;
         font-weight: 500;
         font-size: 16px;
         display: inline;
-        /* text-decoration: underline; */
     }
 
     .close-icon {
-        /* border: 1px solid blue; */
         background: url("../../../static/images/icon_calculator_close.svg")
             no-repeat;
         background-size: contain;
@@ -290,14 +277,11 @@
         }
 
         .preisrechner-title {
-            /* border: 2px solid green; */
             grid-column-start: 3;
             grid-column-end: 9;
             font-weight: 500;
             font-size: 16px;
-
             display: inline;
-            /* text-decoration: underline; */
         }
         .close-icon {
             display: flex;

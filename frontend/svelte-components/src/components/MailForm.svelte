@@ -7,6 +7,7 @@
         selectedCategories,
         calculatedPrice,
         quantity,
+        bewerbungenSelectedTypes,
     } from "../stores/stores.js";
 
     const fields = {
@@ -30,6 +31,26 @@
         fields.priceCalculated = !status;
     });
 
+    let typeOrTypes;
+
+    bewerbungenSelectedTypes.subscribe((obj) => {
+        if ($selectedCategories.service === "Bewerbung") {
+            typeOrTypes = obj;
+            try {
+                typeOrTypes = typeOrTypes.join(", ");
+                console.log(typeOrTypes);
+            } catch {}
+        } else {
+            typeOrTypes = $selectedCategories.type;
+        }
+    });
+
+    selectedCategories.subscribe((obj) => {
+        if ($selectedCategories.service !== "Bewerbung") {
+            typeOrTypes = obj.type;
+        }
+    });
+
     const handleSubmit = () => {
         console.log(fields);
         const result = regSchema.validate(fields, { abortEarly: false });
@@ -48,7 +69,7 @@
                                 lastname: fields.lastname,
                                 email: fields.email,
                                 service: $selectedCategories.service,
-                                type: $selectedCategories.type,
+                                type: typeOrTypes,
                                 price: $calculatedPrice,
                                 quantity: $quantity,
                             },
@@ -179,6 +200,7 @@
         grid-row: 5;
         font-size: 14px;
     }
+
     form.email {
         display: grid;
         /* column-gap: 20px; */

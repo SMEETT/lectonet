@@ -101,14 +101,27 @@ app.post("/send/price", (req, res) => {
 	const service = req.query.service;
 	const type = req.query.type;
 	const quantity = req.query.quantity;
+
+	// don't show 'quantity' when 'Bewerbung' was selected
+	let interchangeableBit;
+	if (service === "Bewerbung") {
+		interchangeableBit = `
+        <b>Umfang: </b>${type}<br>
+        `;
+	} else {
+		interchangeableBit = `
+        <b>Art: </b>${type}<br>
+        <b>Umfang: </b>${quantity} Seite(n)<br>
+        `;
+	}
+
 	const subject = "Ihre Preisanfrage auf Lectonet.de";
 	const html = `<b>Sehr geehrte(r) ${firstname} ${lastname}! </b><br>
     <br>
     Anbei finden Sie den von Ihnen berechneten Preis:<br>
     <br>
     <b>Leistung: </b>${service}<br>
-    <b>Art: </b>${type}<br>
-    <b>Umfang: </b>${quantity} Seite(n)<br>
+    ${interchangeableBit}
     <b>Preis: </b>${price} €<br>
     <br>
     Bei weiteren Fragen stehen wir Ihnen gerne zur Verfügung.<br/>

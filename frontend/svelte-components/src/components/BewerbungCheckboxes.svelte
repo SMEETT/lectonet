@@ -6,6 +6,8 @@
         price,
         calculatedPrice,
         bewerbungCheckboxes,
+        bewerbungenSelectedTypes,
+        priceDisableStatus,
     } from "../stores/stores.js";
 
     // 'types' (received from App.svelte)
@@ -14,8 +16,11 @@
     // temporary store for all prices
     let pricesBewerbungen = [];
 
+    // temporary store for all selected 'Types'
+    let bewerbungenSelectedTypesTEMP = [];
+
     // we get a collection of prices, therefor we loop over them
-    // and store all prices in an array
+    // and store all prices in an array (at a fixed index to preserve order)
     price.subscribe((p) => {
         try {
             p.forEach((object, index) => {
@@ -69,10 +74,31 @@
         }
         if (priceTEMP === 0) {
             priceTEMP = "0.00";
+            priceDisableStatus.update((status) => {
+                status = true;
+                return status;
+            });
         } else {
             // cast to float, toFixed returns a string
             priceTEMP = parseFloat(priceTEMP).toFixed(2);
         }
+
+        if (
+            !bewerbungenSelectedTypesTEMP.includes(
+                dropdownDataTypes[srcElementId]
+            )
+        ) {
+            bewerbungenSelectedTypesTEMP.push(dropdownDataTypes[srcElementId]);
+        } else {
+            bewerbungenSelectedTypesTEMP = bewerbungenSelectedTypesTEMP.filter(
+                (v) => v !== dropdownDataTypes[srcElementId]
+            );
+        }
+
+        bewerbungenSelectedTypes.set(bewerbungenSelectedTypesTEMP);
+
+        console.log(bewerbungenSelectedTypesTEMP);
+
         calculatedPrice.set(priceTEMP);
         // cast string back to float
         priceTEMP = parseFloat(priceTEMP);

@@ -22,6 +22,7 @@ export const selectedCategories = writable({
 });
 
 export const bewerbungCheckboxes = writable();
+export const bewerbungenSelectedTypes = writable();
 
 export const prices = writable();
 
