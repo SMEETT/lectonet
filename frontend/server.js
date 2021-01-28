@@ -11,7 +11,7 @@ const ejs = require("ejs");
 const fs = require("fs");
 const md = require("markdown-it")();
 
-// api base path
+// environment variables
 const apiPath = process.env.apiPath || "http://localhost:1337";
 const priceCalcMailPW = process.env.priceCalcMailPW || "Prei$rechner1";
 const priceCalcSMTP = process.env.priceCalcSMTP || "smtp.ionos.de";
@@ -45,24 +45,72 @@ app.set("view engine", "ejs");
 app.use("/static", express.static(path.resolve(__dirname, "static")));
 app.use("/svelte-components", express.static(path.resolve(__dirname, "svelte-components")));
 
+app.use(function (req, res, next) {
+	const index = `${apiPath}/indices`;
+	const pages = `${apiPath}/pages`;
+
+	const requestIndex = axios.get(index);
+	const requestPages = axios.get(pages);
+
+	axios
+		.all([requestIndex, requestPages])
+		.then(
+			axios.spread((...responses) => {
+				const responseIndex = responses[0];
+				const responsePages = responses[1];
+
+				console.log(responsePages.data);
+
+				res.locals.resIndex = responseIndex.data[0];
+				res.locals.resPages = responsePages.data;
+
+				next();
+			})
+		)
+		.catch((err) => {
+			console.log(err);
+		});
+
+	// axios.get(`${apiPath}/indices`).then((response) => {
+	// 	res.locals.indexData = response.data[0];
+	// 	next();
+	// });
+});
+
 //////////////////////////////////
 // index route
 //////////////////////////////////
 app.get("/", (req, res) => {
-	axios.get(`${apiPath}/indices`).then((response) => {
-		// console.log(response.data[0].copytext);
-		res.render("pages/index", {
-			data: response.data[0],
-			md: md.renderInline(response.data[0].copytext),
-		});
+	const indexData = res.locals.resIndex;
+	res.render("pages/index", {
+		title: "Home",
+		headline: md.renderInline(indexData.headline),
+		subheadline: md.renderInline(indexData.subheadline),
+		copytext: md.renderInline(indexData.copytext),
 	});
 });
+
+// //////////////////////////////////
+// // index route
+// //////////////////////////////////
+// app.get("/", (req, res) => {
+// 	axios.get(`${apiPath}/indices`).then((response) => {
+// 		console.log(response.data[0]);
+// 		res.render("pages/index", {
+// 			title: "Home",
+// 			headline: md.renderInline(response.data[0].headline),
+// 			subheadline: md.renderInline(response.data[0].subheadline),
+// 			copytext: md.renderInline(response.data[0].copytext),
+// 		});
+// 	});
+// });
 
 //////////////////////////////////
 // dynamic routing
 //////////////////////////////////
 app.get("/:path", (req, res) => {
 	axios.get(`${apiPath}/pages`).then((response) => {
+		console.log(response);
 		// look for page with a title that matches the requested path
 		const match = response.data.find((page) => {
 			return slugify(page.title, { lower: true }) === req.params.path;
@@ -81,7 +129,7 @@ app.get("/:path", (req, res) => {
 		if (match.category === "leistungen") {
 			console.log(apiPath);
 			res.render("pages/genericSite", {
-				data: match,
+				title: md.renderInline(response.data[0].headline),
 				apiPath: apiPath,
 				md: md.renderInline(match.copytext),
 			});

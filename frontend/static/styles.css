@@ -11,6 +11,9 @@
 /* GENERAL */
 /* #################### */
 
+.main-text-area {
+}
+
 #preisrechner-hook {
 	position: fixed;
 	background-color: rgba(0, 0, 0, 0.5);
@@ -20,7 +23,7 @@
 	bottom: 0;
 	z-index: 15;
 	/* TODO : change to 'none' */
-	display: flex;
+	display: none;
 	border: 1px solid green;
 	transition: 0s;
 	padding: 0;
@@ -32,7 +35,7 @@
 	box-sizing: border-box;
 	margin: 0;
 	padding: 0;
-	transition: 0.15s;
+	/* transition: 0.15s; */
 	font-family: Montserrat;
 	font-style: normal;
 	list-style: none;
@@ -116,7 +119,7 @@ section.picture.index {
 
 section.cards {
 	grid-area: cards;
-	padding: 16px 64px;
+	padding: 0 64px 16px 64px;
 	background-color: white;
 	display: flex;
 	flex-direction: column;
@@ -127,7 +130,7 @@ section.cards {
 	height: auto;
 	display: flex;
 	justify-content: space-between;
-	margin-top: 32px;
+	margin-top: 16px;
 	flex-wrap: wrap;
 }
 
@@ -166,6 +169,7 @@ section.cards {
 h1.cardheadline {
 	font-size: 18px;
 	font-weight: 600;
+	margin-top: 8px;
 }
 
 p.cardcopy {
@@ -234,6 +238,14 @@ nav li {
 	margin-right: 35px;
 }
 
+nav .social-media-icon {
+	width: 32px;
+	height: 32px;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+}
+
 nav .social-media-icon > a > img {
 	margin-bottom: -6px;
 }
@@ -249,7 +261,7 @@ nav li .dropdown-icon {
 }
 
 .facebook-icon {
-	margin-left: 90px;
+	margin-left: 70px;
 }
 
 /* #################### */
@@ -366,7 +378,8 @@ h1 {
 	line-height: 100%;
 	text-decoration-line: underline;
 	color: var(--default-grey);
-	margin-top: 8px;
+	margin-top: 16px;
+	white-space: pre-wrap;
 }
 
 h4 {
@@ -387,7 +400,7 @@ p {
 	font-weight: 300;
 	font-size: 16px;
 	line-height: 200%;
-	margin: 16px 0px;
+	margin: 16px 0 0 0;
 	color: var(--default-grey);
 	white-space: pre-wrap;
 }

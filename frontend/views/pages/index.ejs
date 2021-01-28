@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="de">
 	<head>
 		<%- include ("../partials/head.ejs") %>
 	</head>
@@ -8,18 +8,17 @@
 		<div class="wrapper index">
 			<header><%- include ("../partials/header.ejs") %></header>
 			<section class="text">
-				<h5><%= data.superheadline %></h5>
-				<h1><%= data.headline %></h1>
-				<h4><%= data.subheadline %></h4>
-				<p><%- md %></p>
-				<button class="btn outline">LEISTUNGEN</button>
+				<h1><%- headline %></h1>
+				<h4><%- subheadline %></h4>
+				<p class="main-text-area"><%- copytext %></p>
+				<button id="btn-leistungen" class="btn outline">LEISTUNGEN</button>
 				<button id="open-calculator-btn" class="btn red">PREISRECHNER</button>
 			</section>
 			<section class="picture index">
-				<img id="foto_rue" src="../../static/images/ruediger_neu2.png"" alt="Foto Ruediger Wackwitz" />
+				<img id="foto_rue" src="../../static/images/ruediger.png"" alt="Foto Ruediger Wackwitz" />
 			</section>
 			<section id="cards" class="cards">
-				<h1>Leistungen</h1>
+				<h1 id="h1-leistungen">Leistungen</h1>
 				<div class="cards-wrapper">
 					<div class="card">
 						<div class="card-header">Korrekturen</div>

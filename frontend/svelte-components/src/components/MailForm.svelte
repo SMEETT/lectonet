@@ -81,7 +81,6 @@
                     .catch((error) => {
                         console.log(error);
                     });
-
                 formSuccessfullySubmitted = true;
             })
             .catch((err) => {

@@ -96,9 +96,6 @@
         }
 
         bewerbungenSelectedTypes.set(bewerbungenSelectedTypesTEMP);
-
-        console.log(bewerbungenSelectedTypesTEMP);
-
         calculatedPrice.set(priceTEMP);
         // cast string back to float
         priceTEMP = parseFloat(priceTEMP);

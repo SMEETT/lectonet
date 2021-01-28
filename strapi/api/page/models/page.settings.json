@@ -18,17 +18,9 @@
       "type": "enumeration",
       "enum": [
         "ueber_uns",
-        "leistungen"
+        "leistungen",
+        "impressum"
       ]
-    },
-    "superheadline": {
-      "type": "string"
-    },
-    "headline": {
-      "type": "string"
-    },
-    "subheadline": {
-      "type": "string"
     },
     "copytext": {
       "type": "richtext"
@@ -46,6 +38,15 @@
     },
     "position": {
       "type": "integer"
+    },
+    "headline": {
+      "type": "text"
+    },
+    "subheadline": {
+      "type": "text"
+    },
+    "superheadline": {
+      "type": "text"
     }
   }
 }

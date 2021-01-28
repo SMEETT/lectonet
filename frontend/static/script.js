@@ -22,26 +22,46 @@ const hamburger_logo = document.getElementById("hamburger-logo");
 const hamburger_icon = document.getElementById("hamburger-icon");
 
 window.addEventListener("DOMContentLoaded", () => {
+	// open and close calculator overlay
 	let calculatorOpen = false;
 	const openCalculatorButton = document.getElementById("open-calculator-btn");
+	const openCalculatorButtonNavi = document.getElementById("open-calculator-btn-navi");
 	const priceCalculatorCloseIcon = document.getElementById("calculator-close-icon");
 	const bodyTag = document.getElementById("main-body");
 	const calculatorHook = document.getElementById("preisrechner-hook");
 
-	const toggleCalculatorOverlay = () => {
+	const toggleCalculatorOverlay = (e) => {
+		e.stopPropagation();
 		if (calculatorOpen) {
-			bodyTag.classList.remove("overflow");
-			calculatorHook.style.display = "none";
-			calculatorOpen = false;
+			if (e.srcElement.id === "preisrechner-hook" || e.srcElement.id === "calculator-close-icon") {
+				bodyTag.classList.remove("overflow");
+				calculatorHook.style.display = "none";
+				calculatorOpen = false;
+			}
 		} else {
 			bodyTag.classList.add("overflow");
 			calculatorHook.style.display = "flex";
 			calculatorOpen = true;
 		}
 	};
-
 	openCalculatorButton.addEventListener("click", toggleCalculatorOverlay);
+	openCalculatorButtonNavi.addEventListener("click", toggleCalculatorOverlay);
 	priceCalculatorCloseIcon.addEventListener("click", toggleCalculatorOverlay);
+	calculatorHook.addEventListener("click", toggleCalculatorOverlay);
+
+	// scroll 'Leistungen' into view
+	const h1Leistungen = document.getElementById("h1-leistungen");
+
+	const scrollLeistungenIntoView = () => {
+		const y = h1Leistungen.getBoundingClientRect().top + window.scrollY;
+		window.scroll({
+			top: y,
+			behavior: "smooth",
+		});
+	};
+
+	const btnLeistungen = document.getElementById("btn-leistungen");
+	btnLeistungen.addEventListener("click", scrollLeistungenIntoView);
 });
 
 // #############################################

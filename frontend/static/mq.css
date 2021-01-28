@@ -83,6 +83,10 @@
 		display: flex;
     } */
 
+	p {
+		margin: 16px 0;
+	}
+
 	.btn.red {
 		background: var(--default-red);
 		color: white;
@@ -128,6 +132,10 @@
 	section.picture {
 		justify-content: center;
 		display: flex;
+	}
+
+	section.cards {
+		padding-top: 0;
 	}
 
 	section.picture img {

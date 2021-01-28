@@ -3,7 +3,8 @@
   "collectionName": "indices",
   "info": {
     "name": "index",
-    "displayName": "Index"
+    "displayName": "Index",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -11,12 +12,6 @@
     "draftAndPublish": true
   },
   "attributes": {
-    "headline": {
-      "type": "string"
-    },
-    "subheadline": {
-      "type": "string"
-    },
     "copytext": {
       "type": "richtext"
     },
@@ -24,6 +19,12 @@
       "type": "component",
       "repeatable": true,
       "component": "component.card"
+    },
+    "headline": {
+      "type": "text"
+    },
+    "subheadline": {
+      "type": "text"
     }
   }
 }
