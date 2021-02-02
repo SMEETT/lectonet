@@ -12,9 +12,10 @@ const fs = require("fs");
 const md = require("markdown-it")();
 
 // environment variables
-const apiPath = process.env.apiPath || "http://localhost:1337";
-const priceCalcMailPW = process.env.priceCalcMailPW || "Prei$rechner1";
-const priceCalcSMTP = process.env.priceCalcSMTP || "smtp.ionos.de";
+const strapiURL = process.env.strapiURL;
+const priceCalcMailPW = process.env.priceCalcMailPW;
+const priceCalcSMTP = process.env.priceCalcSMTP;
+const frontendPORT = process.env.frontendPORT;
 
 // express init
 const app = express();
@@ -23,7 +24,7 @@ const app = express();
 app.use(
 	expressCspHeader({
 		directives: {
-			"default-src": [SELF, apiPath, "http://localhost:*"],
+			"default-src": [SELF, strapiURL, "http://localhost:*"],
 			"script-src": [SELF, INLINE, "http://localhost:*"],
 			"style-src": [SELF, "https://fonts.googleapis.com", "https://fonts.gstatic.com"],
 			"img-src": [SELF, "data:", "images.com"],
@@ -31,7 +32,7 @@ app.use(
 			"block-all-mixed-content": true,
 			"font-src": ["https://fonts.googleapis.com", "https://fonts.gstatic.com"],
 			"frame-ancestors": [NONE],
-			"connect-src": [apiPath, "http://localhost:*", "ws://localhost:*"],
+			"connect-src": [strapiURL, "http://localhost:*", "ws://localhost:*"],
 		},
 	})
 );
@@ -46,8 +47,10 @@ app.use("/static", express.static(path.resolve(__dirname, "static")));
 app.use("/svelte-components", express.static(path.resolve(__dirname, "svelte-components")));
 
 app.use(function (req, res, next) {
-	const index = `${apiPath}/indices`;
-	const pages = `${apiPath}/pages`;
+	// TODO: have one API-endpoint to get data necessary for all pages
+
+	const index = `${strapiURL}/indices`;
+	const pages = `${strapiURL}/pages`;
 
 	const requestIndex = axios.get(index);
 	const requestPages = axios.get(pages);
@@ -59,7 +62,7 @@ app.use(function (req, res, next) {
 				const responseIndex = responses[0];
 				const responsePages = responses[1];
 
-				console.log(responsePages.data);
+				// console.log(responsePages.data);
 
 				res.locals.resIndex = responseIndex.data[0];
 				res.locals.resPages = responsePages.data;
@@ -71,7 +74,7 @@ app.use(function (req, res, next) {
 			console.log(err);
 		});
 
-	// axios.get(`${apiPath}/indices`).then((response) => {
+	// axios.get(`${strapiURL}/indices`).then((response) => {
 	// 	res.locals.indexData = response.data[0];
 	// 	next();
 	// });
@@ -94,7 +97,7 @@ app.get("/", (req, res) => {
 // // index route
 // //////////////////////////////////
 // app.get("/", (req, res) => {
-// 	axios.get(`${apiPath}/indices`).then((response) => {
+// 	axios.get(`${strapiURL}/indices`).then((response) => {
 // 		console.log(response.data[0]);
 // 		res.render("pages/index", {
 // 			title: "Home",
@@ -109,7 +112,7 @@ app.get("/", (req, res) => {
 // dynamic routing
 //////////////////////////////////
 app.get("/:path", (req, res) => {
-	axios.get(`${apiPath}/pages`).then((response) => {
+	axios.get(`${strapiURL}/pages`).then((response) => {
 		console.log(response);
 		// look for page with a title that matches the requested path
 		const match = response.data.find((page) => {
@@ -127,10 +130,10 @@ app.get("/:path", (req, res) => {
 
 		// render template based on provided category
 		if (match.category === "leistungen") {
-			console.log(apiPath);
+			console.log(strapiURL);
 			res.render("pages/genericSite", {
 				title: md.renderInline(response.data[0].headline),
-				apiPath: apiPath,
+				strapiURL: strapiURL,
 				md: md.renderInline(match.copytext),
 			});
 		}
@@ -142,6 +145,8 @@ app.get("/:path", (req, res) => {
 //////////////////////////////////
 
 app.post("/send/price", (req, res) => {
+	console.log("/send/price");
+
 	const receiver = req.query.email;
 	const firstname = req.query.firstname;
 	const lastname = req.query.lastname;
@@ -222,5 +227,4 @@ app.post("/send/price", (req, res) => {
 	res.end();
 });
 
-const port = process.env.PORT || 1338;
-app.listen(port, () => console.log(`Server running on port ${port}`));
+app.listen(frontendPORT, () => console.log(`Server running on port ${frontendPORT}`));
