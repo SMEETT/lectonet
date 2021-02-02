@@ -3,7 +3,7 @@ import pp from "papaparse";
 const ppConfig = { header: true };
 import axios from "axios";
 import { subscribe } from "svelte/internal";
-const apiPath = "http://localhost:1337";
+const strapiURL = "http://localhost:1337";
 
 export const groups = writable([]);
 export const services = writable([]);
@@ -27,7 +27,8 @@ export const bewerbungenSelectedTypes = writable();
 export const prices = writable();
 
 // initial fetch of all paths to CSV's
-const fetchedCSVData = axios.get(`${apiPath}/preise`);
+console.log(strapiURL);
+const fetchedCSVData = axios.get(`${strapiURL}/preise`);
 
 fetchedCSVData
     .then((fetchedData) => {
@@ -51,8 +52,8 @@ fetchedCSVData
         extractedData.forEach((entry) => {
             // fetch CSV-Data from URL's and push each returned promise
             // (from axios) into an array of promises;
-            // prepend apiPath to each URL
-            const CSVDataPromise = axios.get(`${apiPath}${entry.CSV.url}`);
+            // prepend strapiURL to each URL
+            const CSVDataPromise = axios.get(`${strapiURL}${entry.CSV.url}`);
             CSVData_Promises.push(CSVDataPromise);
         });
         // build a new object with the name of the "service" and

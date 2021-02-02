@@ -51,6 +51,7 @@
         }
     });
 
+    const frontendURL = "http://localhost:1339";
     const handleSubmit = () => {
         console.log(fields);
         const result = regSchema.validate(fields, { abortEarly: false });
@@ -61,7 +62,7 @@
                 foundError = false;
                 axios
                     .post(
-                        "http://localhost:1338/send/price",
+                        `${frontendURL}/send/price`,
                         {},
                         {
                             params: {
@@ -298,7 +299,7 @@
         background: var(--default-grey);
         color: white;
     }
-    .btn.inactive {
+    /* .btn.inactive {
         border: 1px solid lightgray;
         color: lightgray;
         cursor: default;
@@ -306,7 +307,7 @@
     .btn.inactive:hover {
         color: lightgray;
         background: transparent;
-    }
+    } */
 
     /* ----------- 1280-WIDTH */
     @media (min-width: 1280px) {

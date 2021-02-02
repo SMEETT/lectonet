@@ -1976,7 +1976,7 @@ var app = (function () {
     var axios$1 = axios_1;
 
     const ppConfig = { header: true };
-    const apiPath = "http://localhost:1337";
+    const strapiURL = "http://localhost:1337";
 
     const groups = writable([]);
     const services = writable([]);
@@ -2000,7 +2000,8 @@ var app = (function () {
     const prices = writable();
 
     // initial fetch of all paths to CSV's
-    const fetchedCSVData = axios$1.get(`${apiPath}/preise`);
+    console.log(strapiURL);
+    const fetchedCSVData = axios$1.get(`${strapiURL}/preise`);
 
     fetchedCSVData
         .then((fetchedData) => {
@@ -2024,8 +2025,8 @@ var app = (function () {
             extractedData.forEach((entry) => {
                 // fetch CSV-Data from URL's and push each returned promise
                 // (from axios) into an array of promises;
-                // prepend apiPath to each URL
-                const CSVDataPromise = axios$1.get(`${apiPath}${entry.CSV.url}`);
+                // prepend strapiURL to each URL
+                const CSVDataPromise = axios$1.get(`${strapiURL}${entry.CSV.url}`);
                 CSVData_Promises.push(CSVDataPromise);
             });
             // build a new object with the name of the "service" and
@@ -9025,7 +9026,7 @@ var app = (function () {
 
     const file$4 = "src/components/MailForm.svelte";
 
-    // (161:0) {:else}
+    // (162:0) {:else}
     function create_else_block(ctx) {
     	let div;
     	let p;
@@ -9042,12 +9043,12 @@ var app = (function () {
     			t1 = space();
     			button = element("button");
     			button.textContent = "Zurück";
-    			attr_dev(p, "class", "svelte-11kbybd");
-    			add_location(p, file$4, 162, 8, 5008);
-    			attr_dev(button, "class", "btn outline back svelte-11kbybd");
-    			add_location(button, file$4, 163, 8, 5078);
-    			attr_dev(div, "class", "success svelte-11kbybd");
-    			add_location(div, file$4, 161, 4, 4978);
+    			attr_dev(p, "class", "svelte-89tkvx");
+    			add_location(p, file$4, 163, 8, 5050);
+    			attr_dev(button, "class", "btn outline back svelte-89tkvx");
+    			add_location(button, file$4, 164, 8, 5120);
+    			attr_dev(div, "class", "success svelte-89tkvx");
+    			add_location(div, file$4, 162, 4, 5020);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -9072,14 +9073,14 @@ var app = (function () {
     		block,
     		id: create_else_block.name,
     		type: "else",
-    		source: "(161:0) {:else}",
+    		source: "(162:0) {:else}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (99:0) {#if !formSuccessfullySubmitted}
+    // (100:0) {#if !formSuccessfullySubmitted}
     function create_if_block(ctx) {
     	let form;
     	let div0;
@@ -9129,42 +9130,42 @@ var app = (function () {
     			div4 = element("div");
     			button = element("button");
     			button.textContent = "Abschicken";
-    			attr_dev(div0, "class", "email-form-desc svelte-11kbybd");
-    			add_location(div0, file$4, 100, 8, 2976);
+    			attr_dev(div0, "class", "email-form-desc svelte-89tkvx");
+    			add_location(div0, file$4, 101, 8, 3018);
     			attr_dev(input0, "type", "text");
     			attr_dev(input0, "name", "firstname");
-    			attr_dev(input0, "class", "name svelte-11kbybd");
+    			attr_dev(input0, "class", "name svelte-89tkvx");
     			attr_dev(input0, "placeholder", "Vorname");
-    			add_location(input0, file$4, 105, 12, 3167);
+    			add_location(input0, file$4, 106, 12, 3209);
     			attr_dev(input1, "type", "text");
     			attr_dev(input1, "name", "lastname");
-    			attr_dev(input1, "class", "name svelte-11kbybd");
+    			attr_dev(input1, "class", "name svelte-89tkvx");
     			attr_dev(input1, "placeholder", "Name");
-    			add_location(input1, file$4, 111, 12, 3363);
-    			attr_dev(div1, "class", "email-form-name svelte-11kbybd");
-    			add_location(div1, file$4, 104, 8, 3125);
-    			attr_dev(input2, "class", "email svelte-11kbybd");
+    			add_location(input1, file$4, 112, 12, 3405);
+    			attr_dev(div1, "class", "email-form-name svelte-89tkvx");
+    			add_location(div1, file$4, 105, 8, 3167);
+    			attr_dev(input2, "class", "email svelte-89tkvx");
     			attr_dev(input2, "type", "text");
     			attr_dev(input2, "name", "email");
     			attr_dev(input2, "placeholder", "E-Mail Adresse");
-    			add_location(input2, file$4, 119, 12, 3610);
-    			attr_dev(div2, "class", "email-form-address svelte-11kbybd");
-    			add_location(div2, file$4, 118, 8, 3565);
+    			add_location(input2, file$4, 120, 12, 3652);
+    			attr_dev(div2, "class", "email-form-address svelte-89tkvx");
+    			add_location(div2, file$4, 119, 8, 3607);
     			attr_dev(input3, "type", "checkbox");
-    			attr_dev(input3, "class", "checkbox svelte-11kbybd");
+    			attr_dev(input3, "class", "checkbox svelte-89tkvx");
     			attr_dev(input3, "name", "checkbox");
-    			add_location(input3, file$4, 127, 12, 3865);
+    			add_location(input3, file$4, 128, 12, 3907);
     			attr_dev(label, "for", "checkbox");
-    			attr_dev(label, "class", "svelte-11kbybd");
-    			add_location(label, file$4, 132, 12, 4029);
-    			attr_dev(div3, "class", "email-form-checkboxes svelte-11kbybd");
-    			add_location(div3, file$4, 126, 8, 3817);
-    			attr_dev(button, "class", "btn outline svelte-11kbybd");
-    			add_location(button, file$4, 155, 12, 4820);
-    			attr_dev(div4, "class", "email-form-button svelte-11kbybd");
-    			add_location(div4, file$4, 154, 8, 4776);
-    			attr_dev(form, "class", "email svelte-11kbybd");
-    			add_location(form, file$4, 99, 4, 2922);
+    			attr_dev(label, "class", "svelte-89tkvx");
+    			add_location(label, file$4, 133, 12, 4071);
+    			attr_dev(div3, "class", "email-form-checkboxes svelte-89tkvx");
+    			add_location(div3, file$4, 127, 8, 3859);
+    			attr_dev(button, "class", "btn outline svelte-89tkvx");
+    			add_location(button, file$4, 156, 12, 4862);
+    			attr_dev(div4, "class", "email-form-button svelte-89tkvx");
+    			add_location(div4, file$4, 155, 8, 4818);
+    			attr_dev(form, "class", "email svelte-89tkvx");
+    			add_location(form, file$4, 100, 4, 2964);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, form, anchor);
@@ -9247,14 +9248,14 @@ var app = (function () {
     		block,
     		id: create_if_block.name,
     		type: "if",
-    		source: "(99:0) {#if !formSuccessfullySubmitted}",
+    		source: "(100:0) {#if !formSuccessfullySubmitted}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (135:8) {#if foundError}
+    // (136:8) {#if foundError}
     function create_if_block_1(ctx) {
     	let div;
     	let ul;
@@ -9283,10 +9284,10 @@ var app = (function () {
     			if (if_block3) if_block3.c();
     			t4 = space();
     			if (if_block4) if_block4.c();
-    			attr_dev(ul, "class", "svelte-11kbybd");
-    			add_location(ul, file$4, 136, 16, 4187);
-    			attr_dev(div, "class", "errors svelte-11kbybd");
-    			add_location(div, file$4, 135, 12, 4150);
+    			attr_dev(ul, "class", "svelte-89tkvx");
+    			add_location(ul, file$4, 137, 16, 4229);
+    			attr_dev(div, "class", "errors svelte-89tkvx");
+    			add_location(div, file$4, 136, 12, 4192);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -9382,14 +9383,14 @@ var app = (function () {
     		block,
     		id: create_if_block_1.name,
     		type: "if",
-    		source: "(135:8) {#if foundError}",
+    		source: "(136:8) {#if foundError}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (138:16) {#if errors.priceCalculated}
+    // (139:16) {#if errors.priceCalculated}
     function create_if_block_6(ctx) {
     	let li;
     	let t_value = /*errors*/ ctx[1].priceCalculated + "";
@@ -9399,8 +9400,8 @@ var app = (function () {
     		c: function create() {
     			li = element("li");
     			t = text(t_value);
-    			attr_dev(li, "class", "svelte-11kbybd");
-    			add_location(li, file$4, 138, 20, 4259);
+    			attr_dev(li, "class", "svelte-89tkvx");
+    			add_location(li, file$4, 139, 20, 4301);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -9418,14 +9419,14 @@ var app = (function () {
     		block,
     		id: create_if_block_6.name,
     		type: "if",
-    		source: "(138:16) {#if errors.priceCalculated}",
+    		source: "(139:16) {#if errors.priceCalculated}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (141:16) {#if errors.firstname}
+    // (142:16) {#if errors.firstname}
     function create_if_block_5(ctx) {
     	let li;
     	let t_value = /*errors*/ ctx[1].firstname + "";
@@ -9435,8 +9436,8 @@ var app = (function () {
     		c: function create() {
     			li = element("li");
     			t = text(t_value);
-    			attr_dev(li, "class", "svelte-11kbybd");
-    			add_location(li, file$4, 141, 20, 4374);
+    			attr_dev(li, "class", "svelte-89tkvx");
+    			add_location(li, file$4, 142, 20, 4416);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -9454,14 +9455,14 @@ var app = (function () {
     		block,
     		id: create_if_block_5.name,
     		type: "if",
-    		source: "(141:16) {#if errors.firstname}",
+    		source: "(142:16) {#if errors.firstname}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (144:16) {#if errors.lastname}
+    // (145:16) {#if errors.lastname}
     function create_if_block_4(ctx) {
     	let li;
     	let t_value = /*errors*/ ctx[1].lastname + "";
@@ -9471,8 +9472,8 @@ var app = (function () {
     		c: function create() {
     			li = element("li");
     			t = text(t_value);
-    			attr_dev(li, "class", "svelte-11kbybd");
-    			add_location(li, file$4, 144, 20, 4482);
+    			attr_dev(li, "class", "svelte-89tkvx");
+    			add_location(li, file$4, 145, 20, 4524);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -9490,14 +9491,14 @@ var app = (function () {
     		block,
     		id: create_if_block_4.name,
     		type: "if",
-    		source: "(144:16) {#if errors.lastname}",
+    		source: "(145:16) {#if errors.lastname}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (147:16) {#if errors.email}
+    // (148:16) {#if errors.email}
     function create_if_block_3(ctx) {
     	let li;
     	let t_value = /*errors*/ ctx[1].email + "";
@@ -9507,8 +9508,8 @@ var app = (function () {
     		c: function create() {
     			li = element("li");
     			t = text(t_value);
-    			attr_dev(li, "class", "svelte-11kbybd");
-    			add_location(li, file$4, 147, 20, 4586);
+    			attr_dev(li, "class", "svelte-89tkvx");
+    			add_location(li, file$4, 148, 20, 4628);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -9526,14 +9527,14 @@ var app = (function () {
     		block,
     		id: create_if_block_3.name,
     		type: "if",
-    		source: "(147:16) {#if errors.email}",
+    		source: "(148:16) {#if errors.email}",
     		ctx
     	});
 
     	return block;
     }
 
-    // (150:16) {#if errors.agreed}
+    // (151:16) {#if errors.agreed}
     function create_if_block_2(ctx) {
     	let li;
     	let t_value = /*errors*/ ctx[1].agreed + "";
@@ -9543,8 +9544,8 @@ var app = (function () {
     		c: function create() {
     			li = element("li");
     			t = text(t_value);
-    			attr_dev(li, "class", "svelte-11kbybd");
-    			add_location(li, file$4, 150, 20, 4688);
+    			attr_dev(li, "class", "svelte-89tkvx");
+    			add_location(li, file$4, 151, 20, 4730);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -9562,7 +9563,7 @@ var app = (function () {
     		block,
     		id: create_if_block_2.name,
     		type: "if",
-    		source: "(150:16) {#if errors.agreed}",
+    		source: "(151:16) {#if errors.agreed}",
     		ctx
     	});
 
@@ -9623,6 +9624,8 @@ var app = (function () {
 
     	return block;
     }
+
+    const frontendURL = "http://localhost:1339";
 
     function instance$4($$self, $$props, $$invalidate) {
     	let $selectedCategories;
@@ -9694,7 +9697,7 @@ var app = (function () {
     			$$invalidate(1, errors = {});
     			$$invalidate(2, foundError = false);
 
-    			axios$1.post("http://localhost:1338/send/price", {}, {
+    			axios$1.post(`${frontendURL}/send/price`, {}, {
     				params: {
     					firstname: fields.firstname,
     					lastname: fields.lastname,
@@ -9767,6 +9770,7 @@ var app = (function () {
     		formSuccessfullySubmitted,
     		extractErrors,
     		typeOrTypes,
+    		frontendURL,
     		handleSubmit,
     		handleBack,
     		$selectedCategories,

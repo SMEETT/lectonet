@@ -1,0 +1,20 @@
+{
+  "kind": "collectionType",
+  "collectionName": "testpoints",
+  "info": {
+    "name": "testpoint"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "age": {
+      "type": "integer"
+    }
+  }
+}
