@@ -51,7 +51,8 @@
         }
     });
 
-    const frontendURL = "http://localhost:1339";
+    // const frontendURL = "http://localhost:1339";
+    const frontendURL = "http://217.160.141.204:1339";
     const handleSubmit = () => {
         console.log(fields);
         const result = regSchema.validate(fields, { abortEarly: false });
