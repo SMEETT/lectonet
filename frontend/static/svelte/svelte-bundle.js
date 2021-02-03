@@ -1978,7 +1978,7 @@ var app = (function () {
     const ppConfig = { header: true };
 
     // is a global variable due to rollup/replace plugin
-    const strapiURL = {"env":{"isProd":false,"strapiURL":"http://localhost:1337","frontendURL":"http://localhost:1339"}}.env.strapiURL;
+    // const "http://localhost:1337" = process.env."http://localhost:1337";
 
     const groups = writable([]);
     const services = writable([]);
@@ -2002,8 +2002,8 @@ var app = (function () {
     const prices = writable();
 
     // initial fetch of all paths to CSV's
-    console.log(strapiURL);
-    const fetchedCSVData = axios$1.get(`${strapiURL}/preise`);
+    console.log("http://localhost:1337");
+    const fetchedCSVData = axios$1.get(`${"http://localhost:1337"}/preise`);
 
     fetchedCSVData
         .then((fetchedData) => {
@@ -2027,8 +2027,8 @@ var app = (function () {
             extractedData.forEach((entry) => {
                 // fetch CSV-Data from URL's and push each returned promise
                 // (from axios) into an array of promises;
-                // prepend strapiURL to each URL
-                const CSVDataPromise = axios$1.get(`${strapiURL}${entry.CSV.url}`);
+                // prepend "http://localhost:1337" to each URL
+                const CSVDataPromise = axios$1.get(`${"http://localhost:1337"}${entry.CSV.url}`);
                 CSVData_Promises.push(CSVDataPromise);
             });
             // build a new object with the name of the "service" and
@@ -9046,11 +9046,11 @@ var app = (function () {
     			button = element("button");
     			button.textContent = "Zurück";
     			attr_dev(p, "class", "svelte-89tkvx");
-    			add_location(p, file$4, 167, 8, 5168);
+    			add_location(p, file$4, 167, 8, 5219);
     			attr_dev(button, "class", "btn outline back svelte-89tkvx");
-    			add_location(button, file$4, 168, 8, 5238);
+    			add_location(button, file$4, 168, 8, 5289);
     			attr_dev(div, "class", "success svelte-89tkvx");
-    			add_location(div, file$4, 166, 4, 5138);
+    			add_location(div, file$4, 166, 4, 5189);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -9133,41 +9133,41 @@ var app = (function () {
     			button = element("button");
     			button.textContent = "Abschicken";
     			attr_dev(div0, "class", "email-form-desc svelte-89tkvx");
-    			add_location(div0, file$4, 105, 8, 3136);
+    			add_location(div0, file$4, 105, 8, 3187);
     			attr_dev(input0, "type", "text");
     			attr_dev(input0, "name", "firstname");
     			attr_dev(input0, "class", "name svelte-89tkvx");
     			attr_dev(input0, "placeholder", "Vorname");
-    			add_location(input0, file$4, 110, 12, 3327);
+    			add_location(input0, file$4, 110, 12, 3378);
     			attr_dev(input1, "type", "text");
     			attr_dev(input1, "name", "lastname");
     			attr_dev(input1, "class", "name svelte-89tkvx");
     			attr_dev(input1, "placeholder", "Name");
-    			add_location(input1, file$4, 116, 12, 3523);
+    			add_location(input1, file$4, 116, 12, 3574);
     			attr_dev(div1, "class", "email-form-name svelte-89tkvx");
-    			add_location(div1, file$4, 109, 8, 3285);
+    			add_location(div1, file$4, 109, 8, 3336);
     			attr_dev(input2, "class", "email svelte-89tkvx");
     			attr_dev(input2, "type", "text");
     			attr_dev(input2, "name", "email");
     			attr_dev(input2, "placeholder", "E-Mail Adresse");
-    			add_location(input2, file$4, 124, 12, 3770);
+    			add_location(input2, file$4, 124, 12, 3821);
     			attr_dev(div2, "class", "email-form-address svelte-89tkvx");
-    			add_location(div2, file$4, 123, 8, 3725);
+    			add_location(div2, file$4, 123, 8, 3776);
     			attr_dev(input3, "type", "checkbox");
     			attr_dev(input3, "class", "checkbox svelte-89tkvx");
     			attr_dev(input3, "name", "checkbox");
-    			add_location(input3, file$4, 132, 12, 4025);
+    			add_location(input3, file$4, 132, 12, 4076);
     			attr_dev(label, "for", "checkbox");
     			attr_dev(label, "class", "svelte-89tkvx");
-    			add_location(label, file$4, 137, 12, 4189);
+    			add_location(label, file$4, 137, 12, 4240);
     			attr_dev(div3, "class", "email-form-checkboxes svelte-89tkvx");
-    			add_location(div3, file$4, 131, 8, 3977);
+    			add_location(div3, file$4, 131, 8, 4028);
     			attr_dev(button, "class", "btn outline svelte-89tkvx");
-    			add_location(button, file$4, 160, 12, 4980);
+    			add_location(button, file$4, 160, 12, 5031);
     			attr_dev(div4, "class", "email-form-button svelte-89tkvx");
-    			add_location(div4, file$4, 159, 8, 4936);
+    			add_location(div4, file$4, 159, 8, 4987);
     			attr_dev(form, "class", "email svelte-89tkvx");
-    			add_location(form, file$4, 104, 4, 3082);
+    			add_location(form, file$4, 104, 4, 3133);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, form, anchor);
@@ -9287,9 +9287,9 @@ var app = (function () {
     			t4 = space();
     			if (if_block4) if_block4.c();
     			attr_dev(ul, "class", "svelte-89tkvx");
-    			add_location(ul, file$4, 141, 16, 4347);
+    			add_location(ul, file$4, 141, 16, 4398);
     			attr_dev(div, "class", "errors svelte-89tkvx");
-    			add_location(div, file$4, 140, 12, 4310);
+    			add_location(div, file$4, 140, 12, 4361);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div, anchor);
@@ -9403,7 +9403,7 @@ var app = (function () {
     			li = element("li");
     			t = text(t_value);
     			attr_dev(li, "class", "svelte-89tkvx");
-    			add_location(li, file$4, 143, 20, 4419);
+    			add_location(li, file$4, 143, 20, 4470);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -9439,7 +9439,7 @@ var app = (function () {
     			li = element("li");
     			t = text(t_value);
     			attr_dev(li, "class", "svelte-89tkvx");
-    			add_location(li, file$4, 146, 20, 4534);
+    			add_location(li, file$4, 146, 20, 4585);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -9475,7 +9475,7 @@ var app = (function () {
     			li = element("li");
     			t = text(t_value);
     			attr_dev(li, "class", "svelte-89tkvx");
-    			add_location(li, file$4, 149, 20, 4642);
+    			add_location(li, file$4, 149, 20, 4693);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -9511,7 +9511,7 @@ var app = (function () {
     			li = element("li");
     			t = text(t_value);
     			attr_dev(li, "class", "svelte-89tkvx");
-    			add_location(li, file$4, 152, 20, 4746);
+    			add_location(li, file$4, 152, 20, 4797);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -9547,7 +9547,7 @@ var app = (function () {
     			li = element("li");
     			t = text(t_value);
     			attr_dev(li, "class", "svelte-89tkvx");
-    			add_location(li, file$4, 155, 20, 4848);
+    			add_location(li, file$4, 155, 20, 4899);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, li, anchor);
@@ -9689,11 +9689,10 @@ var app = (function () {
     	});
 
     	// is a global variable due to rollup/replace plugin
-    	const frontendURL = {"env":{"isProd":false,"strapiURL":"http://localhost:1337","frontendURL":"http://localhost:1339"}}.env.frontendURL;
-
+    	// const "http://localhost:1339" = calc.env."http://localhost:1339";
     	const handleSubmit = () => {
     		console.log(fields);
-    		console.log(frontendURL);
+    		console.log("http://localhost:1339");
     		const result = regSchema.validate(fields, { abortEarly: false });
     		console.log(result);
 
@@ -9702,7 +9701,7 @@ var app = (function () {
     			$$invalidate(1, errors = {});
     			$$invalidate(2, foundError = false);
 
-    			axios$1.post(`${frontendURL}/send/price`, {}, {
+    			axios$1.post(`${"http://localhost:1339"}/send/price`, {}, {
     				params: {
     					firstname: fields.firstname,
     					lastname: fields.lastname,
@@ -9775,7 +9774,6 @@ var app = (function () {
     		formSuccessfullySubmitted,
     		extractErrors,
     		typeOrTypes,
-    		frontendURL,
     		handleSubmit,
     		handleBack,
     		$selectedCategories,

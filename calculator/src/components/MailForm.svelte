@@ -52,7 +52,7 @@
     });
 
     // is a global variable due to rollup/replace plugin
-    const frontendURL = calc.env.frontendURL;
+    // const frontendURL = calc.env.frontendURL;
 
     const handleSubmit = () => {
         console.log(fields);

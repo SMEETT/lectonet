@@ -7,9 +7,8 @@ import css from "rollup-plugin-css-only";
 
 const production = !process.env.ROLLUP_WATCH;
 
+import { config } from "dotenv";
 import replace from "@rollup/plugin-replace";
-import dotenv from "dotenv";
-dotenv.config();
 
 function serve() {
     let server;
@@ -45,11 +44,6 @@ export default {
         file: "../frontend/static/svelte/svelte-bundle.js",
     },
     plugins: [
-        replace({
-            strapiURL: JSON.stringify(process.env.strapiURL),
-            frontendURL: JSON.stringify(process.env.frontendURL),
-        }),
-
         svelte({
             compilerOptions: {
                 // enable run-time checks when not in production
@@ -70,6 +64,16 @@ export default {
             dedupe: ["svelte"],
         }),
         commonjs(),
+
+        replace({
+            // stringify the object
+            calc: JSON.stringify({
+                env: {
+                    isProd: production,
+                    ...config().parsed, // attached the .env config
+                },
+            }),
+        }),
 
         // In dev mode, call `npm run start` once
         // the bundle has been generated

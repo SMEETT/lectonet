@@ -5,7 +5,7 @@ import axios from "axios";
 import { subscribe } from "svelte/internal";
 
 // is a global variable due to rollup/replace plugin
-const strapiURL = calc.env.strapiURL;
+// const strapiURL = process.env.strapiURL;
 
 export const groups = writable([]);
 export const services = writable([]);
