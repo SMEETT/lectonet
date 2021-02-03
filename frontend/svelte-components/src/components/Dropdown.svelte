@@ -114,19 +114,19 @@
     class:inactive={disableDropdown}>
     <label for={labelIdentifier}>{label}</label>
     <!-- svelte-ignore a11y-no-onchange -->
+    <select
+        name={labelIdentifier}
+        bind:value={currentSelection}
+        on:change={handleChange}
+        id={id}
+        class:inactive={disableDropdown}
+        disabled={disableDropdown}>
+        <option selected disabled hidden id={resetId}>Bitte auswählen</option>
+        {#each options as opt}
+            <option value={{ opt, category }}>{opt}</option>
+        {/each}
+    </select>
 </div>
-<select
-    name={labelIdentifier}
-    bind:value={currentSelection}
-    on:change={handleChange}
-    id={id}
-    class:inactive={disableDropdown}
-    disabled={disableDropdown}>
-    <option selected disabled hidden id={resetId}>Bitte auswählen</option>
-    {#each options as opt}
-        <option value={{ opt, category }}>{opt}</option>
-    {/each}
-</select>
 
 <!-- STYLING ------------------------------ -->
 <style>
@@ -154,7 +154,7 @@
         margin-top: 16px;
     }
 
-    /* .select-wrapper::after {
+    .select-wrapper::after {
         content: url("../../../static/images/icon_dropdown_closed.svg");
         pointer-events: none;
         position: absolute;
@@ -162,6 +162,8 @@
         padding-top: 12px;
         padding-left: 20px;
         right: 15px;
+        /* border: 1px solid red; */
+        /* border-left: 1px solid grey; */
         width: 20px;
     }
 
@@ -178,12 +180,12 @@
     .select-wrapper.inactive:hover::after {
         content: url("../../../static/images/icon_dropdown_inactive.svg");
         transition: 0s;
-    } */
+    }
 
     select {
-        /* -moz-appearance: none;
+        -moz-appearance: none;
         -webkit-appearance: none;
-        appearance: none; */
+        appearance: none;
         border: 1px solid #595959;
         border-radius: 24px;
         color: #595959;
@@ -196,8 +198,6 @@
         padding-left: 15px;
         width: 100%;
         background-color: white;
-        z-index: 5;
-        position: relative;
     }
 
     select.inactive {
@@ -206,12 +206,12 @@
         cursor: default;
     }
 
-    /* option {
+    option {
         color: var(--default-grey);
         background-color: white;
-    } */
+    }
 
-    /* select::-ms-expand {
+    select::-ms-expand {
         display: none;
-    } */
+    }
 </style>
