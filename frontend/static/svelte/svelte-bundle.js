@@ -2175,7 +2175,7 @@ var app = (function () {
     	return child_ctx;
     }
 
-    // (125:8) {#each options as opt}
+    // (126:4) {#each options as opt}
     function create_each_block(ctx) {
     	let option;
     	let t_value = /*opt*/ ctx[12] + "";
@@ -2194,7 +2194,7 @@ var app = (function () {
 
     			option.value = option.__value;
     			attr_dev(option, "class", "svelte-urq6g0");
-    			add_location(option, file, 125, 12, 4843);
+    			add_location(option, file, 126, 8, 4810);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -2220,7 +2220,7 @@ var app = (function () {
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(125:8) {#each options as opt}",
+    		source: "(126:4) {#each options as opt}",
     		ctx
     	});
 
@@ -2262,6 +2262,10 @@ var app = (function () {
     			attr_dev(label_1, "for", /*labelIdentifier*/ ctx[7]);
     			attr_dev(label_1, "class", "svelte-urq6g0");
     			add_location(label_1, file, 114, 4, 4425);
+    			attr_dev(div, "id", /*selectWrapperId*/ ctx[8]);
+    			attr_dev(div, "class", "select-wrapper svelte-urq6g0");
+    			toggle_class(div, "inactive", /*disableDropdown*/ ctx[5]);
+    			add_location(div, file, 110, 0, 4326);
     			option.selected = true;
     			option.disabled = true;
     			option.hidden = true;
@@ -2269,18 +2273,14 @@ var app = (function () {
     			option.__value = "Bitte auswählen";
     			option.value = option.__value;
     			attr_dev(option, "class", "svelte-urq6g0");
-    			add_location(option, file, 123, 8, 4729);
+    			add_location(option, file, 124, 4, 4704);
     			attr_dev(select, "name", /*labelIdentifier*/ ctx[7]);
     			attr_dev(select, "id", /*id*/ ctx[2]);
     			select.disabled = /*disableDropdown*/ ctx[5];
     			attr_dev(select, "class", "svelte-urq6g0");
     			if (/*currentSelection*/ ctx[4] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[11].call(select));
     			toggle_class(select, "inactive", /*disableDropdown*/ ctx[5]);
-    			add_location(select, file, 116, 4, 4518);
-    			attr_dev(div, "id", /*selectWrapperId*/ ctx[8]);
-    			attr_dev(div, "class", "select-wrapper svelte-urq6g0");
-    			toggle_class(div, "inactive", /*disableDropdown*/ ctx[5]);
-    			add_location(div, file, 110, 0, 4326);
+    			add_location(select, file, 117, 0, 4521);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -2289,8 +2289,8 @@ var app = (function () {
     			insert_dev(target, div, anchor);
     			append_dev(div, label_1);
     			append_dev(label_1, t0);
-    			append_dev(div, t1);
-    			append_dev(div, select);
+    			insert_dev(target, t1, anchor);
+    			insert_dev(target, select, anchor);
     			append_dev(select, option);
     			append_dev(option, t2);
 
@@ -2311,6 +2311,10 @@ var app = (function () {
     		},
     		p: function update(ctx, [dirty]) {
     			if (dirty & /*label*/ 8) set_data_dev(t0, /*label*/ ctx[3]);
+
+    			if (dirty & /*disableDropdown*/ 32) {
+    				toggle_class(div, "inactive", /*disableDropdown*/ ctx[5]);
+    			}
 
     			if (dirty & /*options, category*/ 3) {
     				each_value = /*options*/ ctx[0];
@@ -2347,15 +2351,13 @@ var app = (function () {
     			if (dirty & /*disableDropdown*/ 32) {
     				toggle_class(select, "inactive", /*disableDropdown*/ ctx[5]);
     			}
-
-    			if (dirty & /*disableDropdown*/ 32) {
-    				toggle_class(div, "inactive", /*disableDropdown*/ ctx[5]);
-    			}
     		},
     		i: noop,
     		o: noop,
     		d: function destroy(detaching) {
     			if (detaching) detach_dev(div);
+    			if (detaching) detach_dev(t1);
+    			if (detaching) detach_dev(select);
     			destroy_each(each_blocks, detaching);
     			mounted = false;
     			run_all(dispose);

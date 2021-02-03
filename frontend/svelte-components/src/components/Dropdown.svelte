@@ -114,19 +114,19 @@
     class:inactive={disableDropdown}>
     <label for={labelIdentifier}>{label}</label>
     <!-- svelte-ignore a11y-no-onchange -->
-    <select
-        name={labelIdentifier}
-        bind:value={currentSelection}
-        on:change={handleChange}
-        id={id}
-        class:inactive={disableDropdown}
-        disabled={disableDropdown}>
-        <option selected disabled hidden id={resetId}>Bitte auswählen</option>
-        {#each options as opt}
-            <option value={{ opt, category }}>{opt}</option>
-        {/each}
-    </select>
 </div>
+<select
+    name={labelIdentifier}
+    bind:value={currentSelection}
+    on:change={handleChange}
+    id={id}
+    class:inactive={disableDropdown}
+    disabled={disableDropdown}>
+    <option selected disabled hidden id={resetId}>Bitte auswählen</option>
+    {#each options as opt}
+        <option value={{ opt, category }}>{opt}</option>
+    {/each}
+</select>
 
 <!-- STYLING ------------------------------ -->
 <style>
