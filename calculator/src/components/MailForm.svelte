@@ -51,8 +51,12 @@
         }
     });
 
-    // is a global variable due to rollup/replace plugin
-    // const frontendURL = calc.env.frontendURL;
+    let frontendURL;
+    if (isProduction) {
+        frontendURL = "http://217.160.141.204:1337";
+    } else {
+        frontendURL = "http://localhost:1337";
+    }
 
     const handleSubmit = () => {
         console.log(fields);

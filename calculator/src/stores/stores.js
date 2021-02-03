@@ -5,7 +5,14 @@ import axios from "axios";
 import { subscribe } from "svelte/internal";
 
 // is a global variable due to rollup/replace plugin
-// const strapiURL = process.env.strapiURL;
+
+// initial fetch of all paths to CSV's
+let strapiURL;
+if (isProduction) {
+    strapiURL = "http://217.160.141.204:1337";
+} else {
+    strapiURL = "http://localhost:1337";
+}
 
 export const groups = writable([]);
 export const services = writable([]);
@@ -28,8 +35,6 @@ export const bewerbungenSelectedTypes = writable();
 
 export const prices = writable();
 
-// initial fetch of all paths to CSV's
-console.log(strapiURL);
 const fetchedCSVData = axios.get(`${strapiURL}/preise`);
 
 fetchedCSVData

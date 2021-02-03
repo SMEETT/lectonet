@@ -46,8 +46,7 @@ export default {
     },
     plugins: [
         replace({
-            strapiURL: JSON.stringify(process.env.strapiURL),
-            frontendURL: JSON.stringify(process.env.frontendURL),
+            isProduction: production,
         }),
 
         svelte({
