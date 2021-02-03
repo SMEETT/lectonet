@@ -51,11 +51,14 @@
         }
     });
 
-    // const frontendURL = "http://localhost:1339";
-    const frontendURL = "http://217.160.141.204:1339";
+    // is a global variable due to rollup/replace plugin
+    const frontendURL = calc.env.frontendURL;
+
     const handleSubmit = () => {
         console.log(fields);
+        console.log(frontendURL);
         const result = regSchema.validate(fields, { abortEarly: false });
+        console.log(result);
         result
             .then((res) => {
                 console.log(res);
@@ -86,9 +89,9 @@
                 formSuccessfullySubmitted = true;
             })
             .catch((err) => {
+                console.log(errors);
                 errors = extractErrors(err);
                 foundError = true;
-                console.log(errors);
                 formSuccessfullySubmitted = false;
             });
     };

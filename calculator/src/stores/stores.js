@@ -3,8 +3,9 @@ import pp from "papaparse";
 const ppConfig = { header: true };
 import axios from "axios";
 import { subscribe } from "svelte/internal";
-// const strapiURL = "http://localhost:1337";
-const strapiURL = "http://217.160.141.204:1337";
+
+// is a global variable due to rollup/replace plugin
+const strapiURL = calc.env.strapiURL;
 
 export const groups = writable([]);
 export const services = writable([]);

@@ -7,6 +7,9 @@ import css from "rollup-plugin-css-only";
 
 const production = !process.env.ROLLUP_WATCH;
 
+import { config } from "dotenv";
+import replace from "@rollup/plugin-replace";
+
 function serve() {
     let server;
 
@@ -38,8 +41,7 @@ export default {
         sourcemap: true,
         format: "iife",
         name: "app",
-        file: "../static/svelte/svelte-bundle.js",
-        // file: "public/dist/svelte-bundle.js",
+        file: "../frontend/static/svelte/svelte-bundle.js",
     },
     plugins: [
         svelte({
@@ -62,6 +64,16 @@ export default {
             dedupe: ["svelte"],
         }),
         commonjs(),
+
+        replace({
+            // stringify the object
+            calc: JSON.stringify({
+                env: {
+                    isProd: production,
+                    ...config().parsed, // attached the .env config
+                },
+            }),
+        }),
 
         // In dev mode, call `npm run start` once
         // the bundle has been generated
