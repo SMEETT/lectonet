@@ -154,7 +154,7 @@
         margin-top: 16px;
     }
 
-    .select-wrapper::after {
+    /* .select-wrapper::after {
         content: url("../../../static/images/icon_dropdown_closed.svg");
         pointer-events: none;
         position: absolute;
@@ -162,8 +162,6 @@
         padding-top: 12px;
         padding-left: 20px;
         right: 15px;
-        /* border: 1px solid red; */
-        /* border-left: 1px solid grey; */
         width: 20px;
     }
 
@@ -180,7 +178,7 @@
     .select-wrapper.inactive:hover::after {
         content: url("../../../static/images/icon_dropdown_inactive.svg");
         transition: 0s;
-    }
+    } */
 
     select {
         /* -moz-appearance: none;
