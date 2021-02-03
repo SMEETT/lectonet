@@ -2193,7 +2193,7 @@ var app = (function () {
     			};
 
     			option.value = option.__value;
-    			attr_dev(option, "class", "svelte-yk1wat");
+    			attr_dev(option, "class", "svelte-zm1w0r");
     			add_location(option, file, 125, 12, 4843);
     		},
     		m: function mount(target, anchor) {
@@ -2260,7 +2260,7 @@ var app = (function () {
     			}
 
     			attr_dev(label_1, "for", /*labelIdentifier*/ ctx[7]);
-    			attr_dev(label_1, "class", "svelte-yk1wat");
+    			attr_dev(label_1, "class", "svelte-zm1w0r");
     			add_location(label_1, file, 114, 4, 4425);
     			option.selected = true;
     			option.disabled = true;
@@ -2268,17 +2268,17 @@ var app = (function () {
     			attr_dev(option, "id", /*resetId*/ ctx[6]);
     			option.__value = "Bitte auswählen";
     			option.value = option.__value;
-    			attr_dev(option, "class", "svelte-yk1wat");
+    			attr_dev(option, "class", "svelte-zm1w0r");
     			add_location(option, file, 123, 8, 4729);
     			attr_dev(select, "name", /*labelIdentifier*/ ctx[7]);
     			attr_dev(select, "id", /*id*/ ctx[2]);
     			select.disabled = /*disableDropdown*/ ctx[5];
-    			attr_dev(select, "class", "svelte-yk1wat");
+    			attr_dev(select, "class", "svelte-zm1w0r");
     			if (/*currentSelection*/ ctx[4] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[11].call(select));
     			toggle_class(select, "inactive", /*disableDropdown*/ ctx[5]);
     			add_location(select, file, 116, 4, 4518);
     			attr_dev(div, "id", /*selectWrapperId*/ ctx[8]);
-    			attr_dev(div, "class", "select-wrapper svelte-yk1wat");
+    			attr_dev(div, "class", "select-wrapper svelte-zm1w0r");
     			toggle_class(div, "inactive", /*disableDropdown*/ ctx[5]);
     			add_location(div, file, 110, 0, 4326);
     		},

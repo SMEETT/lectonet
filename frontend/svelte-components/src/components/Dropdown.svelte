@@ -206,12 +206,12 @@
         cursor: default;
     }
 
-    option {
+    /* option {
         color: var(--default-grey);
         background-color: white;
-    }
+    } */
 
-    select::-ms-expand {
+    /* select::-ms-expand {
         display: none;
-    }
+    } */
 </style>
