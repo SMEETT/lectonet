@@ -183,9 +183,9 @@
     }
 
     select {
-        -moz-appearance: none;
+        /* -moz-appearance: none;
         -webkit-appearance: none;
-        appearance: none;
+        appearance: none; */
         border: 1px solid #595959;
         border-radius: 24px;
         color: #595959;

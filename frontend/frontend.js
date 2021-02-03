@@ -32,7 +32,7 @@ app.use(
 			"block-all-mixed-content": true,
 			"font-src": ["https://fonts.googleapis.com", "https://fonts.gstatic.com"],
 			"frame-ancestors": [NONE],
-			"connect-src": [strapiURL, "http://localhost:*", "ws://localhost:*"],
+			"connect-src": [SELF, strapiURL, "http://localhost:*", "ws://localhost:*"],
 		},
 	})
 );
