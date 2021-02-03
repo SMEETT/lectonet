@@ -53,16 +53,14 @@
 
     let frontendURL;
     if (isProduction) {
-        frontendURL = "http://217.160.141.204:1337";
+        frontendURL = "http://217.160.141.204:1339";
     } else {
-        frontendURL = "http://localhost:1337";
+        frontendURL = "http://localhost:1339";
     }
 
     const handleSubmit = () => {
         console.log(fields);
-        console.log(frontendURL);
         const result = regSchema.validate(fields, { abortEarly: false });
-        console.log(result);
         result
             .then((res) => {
                 console.log(res);
@@ -93,9 +91,9 @@
                 formSuccessfullySubmitted = true;
             })
             .catch((err) => {
-                console.log(errors);
                 errors = extractErrors(err);
                 foundError = true;
+                console.log(errors);
                 formSuccessfullySubmitted = false;
             });
     };

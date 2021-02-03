@@ -4,7 +4,8 @@
 	"description": "",
 	"main": "server.js",
 	"scripts": {
-		"dev": "nodemon -r dotenv/config frontend.js"
+		"dev": "nodemon -r dotenv/config frontend.js",
+		"test": "echo \"Error: no test specified\" && exit 1"
 	},
 	"keywords": [],
 	"author": "",

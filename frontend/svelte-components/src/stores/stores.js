@@ -4,8 +4,6 @@ const ppConfig = { header: true };
 import axios from "axios";
 import { subscribe } from "svelte/internal";
 
-// is a global variable due to rollup/replace plugin
-
 // initial fetch of all paths to CSV's
 let strapiURL;
 if (isProduction) {
