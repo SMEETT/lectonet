@@ -196,6 +196,8 @@
         padding-left: 15px;
         width: 100%;
         background-color: white;
+        z-index: 5;
+        position: relative;
     }
 
     select.inactive {
