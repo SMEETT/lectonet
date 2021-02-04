@@ -10,6 +10,7 @@ const path = require("path");
 const ejs = require("ejs");
 const fs = require("fs");
 const md = require("markdown-it")();
+const compression = require("compression");
 
 // environment variables
 const strapiURL = process.env.strapiURL;
@@ -20,19 +21,21 @@ const frontendPORT = process.env.frontendPORT;
 // express init
 const app = express();
 
+app.use(compression());
+
 // CSP Header
 app.use(
 	expressCspHeader({
 		directives: {
-			"default-src": [SELF, strapiURL, "http://localhost:*"],
-			"script-src": [SELF, INLINE, "http://localhost:*"],
+			"default-src": [SELF, strapiURL],
+			"script-src": [SELF],
 			"style-src": [SELF, "https://fonts.googleapis.com", "https://fonts.gstatic.com"],
-			"img-src": [SELF, "data:", "images.com"],
+			"img-src": [SELF],
 			"worker-src": [NONE],
 			"block-all-mixed-content": true,
 			"font-src": ["https://fonts.googleapis.com", "https://fonts.gstatic.com"],
 			"frame-ancestors": [NONE],
-			"connect-src": [SELF, strapiURL, "http://localhost:*", "ws://localhost:*"],
+			"connect-src": [SELF, strapiURL],
 		},
 	})
 );
@@ -44,7 +47,6 @@ app.set("view engine", "ejs");
 
 // set up static folders
 app.use("/static", express.static(path.resolve(__dirname, "static")));
-app.use("/svelte-components", express.static(path.resolve(__dirname, "svelte-components")));
 
 app.use(function (req, res, next) {
 	// TODO: have one API-endpoint to get data necessary for all pages

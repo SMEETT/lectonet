@@ -2,9 +2,7 @@ import { writable, get } from "svelte/store";
 import pp from "papaparse";
 const ppConfig = { header: true };
 import axios from "axios";
-import { subscribe } from "svelte/internal";
 
-// initial fetch of all paths to CSV's
 let strapiURL;
 if (isProduction) {
     strapiURL = "http://217.160.141.204:1337";
@@ -33,6 +31,7 @@ export const bewerbungenSelectedTypes = writable();
 
 export const prices = writable();
 
+// initial fetch of all paths to CSV's
 const fetchedCSVData = axios.get(`${strapiURL}/preise`);
 
 fetchedCSVData

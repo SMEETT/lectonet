@@ -83,11 +83,7 @@
             price.subscribe((p) => {
                 priceTEMP = p;
                 const quantityTEMP = parseFloat(get(quantity));
-                console.log(priceTEMP);
-                console.log(quantityTEMP);
-
                 let finalPrice = (quantityTEMP * priceTEMP).toFixed(2);
-                console.log(finalPrice);
                 if (finalPrice == "NaN") {
                     finalPrice = "0.00";
                 }

@@ -27,7 +27,6 @@ function serve() {
                     shell: true,
                 }
             );
-
             process.on("SIGTERM", toExit);
             process.on("exit", toExit);
         },
@@ -41,8 +40,6 @@ export default {
         format: "iife",
         name: "app",
         file: "../frontend/static/svelte/svelte-bundle.js",
-        // file: "../static/svelte/svelte-bundle.js",
-        // file: "public/dist/svelte-bundle.js",
     },
     plugins: [
         replace({

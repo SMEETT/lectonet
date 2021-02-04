@@ -59,11 +59,9 @@
     }
 
     const handleSubmit = () => {
-        console.log(fields);
         const result = regSchema.validate(fields, { abortEarly: false });
         result
             .then((res) => {
-                console.log(res);
                 errors = {};
                 foundError = false;
                 axios
@@ -83,7 +81,7 @@
                         }
                     )
                     .then((response) => {
-                        console.log(response);
+                        // console.log(response);
                     })
                     .catch((error) => {
                         console.log(error);
