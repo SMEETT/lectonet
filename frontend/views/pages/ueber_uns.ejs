@@ -3,18 +3,18 @@
 	<head>
 		<%- include ("../partials/head.ejs") %>
 	</head>
-	<body>
+	<body id='main-body'>
+        <div id="preisrechner-hook"></div>
 		<div class="wrapper">
 			<header><%- include ("../partials/header.ejs") %></header>
 			<section class="text">
-				<h5><%= data.superheadline %></h5>
-				<h1><%= data.headline %></h1>
-				<h4><%= data.subheadline %></h4>
-				<p><%- md %></p>
-				<button class="btn red">PREISRECHNER</button>
+				<h1><%= headline %></h1>
+				<h2><%= subheadline %></h2>
+				<p><%- copytext %></p>
+				<!-- <button id="open-calculator-btn" class="btn red">PREISRECHNER</button> -->
 			</section>
 			<section class="picture">
-				<img src="<%= apiPath %><%= data.image.url %>" alt="<%= data.image.alternativeText %>" />
+				<img src="<%= strapiURL %><%= image.url %>" alt="<%= image.alternativeText %>" />
 			</section>
 			<footer><%- include ("../partials/footer.ejs") %></footer>
 		</div>

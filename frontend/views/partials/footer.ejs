@@ -2,22 +2,19 @@
 	<img src="../../static/images/logo_white.svg" alt="Lectonet Logo" />
 </div>
 <ul class="others">
-	<li>Referenzen</li>
-	<li>Impressum</li>
-	<li>FAQ</li>
-	<li>Preisrechner</li>
+    <% navItems.footer.forEach(obj=> { %>
+        <li><a class="footer" href=<%=obj.slug %>> <%= obj.title %> </a></li>
+        <% }) %>
 </ul>
 <ul class="leistungen">
-	<li>Korrekturen</li>
-	<li>Leistungen</li>
-	<li>Bewerbungen</li>
-	<li>Leichte Sprache</li>
+    <% navItems.leistungen.forEach(obj=> { %>
+        <li><a class="footer" href=<%=obj.slug %>> <%= obj.title %> </a></li>
+    <% }) %>
 </ul>
 <ul class="ueber-uns">
-	<li>Netzwerk</li>
-	<li>Die Letzten Leser</li>
-	<li>Netzwerkpartner werden</li>
-	<li>Wackwitz</li>
+    <% navItems.ueber_uns.forEach(obj=> { %>
+        <li><a class="footer" href=<%=obj.slug %>> <%= obj.title %> </a></li>
+    <% }) %>
 </ul>
 <div class="social-media-icons">
 	<span class="social-media-label">Social Media</span>

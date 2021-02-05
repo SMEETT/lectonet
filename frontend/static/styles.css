@@ -208,13 +208,21 @@ header {
 	position: relative;
 }
 
-.logo {
-	display: inline-block;
+.logo-container {
+	display: flex;
+	align-items: center;
 	width: 142px;
 	margin-left: 64px;
 	margin-right: 120px;
-	margin-bottom: 8px;
+}
+
+.logo {
+	display: inline-block;
+	/* margin-bottom: 8px; */
 	z-index: 5;
+}
+
+.logo img {
 }
 
 nav {
@@ -382,8 +390,8 @@ h1 {
 	white-space: pre-wrap;
 }
 
-h4 {
-	/* MAIN/H4 */
+h2 {
+	/* MAIN/h2 */
 	font-family: Merriweather;
 	font-style: italic;
 	font-weight: 300;
@@ -439,7 +447,6 @@ p a {
 	width: 100%;
 	justify-content: center;
 	align-items: center;
-	padding-left: 3px;
 }
 
 .hamburger-logo-container > img {
@@ -452,7 +459,6 @@ p a {
 	width: 100%;
 	justify-content: center;
 	align-items: center;
-	padding-right: 2px;
 }
 
 .hamburger-icon-container img {
@@ -541,6 +547,10 @@ p a {
 /* FOOTER */
 /* #################### */
 
+.logo-link {
+	border: 1px solid red;
+}
+
 footer {
 	grid-area: footer;
 	background-color: var(--default-grey);
@@ -589,4 +599,14 @@ footer .social-media-label {
 	font-size: 14px;
 	text-decoration: underline;
 	text-transform: uppercase;
+}
+
+a.footer {
+	text-decoration: none;
+	color: white;
+}
+
+a.footer:hover {
+	color: var(--hover-light-grey);
+	text-decoration: underline;
 }

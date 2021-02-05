@@ -1,0 +1,28 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/referenzen-und-wackwitz",
+      "handler": "referenzen-und-wackwitz.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/referenzen-und-wackwitz",
+      "handler": "referenzen-und-wackwitz.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/referenzen-und-wackwitz",
+      "handler": "referenzen-und-wackwitz.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

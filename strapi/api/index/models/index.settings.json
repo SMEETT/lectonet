@@ -1,8 +1,8 @@
 {
-  "kind": "collectionType",
+  "kind": "singleType",
   "collectionName": "indices",
   "info": {
-    "name": "index",
+    "name": "Index",
     "displayName": "Index",
     "description": ""
   },

@@ -1,0 +1,28 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/fa-qs",
+      "handler": "fa-qs.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/fa-qs",
+      "handler": "fa-qs.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/fa-qs",
+      "handler": "fa-qs.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}

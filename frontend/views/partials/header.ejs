@@ -1,7 +1,8 @@
 <!-- regular navigation -->
-
 <nav>
-	<img class="logo" src="../../static/images/logo_grey.svg" alt="" />
+    <div class="logo-container">
+        <a class="logo" href="/"><img src="../../static/images/logo_grey.svg" alt="" /></a>
+    </div>
 	<ul>
 		<li id="leistungen-link">
 			Leistungen<img class="dropdown-icon" src="../../static/images/icon_dropdown_arrow.svg" alt="" />
@@ -10,40 +11,36 @@
 			Über Uns<img class="dropdown-icon" src="../../static/images/icon_dropdown_arrow.svg" alt="" />
 		</li>
 		<li class="social-media-icon facebook-icon">
-			<a href="#"><img src="../../static/images/icon_facebook.svg" alt="" /></a>
+			<a href="#"><img src="../../static/images/icon_facebook.svg" alt="Link Facebook" /></a>
 		</li>
 		<li class="social-media-icon">
-			<a href="#"><img src="../../static/images/icon_twitter.svg" alt="" /></a>
+			<a href="#"><img src="../../static/images/icon_twitter.svg" alt="Link Twitter" /></a>
 		</li>
 		<li class="social-media-icon">
-			<a href="#"><img src="../../static/images/icon_instagram.svg" alt="" /></a>
+			<a href="#"><img src="../../static/images/icon_instagram.svg" alt="Link Instagram" /></a>
 		</li>
 		<li class="links-link"><a href="#">Links</a></li>
 		<li><button id="open-calculator-btn-navi" class="btn outline">Preisrechner</button></li>
 	</ul>
 	<div class="dropdown-wrapper">
 		<ul class="leistungen-sublinks">
-			<li><a href="#">Korrekturen</a></li>
-			<li><a href="#">Lektorat</a></li>
-			<li><a href="#">Bewerbungen</a></li>
-			<li><a href="#">Leichte Sprache</a></li>
-			<li><a href="#">Test 1</a></li>
-			<li><a href="#">Test 2</a></li>
+            <% navItems.leistungen.forEach(obj => { %>
+                <li><a href=<%= obj.slug %>> <%= obj.title %> </a></li>
+            <% }) %>
 		</ul>
 		<ul class="ueber-uns-sublinks">
-			<li><a href="#">Netzwerk</a></li>
-			<li><a href="#">Die Letzten Leser</a></li>
-			<li><a href="#">Netzwerkpartner werden</a></li>
-			<li><a href="#">Wackwitz</a></li>
+            <% navItems.ueber_uns.forEach(obj=> { %>
+                <li><a href=<%=obj.slug %>> <%= obj.title %> </a></li>
+                <% }) %>
 		</ul>
 	</div>
 </nav>
 
-<!-- hamburger menu -->
 
+<!-- hamburger menu -->
 <div class="hamburger-wrapper">
 	<div class="hamburger-logo-container">
-		<img id="hamburger-logo" src="../../static/images/logo_grey.svg" alt="" />
+		<a href="/"><img id="hamburger-logo" src="../../static/images/logo_grey.svg" alt="" /></a>
 	</div>
 
 	<div class="hamburger-preisrechner-btn-container">
@@ -53,17 +50,15 @@
 	<div class="hamburger-links-container">
 		<span class="hamburger-category">Leistungen</span>
 		<ul class="hamburger-leistungen">
-			<a href="#"><li>Korrekturen</li></a>
-			<a href="#"><li>Lektorat</li></a>
-			<a href="#"><li>Bewerbungen</li></a>
-			<a href="#"><li>Leichte Sprache</li></a>
+            <% navItems.leistungen.forEach(obj=> { %>
+                <li><a href=<%=obj.slug %>> <%= obj.title %> </a></li>
+                <% }) %>
 		</ul>
 		<span class="hamburger-category">Über Uns</span>
 		<ul class="hamburger-ueber-uns">
-			<a href="#"><li>Netzwerk</li></a>
-			<a href="#"><li>Die Letzten Leser</li></a>
-			<a href="#"><li>Netzwerkpartner werden</li></a>
-			<a href="#"><li>Wackwitz</li></a>
+            <% navItems.ueber_uns.forEach(obj=> { %>
+                <li><a href=<%=obj.slug %>> <%= obj.title %> </a></li>
+                <% }) %>
 		</ul>
 		<div class="hamburger-social-media">
 			<a href="#"><img src="../../static/images/icon_facebook.svg" alt="Icon Facebook" /></a>

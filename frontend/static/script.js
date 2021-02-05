@@ -44,7 +44,10 @@ window.addEventListener("DOMContentLoaded", () => {
 			calculatorOpen = true;
 		}
 	};
-	openCalculatorButton.addEventListener("click", toggleCalculatorOverlay);
+	try {
+		openCalculatorButton.addEventListener("click", toggleCalculatorOverlay);
+	} catch {}
+
 	openCalculatorButtonNavi.addEventListener("click", toggleCalculatorOverlay);
 	priceCalculatorCloseIcon.addEventListener("click", toggleCalculatorOverlay);
 	calculatorHook.addEventListener("click", toggleCalculatorOverlay);
@@ -60,8 +63,10 @@ window.addEventListener("DOMContentLoaded", () => {
 		});
 	};
 
-	const btnLeistungen = document.getElementById("btn-leistungen");
-	btnLeistungen.addEventListener("click", scrollLeistungenIntoView);
+	try {
+		const btnLeistungen = document.getElementById("btn-leistungen");
+		btnLeistungen.addEventListener("click", scrollLeistungenIntoView);
+	} catch {}
 });
 
 // #############################################

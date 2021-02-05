@@ -1,0 +1,50 @@
+{
+  "kind": "singleType",
+  "collectionName": "referenzen_und_wackwitzs",
+  "info": {
+    "name": "Referenzen und Wackwitz",
+    "description": ""
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "title_referenzen": {
+      "type": "string"
+    },
+    "headline_referenzen": {
+      "type": "text"
+    },
+    "subheadline_referenzen": {
+      "type": "text"
+    },
+    "copytext_referenzen": {
+      "type": "richtext"
+    },
+    "title_wackwitz": {
+      "type": "string"
+    },
+    "headline_wackwitz": {
+      "type": "text"
+    },
+    "subheadline_wackwitz": {
+      "type": "text"
+    },
+    "foto_wackwitz": {
+      "model": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos"
+      ],
+      "plugin": "upload",
+      "required": false
+    },
+    "bildunterschrift_wackwitz": {
+      "type": "text"
+    }
+  }
+}

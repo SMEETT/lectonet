@@ -18,8 +18,7 @@
       "type": "enumeration",
       "enum": [
         "ueber_uns",
-        "leistungen",
-        "impressum"
+        "leistungen"
       ]
     },
     "copytext": {
@@ -35,9 +34,6 @@
       ],
       "plugin": "upload",
       "required": false
-    },
-    "position": {
-      "type": "integer"
     },
     "headline": {
       "type": "text"

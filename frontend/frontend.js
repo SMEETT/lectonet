@@ -11,6 +11,7 @@ const ejs = require("ejs");
 const fs = require("fs");
 const md = require("markdown-it")();
 const compression = require("compression");
+const { nextTick } = require("process");
 
 // environment variables
 const strapiURL = process.env.strapiURL;
@@ -21,6 +22,7 @@ const frontendPORT = process.env.frontendPORT;
 // express init
 const app = express();
 
+// gZip compression
 app.use(compression());
 
 // CSP Header
@@ -30,7 +32,7 @@ app.use(
 			"default-src": [SELF, strapiURL],
 			"script-src": [SELF],
 			"style-src": [SELF, "https://fonts.googleapis.com", "https://fonts.gstatic.com"],
-			"img-src": [SELF],
+			"img-src": [SELF, strapiURL],
 			"worker-src": [NONE],
 			"block-all-mixed-content": true,
 			"font-src": ["https://fonts.googleapis.com", "https://fonts.gstatic.com"],
@@ -48,74 +50,66 @@ app.set("view engine", "ejs");
 // set up static folders
 app.use("/static", express.static(path.resolve(__dirname, "static")));
 
+// build navigation and footer content
 app.use(function (req, res, next) {
-	// TODO: have one API-endpoint to get data necessary for all pages
+	const navItems = { leistungen: [], ueber_uns: [], footer: [] };
+	const footerItems = ["FAQ", "Impressum", "Preisrechner", "Referenzen"];
 
-	const index = `${strapiURL}/indices`;
-	const pages = `${strapiURL}/pages`;
-
-	const requestIndex = axios.get(index);
+	// let strapi take care of the sorting
+	const pages = `${strapiURL}/pages?_sort=title:ASC`;
+	// fetch data
 	const requestPages = axios.get(pages);
+	requestPages
+		.then((pages) => {
+			// get all titles from all pages and add them (based on category) to navItems
+			// generate a slug based on the title for each page
+			pages.data.forEach((page) => {
+				if (page.category === "leistungen") {
+					navItems.leistungen.push({ title: page.title, slug: slugify(page.title, { lower: true }) });
+				} else if (page.category === "ueber_uns") {
+					navItems.ueber_uns.push({ title: page.title, slug: slugify(page.title, { lower: true }) });
+				}
+			});
+			// add all additional footer-links to navItems (including slugs)
+			footerItems.forEach((item) => {
+				navItems.footer.push({ title: item, slug: slugify(item, { lower: true }) });
+			});
 
-	axios
-		.all([requestIndex, requestPages])
-		.then(
-			axios.spread((...responses) => {
-				const responseIndex = responses[0];
-				const responsePages = responses[1];
+			// attach navItems to res.locals so it can be accessed down the line
+			res.locals.navItems = navItems;
 
-				// console.log(responsePages.data);
-
-				res.locals.resIndex = responseIndex.data[0];
-				res.locals.resPages = responsePages.data;
-
-				next();
-			})
-		)
-		.catch((err) => {
-			console.log(err);
+			// call next middleware
+			next();
+		})
+		.catch((error) => {
+			console.log(error);
 		});
-
-	// axios.get(`${strapiURL}/indices`).then((response) => {
-	// 	res.locals.indexData = response.data[0];
-	// 	next();
-	// });
 });
 
 //////////////////////////////////
 // index route
 //////////////////////////////////
 app.get("/", (req, res) => {
-	const indexData = res.locals.resIndex;
-	res.render("pages/index", {
-		title: "Home",
-		headline: md.renderInline(indexData.headline),
-		subheadline: md.renderInline(indexData.subheadline),
-		copytext: md.renderInline(indexData.copytext),
+	// const indexData = res.locals.resIndex;
+	axios.get(`${strapiURL}/index`).then((response) => {
+		res.render("pages/index", {
+			navItems: res.locals.navItems,
+			title: "Home",
+			headline: md.renderInline(response.data.headline),
+			subheadline: md.renderInline(response.data.subheadline),
+			copytext: md.renderInline(response.data.copytext),
+		});
 	});
 });
-
-// //////////////////////////////////
-// // index route
-// //////////////////////////////////
-// app.get("/", (req, res) => {
-// 	axios.get(`${strapiURL}/indices`).then((response) => {
-// 		console.log(response.data[0]);
-// 		res.render("pages/index", {
-// 			title: "Home",
-// 			headline: md.renderInline(response.data[0].headline),
-// 			subheadline: md.renderInline(response.data[0].subheadline),
-// 			copytext: md.renderInline(response.data[0].copytext),
-// 		});
-// 	});
-// });
 
 //////////////////////////////////
 // dynamic routing
 //////////////////////////////////
 app.get("/:path", (req, res) => {
+	console.log(res.locals.navItems);
 	axios.get(`${strapiURL}/pages`).then((response) => {
-		console.log(response);
+		//console.log(response);
+		console.log("dynamic routing");
 		// look for page with a title that matches the requested path
 		const match = response.data.find((page) => {
 			return slugify(page.title, { lower: true }) === req.params.path;
@@ -132,11 +126,35 @@ app.get("/:path", (req, res) => {
 
 		// render template based on provided category
 		if (match.category === "leistungen") {
-			console.log(strapiURL);
-			res.render("pages/genericSite", {
-				title: md.renderInline(response.data[0].headline),
+			res.render("pages/leistungen", {
+				navItems: res.locals.navItems,
+				title: match.title,
+				superheadline: md.renderInline(match.superheadline),
+				headline: md.renderInline(match.headline),
+				subheadline: md.renderInline(match.subheadline),
+				copytext: md.renderInline(match.copytext),
+				image: match.image,
 				strapiURL: strapiURL,
-				md: md.renderInline(match.copytext),
+			});
+		}
+
+		// if (match.category === "leistungen") {
+		// 	res.render("pages/genericSite", {
+		// 		title: md.renderInline(response.data[0].headline),
+		// 		strapiURL: strapiURL,
+		// 		md: md.renderInline(match.copytext),
+		// 	});
+		// }
+
+		if (match.category === "ueber_uns") {
+			res.render("pages/ueber_uns", {
+				navItems: res.locals.navItems,
+				title: match.title,
+				headline: md.renderInline(match.headline),
+				subheadline: md.renderInline(match.subheadline),
+				copytext: md.renderInline(match.copytext),
+				image: match.image,
+				strapiURL: strapiURL,
 			});
 		}
 	});
@@ -226,7 +244,7 @@ app.post("/send/price", (req, res) => {
 		if (err) console.log(err);
 		else console.log(info);
 	});
-	res.end();
+	res.status(204).send("Ok");
 });
 
 app.listen(frontendPORT, () => console.log(`Server running on port ${frontendPORT}`));

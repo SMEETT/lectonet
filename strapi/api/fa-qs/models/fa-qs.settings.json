@@ -1,0 +1,19 @@
+{
+  "kind": "singleType",
+  "collectionName": "fa_qs",
+  "info": {
+    "name": "FAQs"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "attributes": {
+    "FAQ": {
+      "type": "component",
+      "repeatable": true,
+      "component": "component.faq"
+    }
+  }
+}

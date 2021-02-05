@@ -1,8 +1,8 @@
 {
-  "kind": "collectionType",
-  "collectionName": "testpoints",
+  "kind": "singleType",
+  "collectionName": "impressums",
   "info": {
-    "name": "testpoint"
+    "name": "impressum"
   },
   "options": {
     "increments": true,
@@ -13,8 +13,8 @@
     "title": {
       "type": "string"
     },
-    "age": {
-      "type": "integer"
+    "copytext": {
+      "type": "richtext"
     }
   }
 }
