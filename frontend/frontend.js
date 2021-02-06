@@ -2,7 +2,7 @@
 const express = require("express");
 const cors = require("cors");
 const nodemailer = require("nodemailer");
-const { expressCspHeader, INLINE, NONE, SELF } = require("express-csp-header");
+const { expressCspHeader, NONE, SELF } = require("express-csp-header");
 
 const slugify = require("slugify");
 const axios = require("axios");
@@ -11,7 +11,6 @@ const ejs = require("ejs");
 const fs = require("fs");
 const md = require("markdown-it")();
 const compression = require("compression");
-const { nextTick } = require("process");
 
 // environment variables
 const strapiURL = process.env.strapiURL;
@@ -70,7 +69,7 @@ app.use(function (req, res, next) {
 					navItems.ueber_uns.push({ title: page.title, slug: slugify(page.title, { lower: true }) });
 				}
 			});
-			// add all additional footer-links to navItems (including slugs)
+			// add all (additional) footer-links to navItems (including slugs)
 			footerItems.forEach((item) => {
 				navItems.footer.push({ title: item, slug: slugify(item, { lower: true }) });
 			});
@@ -90,7 +89,6 @@ app.use(function (req, res, next) {
 // index route
 //////////////////////////////////
 app.get("/", (req, res) => {
-	// const indexData = res.locals.resIndex;
 	axios.get(`${strapiURL}/index`).then((response) => {
 		res.render("pages/index", {
 			navItems: res.locals.navItems,
@@ -106,7 +104,6 @@ app.get("/", (req, res) => {
 // dynamic routing
 //////////////////////////////////
 app.get("/:path", (req, res) => {
-	console.log(res.locals.navItems);
 	axios.get(`${strapiURL}/pages`).then((response) => {
 		//console.log(response);
 		console.log("dynamic routing");
@@ -137,14 +134,6 @@ app.get("/:path", (req, res) => {
 				strapiURL: strapiURL,
 			});
 		}
-
-		// if (match.category === "leistungen") {
-		// 	res.render("pages/genericSite", {
-		// 		title: md.renderInline(response.data[0].headline),
-		// 		strapiURL: strapiURL,
-		// 		md: md.renderInline(match.copytext),
-		// 	});
-		// }
 
 		if (match.category === "ueber_uns") {
 			res.render("pages/ueber_uns", {

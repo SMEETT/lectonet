@@ -11,9 +11,6 @@
 /* GENERAL */
 /* #################### */
 
-.main-text-area {
-}
-
 #preisrechner-hook {
 	position: fixed;
 	background-color: rgba(0, 0, 0, 0.5);
@@ -78,9 +75,6 @@ body.overflow {
 		"footer footer";
 	overflow: hidden;
 	box-shadow: -24px 0px 30px rgba(0, 0, 0, 0.15), 24px 0px 30px rgba(0, 0, 0, 0.15);
-}
-
-.wrapper.index {
 }
 
 .gradient {
@@ -222,9 +216,6 @@ header {
 	z-index: 5;
 }
 
-.logo img {
-}
-
 nav {
 	display: flex;
 	width: 100%;
@@ -246,7 +237,7 @@ nav li {
 	margin-right: 35px;
 }
 
-nav .social-media-icon {
+nav .icon-social-media {
 	width: 32px;
 	height: 32px;
 	display: inline-flex;
@@ -254,11 +245,11 @@ nav .social-media-icon {
 	justify-content: center;
 }
 
-nav .social-media-icon > a > img {
+nav .icon-social-media > a > img {
 	margin-bottom: -6px;
 }
 
-nav .social-media-icon:hover {
+nav .icon-social-media:hover {
 	filter: brightness(3);
 }
 
@@ -268,7 +259,7 @@ nav li .dropdown-icon {
 	display: inline-block;
 }
 
-.facebook-icon {
+.icon-facebook {
 	margin-left: 70px;
 }
 
@@ -425,7 +416,7 @@ p a {
 /* HAMBURGER */
 /* #################### */
 
-.hamburger-wrapper {
+.wrapper-hamburger {
 	position: relative;
 	display: grid;
 	width: 100%;
@@ -441,7 +432,7 @@ p a {
 	background: rgba(0, 0, 0, 0);
 }
 
-.hamburger-logo-container {
+.container-logo-hamburger {
 	grid-area: logo;
 	display: flex;
 	width: 100%;
@@ -449,11 +440,11 @@ p a {
 	align-items: center;
 }
 
-.hamburger-logo-container > img {
+.container-logo-hamburger > img {
 	width: 142px;
 }
 
-.hamburger-icon-container {
+.container-icon-hamburger {
 	grid-area: hamburger;
 	display: flex;
 	width: 100%;
@@ -461,16 +452,16 @@ p a {
 	align-items: center;
 }
 
-.hamburger-icon-container img {
+.container-icon-hamburger img {
 	width: 32px;
 	cursor: pointer;
 }
 
-.hamburger-icon-container img:hover {
+.container-icon-hamburger img:hover {
 	filter: brightness(3);
 }
 
-.hamburger-preisrechner-btn-container {
+.container-btn-open-calculator-hamburger {
 	grid-area: btn;
 	width: 100%;
 	display: flex;
@@ -478,7 +469,7 @@ p a {
 	justify-content: center;
 }
 
-.hamburger-links-container {
+.container-nav-items-hamburger {
 	width: 100%;
 	display: none;
 	flex-direction: column;
@@ -489,21 +480,21 @@ p a {
 	grid-area: links;
 }
 
-.hamburger-links-container ul {
+.container-nav-items-hamburger ul {
 	margin-bottom: 16px;
 	line-height: 32px;
 	width: 100%;
 }
 
-.hamburger-links-container ul li {
+.container-nav-items-hamburger ul li {
 	width: 300px;
 }
 
-.hamburger-wrapper a {
+.wrapper-hamburger a {
 	color: white;
 }
 
-.hamburger-wrapper a:hover {
+.wrapper-hamburger a:hover {
 	color: var(--hover-dark-white);
 }
 
@@ -546,10 +537,6 @@ p a {
 /* #################### */
 /* FOOTER */
 /* #################### */
-
-.logo-link {
-	border: 1px solid red;
-}
 
 footer {
 	grid-area: footer;

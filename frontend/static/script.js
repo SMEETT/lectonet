@@ -1,72 +1,55 @@
 const wrapper = document.getElementsByClassName("wrapper")[0];
 
-// #############################################
-// everything needed for the dropdown menu
-// #############################################
-const leistungen_link = document.getElementById("leistungen-link");
-const leistungen_sublinks = document.getElementsByClassName("leistungen-sublinks")[0];
-const ueberuns_link = document.getElementById("ueber-uns-link");
-const ueberuns_sublinks = document.getElementsByClassName("ueber-uns-sublinks")[0];
-const dropdown_wrapper = document.getElementsByClassName("dropdown-wrapper")[0];
-
-// #############################################
-// everything needed for the hamburger menu
-// #############################################
-const hamburger_wrapper = document.getElementsByClassName("hamburger-wrapper")[0];
-const hamburger_links_container = document.getElementsByClassName("hamburger-links-container")[0];
-// initially set links_container display to "none"
-hamburger_links_container.style.display = "none";
-const preisrechner_btn_container = document.getElementsByClassName("hamburger-preisrechner-btn-container")[0];
-const preisrechner_btn = preisrechner_btn_container.querySelector("button");
-const hamburger_logo = document.getElementById("hamburger-logo");
-const hamburger_icon = document.getElementById("hamburger-icon");
-
 window.addEventListener("DOMContentLoaded", () => {
 	// open and close calculator overlay
-	let calculatorOpen = false;
-	const openCalculatorButton = document.getElementById("open-calculator-btn");
-	const openCalculatorButtonNavi = document.getElementById("open-calculator-btn-navi");
-	const priceCalculatorCloseIcon = document.getElementById("calculator-close-icon");
-	const bodyTag = document.getElementById("main-body");
+	let calculatorIsOpen = false;
+	const btnOpenCalculator = document.getElementById("btn-open-calculator");
+	const btnOpenCalculatorNavi = document.getElementById("btn-open-calculator-navi");
+	const btnOpenCalculatorHamburger = document.getElementById("btn-open-calculator-hamburger");
+	const iconCloseCalculator = document.getElementById("icon-close-calculator");
+	const tagBody = document.getElementsByTagName("body")[0];
 	const calculatorHook = document.getElementById("preisrechner-hook");
 
-	const toggleCalculatorOverlay = (e) => {
+	const toggleOverlayCalculator = (e) => {
 		e.stopPropagation();
-		if (calculatorOpen) {
-			if (e.srcElement.id === "preisrechner-hook" || e.srcElement.id === "calculator-close-icon") {
-				bodyTag.classList.remove("overflow");
+		if (calculatorIsOpen) {
+			if (e.srcElement.id === "preisrechner-hook" || e.srcElement.id === "icon-close-calculator") {
+				tagBody.classList.remove("overflow");
 				calculatorHook.style.display = "none";
-				calculatorOpen = false;
+				calculatorIsOpen = false;
 			}
 		} else {
-			bodyTag.classList.add("overflow");
+			tagBody.classList.add("overflow");
 			calculatorHook.style.display = "flex";
-			calculatorOpen = true;
+			calculatorIsOpen = true;
 		}
 	};
+
+	// button not available on all sites
 	try {
-		openCalculatorButton.addEventListener("click", toggleCalculatorOverlay);
+		btnOpenCalculator.addEventListener("click", toggleOverlayCalculator);
 	} catch {}
 
-	openCalculatorButtonNavi.addEventListener("click", toggleCalculatorOverlay);
-	priceCalculatorCloseIcon.addEventListener("click", toggleCalculatorOverlay);
-	calculatorHook.addEventListener("click", toggleCalculatorOverlay);
-
-	// scroll 'Leistungen' into view
-	const h1Leistungen = document.getElementById("h1-leistungen");
-
-	const scrollLeistungenIntoView = () => {
-		const y = h1Leistungen.getBoundingClientRect().top + window.scrollY;
-		window.scroll({
-			top: y,
-			behavior: "smooth",
-		});
-	};
-
+	// scroll 'Leistungen' into view (only on Index Page)
 	try {
+		const h1Leistungen = document.getElementById("h1-leistungen");
+
+		const scrollLeistungenIntoView = () => {
+			const y = h1Leistungen.getBoundingClientRect().top + window.scrollY;
+			window.scroll({
+				top: y,
+				behavior: "smooth",
+			});
+		};
+
 		const btnLeistungen = document.getElementById("btn-leistungen");
 		btnLeistungen.addEventListener("click", scrollLeistungenIntoView);
 	} catch {}
+
+	btnOpenCalculatorNavi.addEventListener("click", toggleOverlayCalculator);
+	btnOpenCalculatorHamburger.addEventListener("click", toggleOverlayCalculator);
+	iconCloseCalculator.addEventListener("click", toggleOverlayCalculator);
+	calculatorHook.addEventListener("click", toggleOverlayCalculator);
 });
 
 // #############################################
@@ -79,65 +62,14 @@ const mq_str_600 = "(max-width: 959px) and (min-width: 600px)";
 const mq_str_320 = "(max-width: 599px)";
 
 // #############################################
-// handling the hamburger menu
-// #############################################
-
-let hamburgerMenuOpen = false;
-
-const closeHamburgerMenu = () => {
-	hamburger_links_container.style.display = "none";
-	hamburger_wrapper.style.background = "rgba(0, 0, 0, 0)";
-	hamburger_icon.classList.remove("bright");
-	hamburger_logo.classList.remove("bright");
-	preisrechner_btn.classList.remove("hamburger-menu-open");
-	hamburgerMenuOpen = false;
-	if (window.matchMedia(mq_str_320).matches) {
-		preisrechner_btn_container.style.display = "none";
-	}
-};
-
-const openHamburgerMenu = () => {
-	hamburger_links_container.style.display = "grid";
-	hamburger_wrapper.style.background = "rgba(0, 0, 0, 0.75)";
-	hamburger_icon.classList.add("bright");
-	hamburger_logo.classList.add("bright");
-	preisrechner_btn.classList.add("hamburger-menu-open");
-	hamburgerMenuOpen = true;
-	if (window.matchMedia(mq_str_320).matches) {
-		preisrechner_btn_container.style.display = "flex";
-	}
-};
-
-const toggleHamburgerMenu = () => {
-	if (hamburgerMenuOpen === false) {
-		openHamburgerMenu();
-	} else {
-		closeHamburgerMenu();
-	}
-};
-
-hamburger_icon.addEventListener("click", () => {
-	toggleHamburgerMenu();
-});
-
-const handleMediaQuery = (event) => {
-	if (event.media === mq_str_320 && event.matches) {
-		closeHamburgerMenu();
-		preisrechner_btn_container.style.display = "none";
-	} else if (event.media === mq_str_600 && event.matches) {
-		closeHamburgerMenu();
-		preisrechner_btn_container.style.display = "flex";
-	}
-};
-
-const mq_320 = window.matchMedia(mq_str_320);
-const mq_600 = window.matchMedia(mq_str_600);
-mq_320.addEventListener("change", handleMediaQuery);
-mq_600.addEventListener("change", handleMediaQuery);
-
-// #############################################
 // handling the dropdown menu
 // #############################################
+
+const leistungen_link = document.getElementById("leistungen-link");
+const leistungen_sublinks = document.getElementsByClassName("leistungen-sublinks")[0];
+const ueberuns_link = document.getElementById("ueber-uns-link");
+const ueberuns_sublinks = document.getElementsByClassName("ueber-uns-sublinks")[0];
+const dropdown_wrapper = document.getElementsByClassName("dropdown-wrapper")[0];
 
 // eventListener to show the dropdown-menu background (wrapper)
 dropdown_wrapper.addEventListener("mouseout", onMouseOutHandler, true);
@@ -155,7 +87,7 @@ ueberuns_link.addEventListener("mouseenter", () => {
 });
 
 // check if the mouse is far enough away from the top of the page,
-// if it is hide the dropdown-menu background (wrapper)
+// if it is, hide the dropdown-menu (wrapper)
 function onMouseOutHandler(event) {
 	if (event.pageY >= dropdown_wrapper.offsetHeight + 10) {
 		dropdown_wrapper.style.display = "none";
@@ -165,3 +97,68 @@ function onMouseOutHandler(event) {
 dropdown_wrapper.addEventListener("click", () => {
 	dropdown_wrapper.style.display = "none";
 });
+
+// #############################################
+// handling the hamburger menu
+// #############################################
+
+const wrapperHamburger = document.getElementsByClassName("wrapper-hamburger")[0];
+const containerNavItemsHamburger = document.getElementsByClassName("container-nav-items-hamburger")[0];
+containerNavItemsHamburger.style.display = "none";
+const containerBtnOpenCalculatorHamburger = document.getElementsByClassName("container-btn-open-calculator-hamburger")[0];
+const btnOpenCalculatorHamburger = document.getElementById("btn-open-calculator-hamburger");
+const logoHamburger = document.getElementById("logo-hamburger");
+const iconHamburger = document.getElementById("icon-hamburger");
+
+let hamburgerMenuIsOpen = false;
+
+const closeMenuHamburger = () => {
+	containerNavItemsHamburger.style.display = "none";
+	wrapperHamburger.style.background = "rgba(0, 0, 0, 0)";
+	iconHamburger.classList.remove("bright");
+	logoHamburger.classList.remove("bright");
+	btnOpenCalculatorHamburger.classList.remove("hamburger-menu-open");
+	hamburgerMenuIsOpen = false;
+	if (window.matchMedia(mq_str_320).matches) {
+		containerBtnOpenCalculatorHamburger.style.display = "none";
+	}
+};
+
+const openMenuHamburger = () => {
+	containerNavItemsHamburger.style.display = "grid";
+	wrapperHamburger.style.background = "rgba(0, 0, 0, 0.75)";
+	iconHamburger.classList.add("bright");
+	logoHamburger.classList.add("bright");
+	btnOpenCalculatorHamburger.classList.add("hamburger-menu-open");
+	hamburgerMenuIsOpen = true;
+	if (window.matchMedia(mq_str_320).matches) {
+		containerBtnOpenCalculatorHamburger.style.display = "flex";
+	}
+};
+
+const toggleMenuHamburger = () => {
+	if (hamburgerMenuIsOpen === false) {
+		openMenuHamburger();
+	} else {
+		closeMenuHamburger();
+	}
+};
+
+iconHamburger.addEventListener("click", () => {
+	toggleMenuHamburger();
+});
+
+const handleMediaQuery = (event) => {
+	if (event.media === mq_str_320 && event.matches) {
+		closeMenuHamburger();
+		containerBtnOpenCalculatorHamburger.style.display = "none";
+	} else if (event.media === mq_str_600 && event.matches) {
+		closeMenuHamburger();
+		containerBtnOpenCalculatorHamburger.style.display = "flex";
+	}
+};
+
+const mq_320 = window.matchMedia(mq_str_320);
+const mq_600 = window.matchMedia(mq_str_600);
+mq_320.addEventListener("change", handleMediaQuery);
+mq_600.addEventListener("change", handleMediaQuery);

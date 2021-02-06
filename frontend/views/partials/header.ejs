@@ -10,17 +10,17 @@
 		<li id="ueber-uns-link">
 			Über Uns<img class="dropdown-icon" src="../../static/images/icon_dropdown_arrow.svg" alt="" />
 		</li>
-		<li class="social-media-icon facebook-icon">
+		<li class="icon-social-media icon-facebook">
 			<a href="#"><img src="../../static/images/icon_facebook.svg" alt="Link Facebook" /></a>
 		</li>
-		<li class="social-media-icon">
+		<li class="icon-social-media">
 			<a href="#"><img src="../../static/images/icon_twitter.svg" alt="Link Twitter" /></a>
 		</li>
-		<li class="social-media-icon">
+		<li class="icon-social-media">
 			<a href="#"><img src="../../static/images/icon_instagram.svg" alt="Link Instagram" /></a>
 		</li>
 		<li class="links-link"><a href="#">Links</a></li>
-		<li><button id="open-calculator-btn-navi" class="btn outline">Preisrechner</button></li>
+		<li><button id="btn-open-calculator-navi" class="btn outline">Preisrechner</button></li>
 	</ul>
 	<div class="dropdown-wrapper">
 		<ul class="leistungen-sublinks">
@@ -38,16 +38,16 @@
 
 
 <!-- hamburger menu -->
-<div class="hamburger-wrapper">
-	<div class="hamburger-logo-container">
-		<a href="/"><img id="hamburger-logo" src="../../static/images/logo_grey.svg" alt="" /></a>
+<div class="wrapper-hamburger">
+	<div class="container-logo-hamburger">
+		<a href="/"><img id="logo-hamburger" src="../../static/images/logo_grey.svg" alt="" /></a>
 	</div>
 
-	<div class="hamburger-preisrechner-btn-container">
-		<li><button class="btn outline">Preisrechner</button></li>
+	<div class="container-btn-open-calculator-hamburger">
+		<li><button id="btn-open-calculator-hamburger" class="btn outline">Preisrechner</button></li>
 	</div>
 
-	<div class="hamburger-links-container">
+	<div class="container-nav-items-hamburger">
 		<span class="hamburger-category">Leistungen</span>
 		<ul class="hamburger-leistungen">
             <% navItems.leistungen.forEach(obj=> { %>
@@ -67,7 +67,7 @@
 		</div>
 	</div>
 
-	<div class="hamburger-icon-container">
-		<img id="hamburger-icon" src="../../static/images/icon_hamburger_grey.svg" alt="" />
+	<div class="container-icon-hamburger">
+		<img id="icon-hamburger" src="../../static/images/icon_hamburger_grey.svg" alt="" />
 	</div>
 </div>

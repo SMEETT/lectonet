@@ -3,7 +3,7 @@
 	.wrapper {
 		width: 1280px;
 	}
-	.hamburger-wrapper {
+	.wrapper-hamburger {
 		display: none;
 	}
 	#foto_rue {
@@ -23,7 +23,7 @@
 		right: -140px;
 	}
 
-	.hamburger-wrapper {
+	.wrapper-hamburger {
 		display: none;
 	}
 
@@ -48,7 +48,7 @@
 		margin-right: 40px;
 	}
 
-	.facebook-icon {
+	.icon-facebook {
 		margin-left: 20px;
 	}
 
@@ -109,11 +109,11 @@
 		position: relative;
 	}
 
-	.hamburger-wrapper {
+	.wrapper-hamburger {
 		display: grid;
 	}
 
-	.hamburger-preisrechner-btn-container {
+	.container-btn-open-calculator-hamburger {
 		display: flex;
 	}
 
@@ -180,16 +180,16 @@
 		height: 252px;
 	}
 
-	.hamburger-preisrechner-btn-container {
+	.container-btn-open-calculator-hamburger {
 		display: none;
 		margin-top: 8px;
 	}
 
-	.hamburger-links-container {
+	.container-nav-items-hamburger {
 		display: none;
 	}
 
-	.hamburger-wrapper {
+	.wrapper-hamburger {
 		grid-template-columns: auto auto;
 		grid-template-rows: 60px auto auto;
 		grid-template-areas:

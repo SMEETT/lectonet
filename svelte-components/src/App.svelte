@@ -61,7 +61,7 @@
 <div class="preisrechner-wrapper">
     <div class="preisrechner-title-wrapper">
         <span class="preisrechner-title">Preisrechner</span>
-        <div class="close-icon" id="calculator-close-icon" />
+        <div class="icon-close-calculator" id="icon-close-calculator" />
     </div>
     <form
         on:submit|preventDefault
@@ -183,7 +183,7 @@
         display: inline;
     }
 
-    .close-icon {
+    .icon-close-calculator {
         background: url("../../../static/images/icon_calculator_close.svg")
             no-repeat;
         background-size: contain;
@@ -193,7 +193,7 @@
         grid-column: 9 / 11;
     }
 
-    .close-icon:hover {
+    .icon-close-calculator:hover {
         cursor: pointer;
         background: url("../../../static/images/icon_calculator_close_hover.svg")
             no-repeat;
@@ -225,7 +225,7 @@
     }
     /* ----------- 600-WIDTH */
     @media (max-width: 959px) {
-        .close-icon {
+        .icon-close-calculator {
             margin-left: 30px;
         }
 
@@ -254,7 +254,7 @@
     }
     /* ----------- 320-WIDTH */
     @media (max-width: 599px) {
-        .close-icon {
+        .icon-close-calculator {
             margin-left: 0;
         }
         form {
@@ -283,7 +283,7 @@
             font-size: 16px;
             display: inline;
         }
-        .close-icon {
+        .icon-close-calculator {
             display: flex;
             justify-content: center;
             grid-column-start: 9;
