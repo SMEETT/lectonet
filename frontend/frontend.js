@@ -2,7 +2,7 @@
 const express = require("express");
 const cors = require("cors");
 const nodemailer = require("nodemailer");
-const { expressCspHeader, NONE, SELF } = require("express-csp-header");
+const { expressCspHeader, NONE, SELF, INLINE } = require("express-csp-header");
 
 const slugify = require("slugify");
 const axios = require("axios");
@@ -30,7 +30,7 @@ app.use(
 		directives: {
 			"default-src": [SELF, strapiURL],
 			"script-src": [SELF],
-			"style-src": [SELF, "https://fonts.googleapis.com", "https://fonts.gstatic.com"],
+			"style-src": [SELF, INLINE, "https://fonts.googleapis.com", "https://fonts.gstatic.com"],
 			"img-src": [SELF, strapiURL],
 			"worker-src": [NONE],
 			"block-all-mixed-content": true,

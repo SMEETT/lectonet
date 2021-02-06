@@ -1,0 +1,34 @@
+.wrapper {
+	grid-template-columns: 47% 53%;
+	grid-template-rows: auto auto auto;
+	grid-template-areas:
+		"header header"
+		"txt picture"
+		"footer footer";
+}
+
+/* ----------- 1280-WIDTH */
+@media only screen and (min-width: 1280px) {
+}
+
+/* ----------- 960-WIDTH */
+@media (max-width: 1279px) {
+}
+
+/* ----------- 600-WIDTH */
+@media only screen and (max-width: 959px) {
+	.wrapper {
+		grid-template-rows: 80px auto auto 180px;
+		grid-template-areas:
+			"header"
+			"picture"
+			"txt"
+			"footer";
+	}
+}
+/* ----------- 320-WIDTH */
+@media only screen and (max-width: 599px) {
+	.wrapper {
+		grid-template-rows: 60px auto auto auto;
+	}
+}
