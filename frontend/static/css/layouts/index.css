@@ -74,6 +74,10 @@ section.cards {
 .cardbody {
 	padding: 8px 30px;
 	text-align: center;
+	height: 100%;
+}
+.cardbody button {
+	border: 1px solid red;
 }
 
 h1.cardheadline {

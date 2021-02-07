@@ -68,7 +68,7 @@ const findSpecificCSS = (pageTitle) => {
 // build navigation and footer content
 app.use(function (req, res, next) {
 	const navItems = { leistungen: [], ueber_uns: [], footer: [] };
-	const footerItems = ["FAQ", "Impressum", "Preisrechner", "Referenzen"];
+	const footerItems = ["FAQs", "Impressum", "Preisrechner", "Referenzen"];
 
 	// let strapi take care of the sorting
 	const pages = `${strapiURL}/pages?_sort=title:ASC`;
@@ -117,12 +117,14 @@ app.use(function (req, res, next) {
 //////////////////////////////////
 app.get("/", (req, res) => {
 	axios.get(`${strapiURL}/index`).then((response) => {
+		console.log(response.data.card);
 		res.render("pages/index", {
 			navItems: res.locals.navItems,
 			title: "Home",
 			headline: md.renderInline(response.data.headline),
 			subheadline: md.renderInline(response.data.subheadline),
 			copytext: md.renderInline(response.data.copytext),
+			cards: response.data.card,
 		});
 	});
 });
@@ -144,6 +146,21 @@ app.get(["/wackwitz", "/referenzen"], (req, res) => {
 			image: response.data.foto_wackwitz,
 			image_text: md.renderInline(response.data.bildunterschrift_wackwitz),
 			strapiURL: strapiURL,
+		});
+	});
+});
+
+//////////////////////////////////
+// FAQs
+//////////////////////////////////
+
+app.get("/faqs", (req, res) => {
+	axios.get(`${strapiURL}/fa-qs`).then((response) => {
+		console.log(response.data);
+		res.render("pages/faqs", {
+			navItems: res.locals.navItems,
+			title: "FAQs",
+			data: response.data.FAQ,
 		});
 	});
 });
