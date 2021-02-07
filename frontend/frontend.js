@@ -101,12 +101,31 @@ app.get("/", (req, res) => {
 });
 
 //////////////////////////////////
+// Referenzen und Wackwitz
+//////////////////////////////////
+
+app.get(["/wackwitz", "/referenzen"], (req, res) => {
+	axios.get(`${strapiURL}/referenzen-und-wackwitz`).then((response) => {
+		res.render("pages/ref_ww", {
+			navItems: res.locals.navItems,
+			title: "Referenzen / Wackwitz",
+			headline_referenzen: md.renderInline(response.data.headline_referenzen),
+			subheadline_referenzen: md.renderInline(response.data.subheadline_referenzen),
+			copytext_referenzen: md.renderInline(response.data.copytext_referenzen),
+			headline_wackwitz: md.renderInline(response.data.headline_wackwitz),
+			subheadline_wackwitz: md.renderInline(response.data.subheadline_wackwitz),
+			image: response.data.foto_wackwitz,
+			image_text: md.renderInline(response.data.bildunterschrift_wackwitz),
+			strapiURL: strapiURL,
+		});
+	});
+});
+
+//////////////////////////////////
 // dynamic routing
 //////////////////////////////////
 app.get("/:path", (req, res) => {
 	axios.get(`${strapiURL}/pages`).then((response) => {
-		//console.log(response);
-		console.log("dynamic routing");
 		// look for page with a title that matches the requested path
 		const match = response.data.find((page) => {
 			return slugify(page.title, { lower: true }) === req.params.path;

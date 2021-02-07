@@ -34,9 +34,15 @@ section.picture {
 	position: relative;
 	display: flex;
 	justify-content: flex-start;
-	align-items: flex-end;
+	/* align-items: flex-end; */
 	padding-top: 30px;
 	z-index: 2;
+}
+
+section.picture img {
+	position: relative;
+	/* object-fit: cover; */
+	height: 100%;
 }
 
 #preisrechner-hook {
@@ -211,13 +217,26 @@ p a {
 	.wrapper {
 		width: 960px;
 	}
+	.wrapper-hamburger {
+		display: none;
+	}
+
+	section.text {
+		padding-left: 16px;
+	}
+
+	section.picture img {
+		left: -120px;
+	}
 }
 
 /* ----------- 600-WIDTH */
 @media only screen and (max-width: 959px) {
 	.wrapper {
 		width: 600px;
-		grid-template-columns: 100%;
+	}
+	.wrapper-hamburger {
+		display: grid;
 	}
 
 	nav {
@@ -243,12 +262,13 @@ p a {
 	}
 
 	section.picture {
-		justify-content: center;
+		justify-content: flex-end;
 		display: flex;
 	}
 
 	section.picture img {
 		width: 535px;
+		left: 0;
 	}
 
 	section.text {
@@ -280,6 +300,7 @@ p a {
 
 	h2 {
 		font-size: 14px;
+		margin-top: 8px;
 	}
 
 	h5 {

@@ -11,9 +11,6 @@
     "draftAndPublish": true
   },
   "attributes": {
-    "title_referenzen": {
-      "type": "string"
-    },
     "headline_referenzen": {
       "type": "text"
     },
@@ -22,9 +19,6 @@
     },
     "copytext_referenzen": {
       "type": "richtext"
-    },
-    "title_wackwitz": {
-      "type": "string"
     },
     "headline_wackwitz": {
       "type": "text"
