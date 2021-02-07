@@ -16,6 +16,9 @@
 	.wrapper {
 		grid-template-columns: 58% 42%;
 	}
+	section.picture img {
+		left: -120px;
+	}
 }
 
 /* ----------- 600-WIDTH */
@@ -28,6 +31,10 @@
 			"picture"
 			"txt"
 			"footer";
+	}
+
+	section.picture img {
+		left: 0;
 	}
 }
 /* ----------- 320-WIDTH */

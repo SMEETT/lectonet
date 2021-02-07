@@ -28,6 +28,8 @@ nav {
 	display: flex;
 	width: 100%;
 	padding: 16px 0;
+	height: 100px;
+	align-items: center;
 }
 
 nav ul {
@@ -79,7 +81,8 @@ nav li .dropdown-icon {
 	display: none;
 	position: absolute;
 	width: 1260px;
-	margin-top: -40px;
+	top: 0;
+	min-height: 160px;
 	background-color: rgba(255, 255, 255, 0.95);
 	z-index: 4;
 	transition: ease-in-out;
@@ -87,7 +90,7 @@ nav li .dropdown-icon {
 }
 
 .dropdown-wrapper ul {
-	margin-top: 85px;
+	margin-top: 75px;
 }
 
 .dropdown-wrapper li {
@@ -107,7 +110,7 @@ nav li .dropdown-icon {
 }
 
 .leistungen-sublinks {
-	margin-left: 326px;
+	margin-left: 325px;
 }
 
 .ueber-uns-sublinks {

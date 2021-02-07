@@ -53,12 +53,12 @@ section.picture img {
 	right: 0;
 	bottom: 0;
 	z-index: 15;
-	/* TODO : change to 'none' */
 	display: none;
 	border: 1px solid green;
 	transition: 0s;
 	padding: 0;
 	padding-left: 12px;
+	overflow: hidden;
 	overflow-y: scroll;
 }
 
@@ -73,6 +73,7 @@ section.picture img {
 }
 
 html {
+	overflow: hidden;
 	overflow: -moz-scrollbars-vertical;
 	overflow-y: scroll;
 }
@@ -223,10 +224,6 @@ p a {
 
 	section.text {
 		padding-left: 16px;
-	}
-
-	section.picture img {
-		left: -120px;
 	}
 }
 

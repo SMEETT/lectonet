@@ -49,6 +49,22 @@ app.set("view engine", "ejs");
 // set up static folders
 app.use("/static", express.static(path.resolve(__dirname, "static")));
 
+const findSpecificCSS = (pageTitle) => {
+	let urlCSS;
+	try {
+		if (fs.existsSync(`./static/css/specific/${pageTitle}.css`)) {
+			urlCSS = `./static/css/specific/${pageTitle}.css`;
+			console.log(`found${pageTitle}`);
+			console.log(urlCSS);
+			return urlCSS;
+		}
+	} catch (err) {
+		console.error(err);
+		urlCSS = false;
+		return urlCSS;
+	}
+};
+
 // build navigation and footer content
 app.use(function (req, res, next) {
 	const navItems = { leistungen: [], ueber_uns: [], footer: [] };
@@ -64,11 +80,20 @@ app.use(function (req, res, next) {
 			// generate a slug based on the title for each page
 			pages.data.forEach((page) => {
 				if (page.category === "leistungen") {
-					navItems.leistungen.push({ title: page.title, slug: slugify(page.title, { lower: true }) });
+					navItems.leistungen.push({
+						title: page.title,
+						slug: slugify(page.title, { lower: true }),
+					});
 				} else if (page.category === "ueber_uns") {
-					navItems.ueber_uns.push({ title: page.title, slug: slugify(page.title, { lower: true }) });
+					navItems.ueber_uns.push({
+						title: page.title,
+						slug: slugify(page.title, { lower: true }),
+					});
 				}
 			});
+			// manually add "Wackwitz"
+			navItems.ueber_uns.push({ title: "Wackwitz", slug: "wackwitz" });
+
 			// add all (additional) footer-links to navItems (including slugs)
 			footerItems.forEach((item) => {
 				navItems.footer.push({ title: item, slug: slugify(item, { lower: true }) });
@@ -76,6 +101,8 @@ app.use(function (req, res, next) {
 
 			// attach navItems to res.locals so it can be accessed down the line
 			res.locals.navItems = navItems;
+
+			console.log(navItems);
 
 			// call next middleware
 			next();
@@ -135,7 +162,8 @@ app.get("/:path", (req, res) => {
 		if (!match) {
 			console.log("No match/404");
 			res.render("pages/404", {
-				data: { title: "Page doesn't exist", content: "Page doesn't exist" },
+				title: "Page doesn't exist",
+				content: "Page doesn't exist",
 			});
 			return;
 		}
@@ -144,6 +172,7 @@ app.get("/:path", (req, res) => {
 		if (match.category === "leistungen") {
 			res.render("pages/leistungen", {
 				navItems: res.locals.navItems,
+				css: findSpecificCSS(slugify(match.title, { lower: true })),
 				title: match.title,
 				superheadline: md.renderInline(match.superheadline),
 				headline: md.renderInline(match.headline),
@@ -157,6 +186,7 @@ app.get("/:path", (req, res) => {
 		if (match.category === "ueber_uns") {
 			res.render("pages/ueber_uns", {
 				navItems: res.locals.navItems,
+				css: findSpecificCSS(slugify(match.title, { lower: true })),
 				title: match.title,
 				headline: md.renderInline(match.headline),
 				subheadline: md.renderInline(match.subheadline),
