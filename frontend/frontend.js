@@ -49,13 +49,13 @@ app.set("view engine", "ejs");
 // set up static folders
 app.use("/static", express.static(path.resolve(__dirname, "static")));
 
+// function to find page-specific css-files
 const findSpecificCSS = (pageTitle) => {
 	let urlCSS;
 	try {
-		if (fs.existsSync(`./static/css/specific/${pageTitle}.css`)) {
-			urlCSS = `./static/css/specific/${pageTitle}.css`;
-			return urlCSS;
-		}
+		fs.existsSync(`./static/css/specific/${pageTitle}.css`);
+		urlCSS = `./static/css/specific/${pageTitle}.css`;
+		return urlCSS;
 	} catch (err) {
 		console.error(err);
 		urlCSS = false;
@@ -166,19 +166,14 @@ app.get("/faqs", (req, res) => {
 //////////////////////////////////
 app.get("/:path", (req, res) => {
 	axios.get(`${strapiURL}/pages`).then((response) => {
-		// look for page with a title that matches the requested path
+		// look for page with a title that matches the requested route
 		const match = response.data.find((page) => {
 			return slugify(page.title, { lower: true }) === req.params.path;
 		});
 
-		// if no match is returned, render 404
+		// if no match is returned, redirect to index-route ("/")
 		if (!match) {
-			console.log("No match/404");
-			res.render("pages/404", {
-				title: "Page doesn't exist",
-				content: "Page doesn't exist",
-			});
-			return;
+			res.redirect("/");
 		}
 
 		// render template based on provided category

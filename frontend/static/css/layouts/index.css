@@ -35,7 +35,7 @@ section.cards {
 	/* border-bottom: 1px solid #bfbfbf; */
 	display: flex;
 	margin-top: 16px;
-	animation: fadein 1.5s;
+	animation: fadein 1s;
 	flex-direction: column;
 }
 
