@@ -31,7 +31,11 @@ section.cards {
 	grid-area: cards;
 	padding: 0 64px 16px 64px;
 	background-color: white;
+	border-top: 1px solid #bfbfbf;
+	/* border-bottom: 1px solid #bfbfbf; */
 	display: flex;
+	margin-top: 16px;
+	animation: fadein 1.5s;
 	flex-direction: column;
 }
 

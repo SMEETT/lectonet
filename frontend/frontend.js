@@ -54,8 +54,6 @@ const findSpecificCSS = (pageTitle) => {
 	try {
 		if (fs.existsSync(`./static/css/specific/${pageTitle}.css`)) {
 			urlCSS = `./static/css/specific/${pageTitle}.css`;
-			console.log(`found${pageTitle}`);
-			console.log(urlCSS);
 			return urlCSS;
 		}
 	} catch (err) {
@@ -117,7 +115,6 @@ app.use(function (req, res, next) {
 //////////////////////////////////
 app.get("/", (req, res) => {
 	axios.get(`${strapiURL}/index`).then((response) => {
-		console.log(response.data.card);
 		res.render("pages/index", {
 			navItems: res.locals.navItems,
 			title: "Home",
@@ -156,7 +153,6 @@ app.get(["/wackwitz", "/referenzen"], (req, res) => {
 
 app.get("/faqs", (req, res) => {
 	axios.get(`${strapiURL}/fa-qs`).then((response) => {
-		console.log(response.data);
 		res.render("pages/faqs", {
 			navItems: res.locals.navItems,
 			title: "FAQs",

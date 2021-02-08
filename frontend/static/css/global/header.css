@@ -85,7 +85,7 @@ nav li .dropdown-icon {
 	min-height: 160px;
 	background-color: rgba(255, 255, 255, 0.95);
 	z-index: 4;
-	transition: ease-in-out;
+	animation: fadein 0.3s;
 	border-bottom: 1px solid var(--default-grey);
 }
 

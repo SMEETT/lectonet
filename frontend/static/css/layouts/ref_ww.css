@@ -10,6 +10,7 @@
 section.wackwitz {
 	grid-area: wackwitz;
 	margin-bottom: 16px;
+	animation: fadein 1s;
 }
 
 section.wackwitz p {
