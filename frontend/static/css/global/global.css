@@ -190,7 +190,7 @@ h5 {
 h1 {
 	/* MAIN/Headline */
 	font-weight: bold;
-	font-size: 36px;
+	font-size: 32px;
 	line-height: 100%;
 	text-decoration-line: underline;
 	color: var(--default-grey);
