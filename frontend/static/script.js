@@ -79,18 +79,40 @@ leistungen_link.addEventListener("mouseenter", () => {
 	dropdown_wrapper.style.display = "block";
 	leistungen_sublinks.style.display = "block";
 	ueberuns_sublinks.style.display = "none";
+	dropdown_wrapper.classList.add("heity");
+	dropdown_wrapper.classList.remove("heity-out");
 });
 ueberuns_link.addEventListener("mouseenter", () => {
 	dropdown_wrapper.style.display = "block";
 	leistungen_sublinks.style.display = "none";
 	ueberuns_sublinks.style.display = "block";
+	dropdown_wrapper.classList.add("heity");
+	dropdown_wrapper.classList.remove("heity-out");
 });
+
+// document.getElementsByClassName("toggleButton")[0].onclick = function () {
+// 	if (this.innerHTML === "Play") {
+// 		this.innerHTML = "Pause";
+// 		boxOne.classList.add("horizTranslate");
+// 	} else {
+// 		this.innerHTML = "Play";
+// 		var computedStyle = window.getComputedStyle(boxOne),
+// 			marginLeft = computedStyle.getPropertyValue("margin-left");
+// 		boxOne.style.marginLeft = marginLeft;
+// 		boxOne.classList.remove("heity");
+// 	}
+// };
 
 // check if the mouse is far enough away from the top of the page,
 // if it is, hide the dropdown-menu (wrapper)
 function onMouseOutHandler(event) {
 	if (event.pageY >= dropdown_wrapper.offsetHeight + 10) {
-		dropdown_wrapper.style.display = "none";
+		// dropdown_wrapper.style.display = "none";
+		// var computedStyle = window.getComputedStyle(dropdown_wrapper);
+		// var max_hi = computedStyle.getPropertyValue("max-height");
+		// dropdown_wrapper.style.maxHeight = max_hi;
+		dropdown_wrapper.classList.remove("heity");
+		dropdown_wrapper.classList.add("heity-out");
 	}
 }
 // hide dropdown menu on click

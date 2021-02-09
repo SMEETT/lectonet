@@ -17,6 +17,7 @@ section.faqs {
 	padding-left: 64px;
 	padding-right: 256px;
 	/* align-items: flex-end; */
+	animation: fadein 1.15s;
 	z-index: 2;
 }
 /* ##################

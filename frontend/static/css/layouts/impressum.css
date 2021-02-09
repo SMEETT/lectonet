@@ -16,6 +16,7 @@ section.imprint {
 	justify-content: flex-start;
 	padding-left: 64px;
 	padding-right: 256px;
+	animation: fadein 1.15s;
 	/* align-items: flex-end; */
 	z-index: 2;
 }

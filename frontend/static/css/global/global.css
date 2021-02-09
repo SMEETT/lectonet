@@ -22,17 +22,16 @@
 	box-shadow: -24px 0px 30px rgba(0, 0, 0, 0.15), 24px 0px 30px rgba(0, 0, 0, 0.15);
 	overflow: hidden;
 	/* animation: fadein 0.5s; */
-	animation: sizeme 1s;
 }
 
-@keyframes sizeme {
+/* @keyframes sizeme {
 	from {
 		height: 0%;
 	}
 	to {
 		height: 100%;
 	}
-}
+} */
 
 @keyframes fadein {
 	from {
@@ -46,7 +45,7 @@
 section.text {
 	grid-area: txt;
 	padding-left: 64px;
-	animation: fadein 0.75s;
+	animation: fadein 1.15s;
 	z-index: 3;
 }
 
@@ -57,7 +56,7 @@ section.picture {
 	justify-content: flex-start;
 	/* align-items: flex-end; */
 	padding-top: 30px;
-	animation: fadein 1s;
+	animation: fadein 1.75s;
 	z-index: 2;
 }
 
