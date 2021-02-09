@@ -20,8 +20,8 @@ header {
 
 .logo {
 	display: inline-block;
-	/* margin-bottom: 8px; */
-	border: 1px solid red;
+	position: relative;
+	top: -2px;
 	z-index: 5;
 }
 
@@ -37,31 +37,25 @@ nav {
 	align-items: center;
 }
 
-nav ul {
+.nav-elements {
+	display: flex;
+	align-items: center;
+	z-index: 5;
 }
 
-nav li {
-	list-style: none;
-	display: inline-block;
-	font-weight: bold;
-	font-size: 14px;
-	text-transform: uppercase;
-	cursor: pointer;
-	margin-right: 35px;
+.container-icons-social-media-navi {
+	display: flex;
+	width: 144px;
+	margin-right: 96px;
 }
 
 nav .icon-social-media {
-	width: 32px;
+	width: 48px;
 	height: 32px;
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	border: 1px solid green;
 }
-
-/* nav .icon-social-media > a > img {
-	margin-bottom: -6px;
-} */
 
 nav a {
 	margin: 0;
@@ -80,38 +74,46 @@ nav .icon-social-media:hover {
 	display: inline-block;
 }
 
-.container-icons-social-media-navi {
-	border: 1px solid red;
-	display: flex;
-	width: 120px;
-	margin-left: 128px;
-}
-
-.nav-elements {
-	display: flex;
-	align-items: center;
-	border: 1px solid blue;
-	z-index: 5;
+.link {
+	font-weight: bold;
+	font-size: 14px;
+	text-transform: uppercase;
+	cursor: pointer;
 }
 
 #leistungen-link {
-	border: 1px solid cyan;
+	display: flex;
+	align-items: center;
 	width: 128px;
+	height: 32px;
+	margin-right: 32px;
 }
 
 #ueber-uns-link {
-	border: 1px solid cyan;
-	width: 128px;
-	margin-left: 32px;
+	display: flex;
+	align-items: center;
+	width: 96px;
+	height: 32px;
+	margin-right: 128px;
+}
+
+#leistungen-link:hover,
+#ueber-uns-link:hover {
+	color: var(--hover-light-grey);
+}
+
+.link-links {
+	width: 48px;
+	height: 32px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-right: 32px;
 }
 
 #btn-open-calculator-navi {
 	width: 160px;
 }
-
-/* .icon-facebook {
-	margin-left: 70px;
-} */
 
 /* #################### */
 /* DROPDOWN MENU */
@@ -150,15 +152,11 @@ nav .icon-social-media:hover {
 }
 
 .leistungen-sublinks {
-	margin-left: 325px;
+	margin-left: 334px;
 }
 
 .ueber-uns-sublinks {
-	margin-left: 474px;
-}
-
-.links-link {
-	margin-left: 90px;
+	margin-left: 494px;
 }
 
 /* ----------- 1280-WIDTH */
@@ -172,8 +170,8 @@ nav .icon-social-media:hover {
 	}
 
 	.logo-container {
-		margin-left: 18px;
-		margin-right: 40px;
+		margin-left: 16px;
+		margin-right: 32px;
 	}
 
 	.icon-facebook {
@@ -184,20 +182,24 @@ nav .icon-social-media:hover {
 		margin-left: 20px;
 	}
 
-	nav li {
-		margin-right: 25px;
-	}
-
 	.dropdown-wrapper {
 		width: 940px;
 	}
 
 	.leistungen-sublinks {
-		margin-left: 200px;
+		margin-left: 190px;
 	}
 
 	.ueber-uns-sublinks {
-		margin-left: 338px;
+		margin-left: 352px;
+	}
+
+	#ueber-uns-link {
+		margin-right: 32px;
+	}
+
+	.container-icons-social-media-navi {
+		margin-right: 32px;
 	}
 }
 
