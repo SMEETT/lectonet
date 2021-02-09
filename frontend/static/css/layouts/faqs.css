@@ -14,7 +14,8 @@ section.faqs {
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
-	padding: 0 64px;
+	padding-left: 64px;
+	padding-right: 256px;
 	/* align-items: flex-end; */
 	z-index: 2;
 }

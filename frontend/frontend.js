@@ -162,6 +162,20 @@ app.get("/faqs", (req, res) => {
 });
 
 //////////////////////////////////
+// Imprint
+//////////////////////////////////
+
+app.get("/impressum", (req, res) => {
+	axios.get(`${strapiURL}/impressum`).then((response) => {
+		res.render("pages/impressum", {
+			navItems: res.locals.navItems,
+			title: "Impressum",
+			copytext: md.render(response.data.copytext),
+		});
+	});
+});
+
+//////////////////////////////////
 // dynamic routing
 //////////////////////////////////
 app.get("/:path", (req, res) => {

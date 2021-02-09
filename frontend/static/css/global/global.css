@@ -200,6 +200,20 @@ h2 {
 	white-space: pre-wrap;
 }
 
+h3 {
+	/* MAIN/h2 */
+	font-family: Merriweather;
+	font-style: regular;
+	font-weight: 700;
+	font-size: 16px;
+	line-height: 164%;
+	margin-top: 16px;
+	/* padding-right: 96px; */
+	color: var(--default-grey);
+	white-space: pre-wrap;
+	text-decoration: underline;
+}
+
 p {
 	/* MAIN/Copy */
 	font-family: Merriweather;
