@@ -18,7 +18,12 @@
 				<button id="btn-open-calculator" class="btn red">PREISRECHNER</button>
 			</section>
 			<section class="picture index">
-				<img id="photo-wackwitz" src="../../static/images/ruediger.png"" alt="Foto Ruediger Wackwitz" />
+				<!-- <img id="photo-wackwitz" src="../../static/images/ruediger.webp"" alt="Foto Ruediger Wackwitz" /> -->
+                <picture id="photo-wackwitz">
+                    <source srcset="../../static/images/ruediger.webp" type="image/webp">
+                    <source srcset="../../static/images/ruediger.png" type="image/png">
+                    <img src=../../static/images/ruediger.png" alt="Foto Ruediger Wackwitz">
+                </picture>
 			</section>
 			<section id="cards" class="cards">
                 <h1 id="h1-leistungen">Leistungen</h1>
