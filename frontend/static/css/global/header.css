@@ -15,12 +15,13 @@ header {
 	align-items: center;
 	width: 142px;
 	margin-left: 64px;
-	margin-right: 120px;
+	margin-right: 128px;
 }
 
 .logo {
 	display: inline-block;
 	/* margin-bottom: 8px; */
+	border: 1px solid red;
 	z-index: 5;
 }
 
@@ -37,8 +38,6 @@ nav {
 }
 
 nav ul {
-	display: inline-block;
-	z-index: 5;
 }
 
 nav li {
@@ -54,28 +53,65 @@ nav li {
 nav .icon-social-media {
 	width: 32px;
 	height: 32px;
-	display: inline-flex;
+	display: flex;
 	align-items: center;
 	justify-content: center;
+	border: 1px solid green;
 }
 
-nav .icon-social-media > a > img {
+/* nav .icon-social-media > a > img {
 	margin-bottom: -6px;
+} */
+
+nav a {
+	margin: 0;
+	padding: 0;
 }
 
 nav .icon-social-media:hover {
 	filter: brightness(3);
 }
 
-nav li .dropdown-icon {
+.dropdown-icon {
 	margin-bottom: 2px;
 	margin-left: 4px;
+	width: 10px;
+	height: 6px;
 	display: inline-block;
 }
 
-.icon-facebook {
-	margin-left: 70px;
+.container-icons-social-media-navi {
+	border: 1px solid red;
+	display: flex;
+	width: 120px;
+	margin-left: 128px;
 }
+
+.nav-elements {
+	display: flex;
+	align-items: center;
+	border: 1px solid blue;
+	z-index: 5;
+}
+
+#leistungen-link {
+	border: 1px solid cyan;
+	width: 128px;
+}
+
+#ueber-uns-link {
+	border: 1px solid cyan;
+	width: 128px;
+	margin-left: 32px;
+}
+
+#btn-open-calculator-navi {
+	width: 160px;
+}
+
+/* .icon-facebook {
+	margin-left: 70px;
+} */
 
 /* #################### */
 /* DROPDOWN MENU */

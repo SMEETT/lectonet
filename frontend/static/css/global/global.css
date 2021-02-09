@@ -21,6 +21,17 @@
 	display: grid;
 	box-shadow: -24px 0px 30px rgba(0, 0, 0, 0.15), 24px 0px 30px rgba(0, 0, 0, 0.15);
 	overflow: hidden;
+	/* animation: fadein 0.5s; */
+	animation: sizeme 1s;
+}
+
+@keyframes sizeme {
+	from {
+		height: 0%;
+	}
+	to {
+		height: 100%;
+	}
 }
 
 @keyframes fadein {
@@ -109,6 +120,7 @@ body.overflow {
 a {
 	text-decoration: none;
 	color: var(--default-grey);
+	line-height: 0;
 }
 
 a:hover {
