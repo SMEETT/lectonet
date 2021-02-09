@@ -36,7 +36,7 @@ section.wackwitz p {
 @media only screen and (max-width: 959px) {
 	.wrapper {
 		grid-template-columns: 100%;
-		grid-template-rows: 80px auto auto 180px;
+		grid-template-rows: 80px auto auto auto;
 		grid-template-areas:
 			"header"
 			"txt"

@@ -1,26 +1,23 @@
-<div class="logo-footer">
-	<img src="../../static/images/logo_white.svg" alt="Lectonet Logo" />
-</div>
-<ul class="others">
-    <% navItems.footer.forEach(obj=> { %>
-        <li><a class="footer" href=<%=obj.slug %>> <%= obj.title %> </a></li>
-        <% }) %>
-</ul>
-<ul class="leistungen">
-    <% navItems.leistungen.forEach(obj=> { %>
-        <li><a class="footer" href=<%=obj.slug %>> <%= obj.title %> </a></li>
-    <% }) %>
-</ul>
-<ul class="ueber-uns">
-    <% navItems.ueber_uns.forEach(obj=> { %>
-        <li><a class="footer" href=<%=obj.slug %>> <%= obj.title %> </a></li>
-    <% }) %>
-</ul>
-<div class="social-media-icons">
-	<span class="social-media-label">Social Media</span>
-	<div class="social-media-icons-container">
-		<img src="../../static/images/icon_facebook_white.svg" alt="Icon Facebook" />
-		<img src="../../static/images/icon_twitter_white.svg" alt="Icon Twitter" />
-		<img src="../../static/images/icon_instagram_white.svg" alt="Icon Instagram" />
-	</div>
+<div class="container-footer">
+    <a href="/"><img class="logo-footer" src="../../static/images/logo_white.svg" alt="Lectonet Logo" /></a>
+    <ul class="others">
+        <% navItems.footer.forEach(obj=> { %>
+            <li><a class="footer" href=<%=obj.slug %>> <%= obj.title %> </a></li>
+            <% }) %>
+    </ul>
+    <ul class="leistungen">
+        <% navItems.leistungen.forEach(obj=> { %>
+            <li><a class="footer" href=<%=obj.slug %>> <%= obj.title %> </a></li>
+            <% }) %>
+    </ul>
+    <ul class="ueber-uns">
+        <% navItems.ueber_uns.forEach(obj=> { %>
+            <li><a class="footer" href=<%=obj.slug %>> <%= obj.title %> </a></li>
+            <% }) %>
+    </ul>
+    <div class="container-icons-social-media">
+        <a class="a-icon mr-16" href="#"><img src="../../static/images/icon_facebook_white.svg" alt="Icon Facebook" /></a>
+        <a class="a-icon mr-16" href="#"><img src="../../static/images/icon_twitter_white.svg" alt="Icon Twitter" /></a>
+        <a class="a-icon" href="#"><img src="../../static/images/icon_instagram_white.svg" alt="Icon Instagram" /></a>
+    </div>
 </div>

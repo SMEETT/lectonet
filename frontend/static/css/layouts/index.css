@@ -136,7 +136,7 @@ p.cardcopy {
 /* ----------- 600-WIDTH */
 @media only screen and (max-width: 959px) {
 	.wrapper {
-		grid-template-rows: 80px auto auto auto 180px;
+		grid-template-rows: 80px auto auto auto auto;
 		grid-template-columns: 100%;
 		grid-template-areas:
 			"header"
