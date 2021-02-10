@@ -45,6 +45,7 @@
 section.text {
 	grid-area: txt;
 	padding-left: 64px;
+	padding-top: 16px;
 	animation: fadein 1.15s;
 	z-index: 3;
 }
@@ -55,7 +56,7 @@ section.picture {
 	display: flex;
 	justify-content: flex-start;
 	/* align-items: flex-end; */
-	padding-top: 30px;
+	/* padding-top: 32px; */
 	animation: fadein 1.75s;
 	z-index: 2;
 }
@@ -184,7 +185,7 @@ h5 {
 	line-height: 100%;
 	text-decoration-line: underline;
 	color: var(--default-grey);
-	margin-top: 30px;
+	/* margin-top: 30px; */
 }
 
 h1 {
@@ -194,7 +195,7 @@ h1 {
 	line-height: 100%;
 	text-decoration-line: underline;
 	color: var(--default-grey);
-	margin-top: 16px;
+	margin-top: 8px;
 	white-space: pre-wrap;
 }
 
@@ -311,7 +312,8 @@ p a {
 		flex-direction: column;
 		justify-content: center;
 		text-align: center;
-		padding: 0px 30px;
+		padding: 0px 32px;
+		padding-top: 16px;
 		margin-left: 0;
 		background-color: white;
 	}

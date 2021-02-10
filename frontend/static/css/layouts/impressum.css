@@ -14,6 +14,7 @@ section.imprint {
 	display: flex;
 	flex-direction: column;
 	justify-content: flex-start;
+	padding-top: 16px;
 	padding-left: 64px;
 	padding-right: 256px;
 	animation: fadein 1.15s;

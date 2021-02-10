@@ -9,7 +9,7 @@
 
 section.wackwitz {
 	grid-area: wackwitz;
-	margin-bottom: 16px;
+	margin: 16px 0;
 	animation: fadein 1s;
 }
 
@@ -60,6 +60,10 @@ section.wackwitz p {
 @media only screen and (max-width: 599px) {
 	.wrapper {
 		grid-template-rows: 60px auto auto auto;
+	}
+
+	section.wackwitz {
+		margin: 0;
 	}
 
 	section.wackwitz p {

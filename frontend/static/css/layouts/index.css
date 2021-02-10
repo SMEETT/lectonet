@@ -35,6 +35,7 @@ section.cards {
 	/* border-bottom: 1px solid #bfbfbf; */
 	display: flex;
 	margin-top: 16px;
+	padding-top: 16px;
 	animation: fadein 1s;
 	flex-direction: column;
 }
@@ -147,10 +148,13 @@ p.cardcopy {
 	}
 
 	section.cards {
-		padding: 0;
-		padding-bottom: 16px;
+		padding: 16px 0;
 		align-items: center;
 		width: 580px;
+	}
+
+	section.picture.index {
+		padding-top: 16px;
 	}
 
 	.cards-wrapper {

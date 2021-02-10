@@ -16,6 +16,7 @@ section.faqs {
 	justify-content: flex-start;
 	padding-left: 64px;
 	padding-right: 256px;
+	padding-top: 16px;
 	/* align-items: flex-end; */
 	animation: fadein 1.15s;
 	z-index: 2;
