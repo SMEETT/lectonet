@@ -43,6 +43,12 @@
     },
     "superheadline": {
       "type": "text"
+    },
+    "meta_keywords": {
+      "type": "string"
+    },
+    "meta_description": {
+      "type": "text"
     }
   }
 }

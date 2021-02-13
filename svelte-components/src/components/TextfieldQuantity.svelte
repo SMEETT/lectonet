@@ -23,15 +23,6 @@
         priceTEMP = p;
     });
 
-    function sleep(milliseconds) {
-        var start = new Date().getTime();
-        for (var i = 0; i < 1e7; i++) {
-            if (new Date().getTime() - start > milliseconds) {
-                break;
-            }
-        }
-    }
-
     const increase = (e) => {
         quantityTEMP = quantityTEMP + 1;
         calculatePrice();
@@ -65,7 +56,10 @@
             min="1"
             bind:value={quantityTEMP}
             on:input|preventDefault={calculatePrice} />
-        <div class="arrows">
+        <!-- depending on 'quantity', either show 'Seite' or 'Seiten' -->
+        <span
+            class:inactive={disabled}>{quantityTEMP > 1 ? 'Seiten' : 'Seite'}</span>
+        <div class="plus-minus">
             <button
                 alt="up"
                 class="up"
@@ -79,9 +73,6 @@
                 class:inactive={disabled}
                 on:click={decrease} />
         </div>
-        <!-- depending on 'quantity', either show 'Seite' or 'Seiten' -->
-        <span
-            class:inactive={disabled}>{quantityTEMP > 1 ? 'Seiten' : 'Seite'}</span>
     </div>
 </div>
 
@@ -133,25 +124,24 @@
 
     span {
         margin-left: 8px;
+        width: 56px;
     }
     /* corresponding span in markup either shows "Seite" or "Seiten" */
     span.inactive {
         color: lightgray;
     }
 
-    .arrows {
+    .plus-minus {
         display: flex;
-        flex-direction: column;
-        margin-left: 8px;
     }
 
-    .arrows .up {
-        background-image: url("../../../static/images/icon_qty_up.svg");
+    .plus-minus .up {
+        background-image: url("../../../static/images/icon_plus.svg");
         background-repeat: no-repeat;
         background-size: contain;
         margin-bottom: 2px;
-        width: 16px;
-        height: 14px;
+        width: 35px;
+        height: 35px;
         background-color: white;
         border: none;
         padding: 0;
@@ -160,16 +150,16 @@
         outline: inherit;
     }
 
-    .arrows .up:hover {
-        background-image: url("../../../static/images/icon_qty_up_hover.svg");
+    .plus-minus .up:hover {
+        background-image: url("../../../static/images/icon_plus_hover.svg");
     }
 
-    .arrows .down {
-        background-image: url("../../../static/images/icon_qty_down.svg");
+    .plus-minus .down {
+        background-image: url("../../../static/images/icon_minus.svg");
         background-size: contain;
         background-repeat: no-repeat;
-        width: 16px;
-        height: 18px;
+        width: 35px;
+        height: 35px;
         background-color: white;
         border: none;
         padding: 0;
@@ -178,17 +168,17 @@
         outline: inherit;
     }
 
-    .arrows .down:hover {
-        background-image: url("../../../static/images/icon_qty_down_hover.svg");
+    .plus-minus .down:hover {
+        background-image: url("../../../static/images/icon_minus_hover.svg");
     }
 
-    .arrows .down.inactive {
-        background-image: url("../../../static/images/icon_qty_down_inactive.svg");
+    .plus-minus .down.inactive {
+        background-image: url("../../../static/images/icon_minus_inactive.svg");
         cursor: default;
     }
 
-    .arrows .up.inactive {
-        background-image: url("../../../static/images/icon_qty_up_inactive.svg");
+    .plus-minus .up.inactive {
+        background-image: url("../../../static/images/icon_plus_inactive.svg");
         cursor: default;
     }
 

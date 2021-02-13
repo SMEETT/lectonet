@@ -170,13 +170,6 @@ nav .icon-social-media:hover {
 	max-height: 420px;
 } */
 
-.grow {
-	transition: all 0.2s ease-in-out;
-}
-.grow:hover {
-	transform: scale(1.1);
-}
-
 .dropdown-wrapper ul {
 	margin-top: 75px;
 }
