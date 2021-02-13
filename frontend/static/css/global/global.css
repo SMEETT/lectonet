@@ -2,7 +2,7 @@
 	--default-grey: #333333;
 	--hover-light-grey: #9c9c9c;
 	--hover-dark-white: rgb(224, 224, 224);
-	--default-red: #ea5659;
+	--default-red: #c2494b;
 	--default-red-hover: #ff7b7d;
 	--card-header-grey: #e5e5e5;
 }
@@ -112,7 +112,6 @@ section.picture img {
 	z-index: 15;
 	display: none;
 	animation: fadein 0.5s;
-	border: 1px solid green;
 	transition: 0s;
 	padding: 0;
 	padding-left: 12px;
