@@ -180,9 +180,16 @@ const toggleMenuHamburger = () => {
 	}
 };
 
-iconHamburger.addEventListener("click", () => {
+iconHamburger.addEventListener("click", (e) => {
+	e.stopPropagation();
 	toggleMenuHamburger();
 });
+
+logoHamburger.addEventListener("click", (e) => {
+	e.stopPropagation();
+});
+
+wrapperHamburger.addEventListener("click", toggleMenuHamburger);
 
 const handleMediaQuery = (event) => {
 	if (event.media === mq_str_320 && event.matches) {

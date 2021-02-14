@@ -14,10 +14,15 @@ footer {
 	color: white;
 	align-items: center;
 	padding: 0 64px;
+	padding-top: 16px;
 	font-size: 14px;
-	line-height: 24px;
-	height: 150px;
-	margin-top: 16px;
+	line-height: 20px;
+	height: 180px;
+	margin-top: 32px;
+}
+
+footer li {
+	width: auto;
 }
 
 .container-footer {
@@ -28,8 +33,18 @@ footer {
 	justify-content: space-between;
 }
 
+/* .container-footer li {
+	width: auto;
+} */
+
 .logo-footer:hover {
 	filter: brightness(0) saturate(100%) invert(95%) sepia(93%) saturate(0%) hue-rotate(260deg) brightness(85%) contrast(93%);
+}
+
+.section {
+	font-weight: 700;
+	margin-bottom: 2px;
+	/* text-decoration: underline; */
 }
 
 footer ul li {
@@ -41,9 +56,22 @@ footer ul li {
 	align-items: center;
 }
 
+footer .icon-social-media {
+	width: 48px;
+	height: 32px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
 a.footer {
 	text-decoration: none;
 	color: white;
+	font-weight: 400;
+	height: 28px;
+	width: auto;
+	display: inline-flex;
+	align-items: center;
 }
 
 a.footer:hover {
@@ -51,11 +79,7 @@ a.footer:hover {
 	text-decoration: underline;
 }
 
-.a-icon img {
-	display: block;
-}
-
-.a-icon img:hover {
+footer .icon-social-media:hover {
 	filter: brightness(0) saturate(100%) invert(95%) sepia(93%) saturate(0%) hue-rotate(260deg) brightness(85%) contrast(93%);
 }
 
@@ -88,18 +112,16 @@ a.footer:hover {
 		height: 100%;
 		grid-template-areas:
 			"logo . ."
-			"others leistungen ueber_uns"
+			"leistungen ueber_uns others"
 			"social-media social-media social-media";
 		grid-template-columns: repeat(3, 1fr);
 		grid-template-rows: auto auto auto;
 	}
 
 	.logo-footer {
-		grid-area: logo;
 		margin-top: 8px;
-		align-self: center;
-		justify-self: start;
-		padding-left: 32px;
+		margin-bottom: 8px;
+		margin-left: 16px;
 	}
 
 	/* .container-footer a {
@@ -117,11 +139,13 @@ a.footer:hover {
 	.others {
 		grid-area: others;
 		margin: 16px 0;
+		margin-left: 32px;
 	}
 
 	.leistungen {
 		grid-area: leistungen;
 		margin: 16px 0;
+		margin-left: 16px;
 	}
 
 	.ueber-uns {
@@ -136,9 +160,14 @@ a.footer:hover {
 		height: auto;
 	}
 
+	footer .container-icons-social-media {
+		margin: 0;
+	}
+
 	.logo-footer {
 		align-self: center;
-		margin-bottom: 8px;
+		margin-bottom: 16px;
+		margin-left: 0;
 		margin-top: 0;
 		padding: 0;
 	}
