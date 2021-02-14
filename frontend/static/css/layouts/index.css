@@ -24,12 +24,18 @@ section.picture.index {
 	justify-content: flex-end;
 	align-items: flex-end;
 	padding-top: 0px;
+	margin-top: 16px;
+}
+
+section.picture img {
+	/* margin-top: 16px; */
+	/* object-fit: cover; */
 }
 
 section.cards {
 	width: 1260px;
 	grid-area: cards;
-	padding: 0 64px 16px 64px;
+	padding: 0 64px 0 64px;
 	background-color: white;
 	border-top: 1px solid #bfbfbf;
 	/* border-bottom: 1px solid #bfbfbf; */
@@ -51,7 +57,7 @@ section.cards {
 
 .card {
 	width: 264px;
-	height: 380px;
+	height: 340px;
 	margin: 4px 4px;
 	background: #ffffff;
 	border: 1px solid #bfbfbf;
@@ -60,13 +66,17 @@ section.cards {
 	text-align: center;
 	overflow: hidden;
 	display: grid;
-	grid-template-rows: 64px 64px 180px auto;
+	grid-template-rows: 64px 64px 140px auto;
 }
 
 /* .grow:hover > .btn.outline.card {
 	background: var(--default-grey);
 	color: white;
 } */
+
+.card h1 {
+	text-decoration: none;
+}
 
 .card-a {
 	text-decoration: none;
@@ -102,10 +112,11 @@ section.cards {
 }
 
 h1.cardheadline {
-	font-size: 18px;
+	font-size: 16px;
 	font-weight: 600;
-	margin-top: 8px;
-	padding: 0 30px;
+	margin-top: 12px;
+	padding: 0 48px;
+	color: #464646;
 }
 
 p.cardcopy {
@@ -127,15 +138,15 @@ p.cardcopy {
 /* ----------- 1280-WIDTH */
 @media only screen and (min-width: 1280px) {
 	#photo-wackwitz {
-		width: 816px;
-		height: 715px;
+		width: 782px;
+		height: 685px;
 	}
 }
 
 /* ----------- 960-WIDTH */
 @media (max-width: 1279px) {
 	.wrapper {
-		grid-template-columns: 63% 37%;
+		grid-template-columns: 58% 42%;
 	}
 
 	#photo-wackwitz {

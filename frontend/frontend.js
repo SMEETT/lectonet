@@ -191,6 +191,20 @@ app.get("/impressum", (req, res) => {
 });
 
 //////////////////////////////////
+// Imprint
+//////////////////////////////////
+
+app.get("/datenschutz", (req, res) => {
+	axios.get(`${strapiURL}/datenschutz`).then((response) => {
+		res.render("pages/datenschutz", {
+			navItems: res.locals.navItems,
+			title: "Datenschutz",
+			copytext: md.render(response.data.copytext),
+		});
+	});
+});
+
+//////////////////////////////////
 // dynamic routing
 //////////////////////////////////
 app.get("/:path", (req, res) => {
@@ -230,7 +244,7 @@ app.get("/:path", (req, res) => {
 				meta_description: response.data.meta_description,
 				headline: md.renderInline(match.headline),
 				subheadline: md.renderInline(match.subheadline),
-				copytext: md.renderInline(match.copytext),
+				copytext: md.render(match.copytext),
 				image: match.image,
 				strapiURL: strapiURL,
 				css: findSpecificCSS(slugify(match.title, { lower: true })),

@@ -31,7 +31,7 @@ header {
 
 nav {
 	display: flex;
-	width: 100%;
+	width: 1260px;
 	padding: 16px 0;
 	height: 100px;
 	align-items: center;
@@ -200,6 +200,12 @@ nav .icon-social-media:hover {
 
 /* ----------- 1280-WIDTH */
 @media only screen and (min-width: 1280px) {
+	header {
+		width: 1260px;
+	}
+	nav {
+		width: 1260px;
+	}
 }
 
 /* ----------- 960-WIDTH */

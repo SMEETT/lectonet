@@ -14,10 +14,10 @@ footer {
 	color: white;
 	align-items: center;
 	padding: 0 64px;
-	margin-top: 16px;
 	font-size: 14px;
 	line-height: 24px;
 	height: 150px;
+	margin-top: 16px;
 }
 
 .container-footer {
@@ -99,8 +99,12 @@ a.footer:hover {
 		margin-top: 8px;
 		align-self: center;
 		justify-self: start;
-		padding-left: 16px;
+		padding-left: 32px;
 	}
+
+	/* .container-footer a {
+		padding-left: 16px;
+	} */
 
 	footer .container-icons-social-media {
 		grid-area: social-media;
@@ -113,7 +117,6 @@ a.footer:hover {
 	.others {
 		grid-area: others;
 		margin: 16px 0;
-		padding-left: 16px;
 	}
 
 	.leistungen {

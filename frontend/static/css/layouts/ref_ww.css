@@ -7,6 +7,10 @@
 		"footer footer footer";
 }
 
+h2 {
+	max-width: 100%;
+}
+
 section.wackwitz {
 	grid-area: wackwitz;
 	margin: 16px 0;

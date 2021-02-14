@@ -7,6 +7,11 @@
 		"footer footer";
 }
 
+section.text li {
+	list-style: square;
+	margin-left: 32px;
+}
+
 /* ----------- 1280-WIDTH */
 @media only screen and (min-width: 1280px) {
 }
@@ -36,9 +41,23 @@
 	section.picture img {
 		left: 0;
 	}
+
+	section.text li {
+		list-style: square;
+		text-align: left;
+		margin-left: 64px;
+		margin-right: 16px;
+	}
 }
 /* ----------- 320-WIDTH */
 @media only screen and (max-width: 599px) {
+	section.text li {
+		list-style: square;
+		text-align: left;
+		margin-left: 16px;
+		margin-right: 0;
+	}
+
 	.wrapper {
 		grid-template-rows: 60px auto auto auto;
 	}

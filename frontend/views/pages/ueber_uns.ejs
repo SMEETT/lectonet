@@ -6,7 +6,7 @@
         <%- include ("../partials/head.ejs") %>
         <style>
             @import url('../../static/css/layouts/generic.css');
-            @import url('<%- css %>')
+            @import url('<%- css %>');
         </style>
 	</head>
 	<body>
@@ -16,7 +16,7 @@
 			<section class="text">
 				<h1><%= headline %></h1>
 				<h2><%= subheadline %></h2>
-				<p><%- copytext %></p>
+				<%- copytext %>
 				<!-- <button id="open-calculator-btn" class="btn red">PREISRECHNER</button> -->
 			</section>
 			<section class="picture">

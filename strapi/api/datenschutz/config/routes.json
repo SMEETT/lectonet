@@ -1,0 +1,28 @@
+{
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/datenschutz",
+      "handler": "datenschutz.find",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "PUT",
+      "path": "/datenschutz",
+      "handler": "datenschutz.update",
+      "config": {
+        "policies": []
+      }
+    },
+    {
+      "method": "DELETE",
+      "path": "/datenschutz",
+      "handler": "datenschutz.delete",
+      "config": {
+        "policies": []
+      }
+    }
+  ]
+}
