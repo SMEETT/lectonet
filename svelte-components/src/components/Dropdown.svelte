@@ -77,7 +77,7 @@
             defaultOptionType.selected = "true";
         }
         // when a 'type' is selected, remove the disabled status from 'priceDisplay'
-        if (currentSelection.category === "type") {
+        if (currentSelection.category) {
             // update current calculated price
             let priceTEMP;
             price.subscribe((p) => {

@@ -5,7 +5,6 @@ window.addEventListener("DOMContentLoaded", () => {
 	try {
 		const btnDisclaimer = document.getElementById("btn-disclaimer");
 		const wrapperDisclaimer = document.getElementById("wrapper-disclaimer");
-		console.log(localStorage.getItem("disclaimerAccepted"));
 		if (localStorage.getItem("disclaimerAccepted") === null) {
 			wrapperDisclaimer.style.display = "flex";
 		}
@@ -79,59 +78,46 @@ const mq_str_320 = "(max-width: 599px)";
 // handling the dropdown menu
 // #############################################
 
-const leistungen_link = document.getElementById("leistungen-link");
-const leistungen_sublinks = document.getElementsByClassName("leistungen-sublinks")[0];
-const ueberuns_link = document.getElementById("ueber-uns-link");
-const ueberuns_sublinks = document.getElementsByClassName("ueber-uns-sublinks")[0];
-const dropdown_wrapper = document.getElementsByClassName("dropdown-wrapper")[0];
+const leistungen_link = document.getElementById("link-leistungen");
+const leistungen_sublinks = document.getElementsByClassName("links-sub-leistungen")[0];
+const ueberuns_link = document.getElementById("link-ueber-uns");
+const ueberuns_sublinks = document.getElementsByClassName("links-sub-ueber-uns")[0];
+const wrapperDropdown = document.getElementsByClassName("wrapper-dropdown")[0];
 
 // eventListener to show the dropdown-menu background (wrapper)
-dropdown_wrapper.addEventListener("mouseout", onMouseOutHandler, true);
+wrapperDropdown.addEventListener("mouseout", onMouseOutHandler, true);
 
 // eventListeners to show the hovered menu 1
 leistungen_link.addEventListener("mouseenter", () => {
-	dropdown_wrapper.style.display = "block";
+	wrapperDropdown.style.display = "block";
 	leistungen_sublinks.style.display = "block";
 	ueberuns_sublinks.style.display = "none";
-	dropdown_wrapper.classList.add("heity");
-	dropdown_wrapper.classList.remove("heity-out");
+	wrapperDropdown.classList.add("heity");
+	wrapperDropdown.classList.remove("heity-out");
 });
 ueberuns_link.addEventListener("mouseenter", () => {
-	dropdown_wrapper.style.display = "block";
+	wrapperDropdown.style.display = "block";
 	leistungen_sublinks.style.display = "none";
 	ueberuns_sublinks.style.display = "block";
-	dropdown_wrapper.classList.add("heity");
-	dropdown_wrapper.classList.remove("heity-out");
+	wrapperDropdown.classList.add("heity");
+	wrapperDropdown.classList.remove("heity-out");
 });
-
-// document.getElementsByClassName("toggleButton")[0].onclick = function () {
-// 	if (this.innerHTML === "Play") {
-// 		this.innerHTML = "Pause";
-// 		boxOne.classList.add("horizTranslate");
-// 	} else {
-// 		this.innerHTML = "Play";
-// 		var computedStyle = window.getComputedStyle(boxOne),
-// 			marginLeft = computedStyle.getPropertyValue("margin-left");
-// 		boxOne.style.marginLeft = marginLeft;
-// 		boxOne.classList.remove("heity");
-// 	}
-// };
 
 // check if the mouse is far enough away from the top of the page,
 // if it is, hide the dropdown-menu (wrapper)
 function onMouseOutHandler(event) {
-	if (event.pageY >= dropdown_wrapper.offsetHeight + 10) {
-		// dropdown_wrapper.style.display = "none";
-		// var computedStyle = window.getComputedStyle(dropdown_wrapper);
+	if (event.pageY >= wrapperDropdown.offsetHeight + 10) {
+		// wrapperDropdown.style.display = "none";
+		// var computedStyle = window.getComputedStyle(wrapperDropdown);
 		// var max_hi = computedStyle.getPropertyValue("max-height");
-		// dropdown_wrapper.style.maxHeight = max_hi;
-		dropdown_wrapper.classList.remove("heity");
-		dropdown_wrapper.classList.add("heity-out");
+		// wrapperDropdown.style.maxHeight = max_hi;
+		wrapperDropdown.classList.remove("heity");
+		wrapperDropdown.classList.add("heity-out");
 	}
 }
 // hide dropdown menu on click
-dropdown_wrapper.addEventListener("click", () => {
-	dropdown_wrapper.style.display = "none";
+wrapperDropdown.addEventListener("click", () => {
+	wrapperDropdown.style.display = "none";
 });
 
 // #############################################

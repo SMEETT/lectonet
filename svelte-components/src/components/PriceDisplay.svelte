@@ -8,6 +8,7 @@
 
     let literalPrice = "0.00";
     calculatedPrice.subscribe((price) => {
+        literalPrice = 0;
         literalPrice = price;
     });
 </script>

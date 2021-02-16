@@ -30,21 +30,20 @@
             </svg>
         </a>
     </div>
-	<div class="nav-elements">
-        <div class="link" id="leistungen-link">
+	<div class="wrapper-nav-elements">
+        <div class="link" id="link-leistungen">
             Leistungen
             <svg class="dropdown-icon" width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M5.00391 6L9.33403 0H0.673779L5.00391 6Z" fill="#333333" />
             </svg>
         </div>
-        <div class="link" id="ueber-uns-link">
+        <div class="link" id="link-ueber-uns">
             Über Uns
             <svg class="dropdown-icon" width="10" height="6" viewBox="0 0 10 6" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M5.00391 6L9.33403 0H0.673779L5.00391 6Z" fill="#333333" />
             </svg>
         </div>
         <div class="container-icons-social-media-navi">
-            <!-- <a class="icon-social-media" href="#"><img src="../../static/images/icon_facebook.svg" alt="Link Facebook" /></a> -->
             <a class="icon-social-media" href="#">
                 <svg width="13" height="24" viewBox="0 0 13 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <path
@@ -70,13 +69,13 @@
         <a class="link link-links" href="#">Links</a>
         <button id="btn-open-calculator-navi" class="btn outline">Preisrechner</button>
     </div>
-	<div class="dropdown-wrapper">
-		<ul class="leistungen-sublinks">
+	<div class="wrapper-dropdown">
+		<ul class="links-sub-leistungen">
             <% navItems.leistungen.forEach(obj => { %>
                 <li class="nav-item"><a href=<%= obj.slug %>> <%= obj.title %> </a></li>
             <% }) %>
 		</ul>
-		<ul class="ueber-uns-sublinks">
+		<ul class="links-sub-ueber-uns">
             <% navItems.ueber_uns.forEach(obj=> { %>
                 <li class="nav-item"><a href=<%=obj.slug %>> <%= obj.title %> </a></li>
                 <% }) %>
@@ -92,7 +91,7 @@
             <img id="logo-hamburger" src="../../static/images/svg/logo_grey.svg" alt="" /></a>
 	</div>
 	<div class="container-btn-open-calculator-hamburger">
-		<li><button id="btn-open-calculator-hamburger" class="btn outline">Preisrechner</button></li>
+		<button id="btn-open-calculator-hamburger" class="btn outline">Preisrechner</button>
 	</div>
 	<div class="container-nav-items-hamburger">
 		<span class="hamburger-category">Leistungen</span>

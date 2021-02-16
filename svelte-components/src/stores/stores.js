@@ -183,13 +183,14 @@ fetchedCSVData
                     filteredPrices = filteredPrices.filter((entry) => {
                         return entry.type === object.type;
                     });
+                    // set price to 0 before assigning the real value to make
+                    // sure the subscription gets triggered
+                    price.set(0);
                     price.set(filteredPrices[0].price);
                 } else {
-                    console.log("price Bewerbungen set");
-                    console.log(filteredPrices);
+                    price.set(0);
                     price.set(filteredPrices);
                 }
-
                 priceDisableStatus.set(false);
             }
         }); // end of subscribe()

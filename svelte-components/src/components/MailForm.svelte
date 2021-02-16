@@ -38,7 +38,6 @@
             typeOrTypes = obj;
             try {
                 typeOrTypes = typeOrTypes.join(", ");
-                console.log(typeOrTypes);
             } catch {}
         } else {
             typeOrTypes = $selectedCategories.type;
