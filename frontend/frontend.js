@@ -40,7 +40,7 @@ app.use(
 			"block-all-mixed-content": true,
 			"font-src": ["https://fonts.googleapis.com", "https://fonts.gstatic.com"],
 			"frame-ancestors": [NONE],
-			"connect-src": [SELF, strapiURL],
+			"connect-src": [SELF, strapiURL, "https://www.lectonet.de"],
 		},
 	})
 );
