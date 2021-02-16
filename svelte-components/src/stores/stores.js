@@ -5,7 +5,7 @@ import axios from "axios";
 
 let strapiURL;
 if (isProduction) {
-    strapiURL = "http://217.160.141.204:1337";
+    strapiURL = "https://www.lectonet.de/api";
 } else {
     strapiURL = "http://localhost:1337";
 }

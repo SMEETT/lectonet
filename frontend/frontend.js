@@ -35,7 +35,7 @@ app.use(
 			"default-src": [SELF, strapiURL],
 			"script-src": [SELF],
 			"style-src": [SELF, INLINE, "https://fonts.googleapis.com", "https://fonts.gstatic.com"],
-			"img-src": [SELF, strapiURL],
+			"img-src": [SELF, strapiURL, "https://www.lectonet.de"],
 			"worker-src": [NONE],
 			"block-all-mixed-content": true,
 			"font-src": ["https://fonts.googleapis.com", "https://fonts.gstatic.com"],

@@ -53,7 +53,7 @@
 
     let frontendURL;
     if (isProduction) {
-        frontendURL = "http://217.160.141.204:1339";
+        frontendURL = "https://www.lectonet.de";
     } else {
         frontendURL = "http://localhost:1339";
     }
