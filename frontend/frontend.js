@@ -310,7 +310,7 @@ app.post("/send/price", (req, res) => {
 		port: 587,
 		host: priceCalcSMTP,
 		auth: {
-			user: "preisrechner@lectonet.de",
+			user: "info@lectonet.de",
 			pass: priceCalcMailPW,
 		},
 		tls: {
@@ -320,14 +320,14 @@ app.post("/send/price", (req, res) => {
 	});
 
 	const mailData = {
-		from: "preisrechner@lectonet.de", // sender address
+		from: "info@lectonet.de", // sender address
 		to: receiver, // list of receivers
 		subject: subject,
 		html: html,
 		attachments: [
 			{
 				filename: "logo_grey.svg",
-				path: "../frontend/static/images/logo_grey.svg",
+				path: "../frontend/static/images/logo_grey_optimized.svg",
 				cid: "unique@kreata.ee", //same cid value as in the html img src
 			},
 		],

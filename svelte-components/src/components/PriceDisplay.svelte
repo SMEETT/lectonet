@@ -5,18 +5,19 @@
     priceDisableStatus.subscribe((status) => {
         disabled = status;
     });
-
-    let literalPrice = "0.00";
+    // initially set the displayed price to "0.00"
+    let displayedPrice = "0.00";
+    // subscribe to the global price and wait for changes,
+    // update the "displayedPrice"
     calculatedPrice.subscribe((price) => {
-        literalPrice = 0;
-        literalPrice = price;
+        displayedPrice = price;
     });
 </script>
 
 <!-- MARKUP ------------------------------ -->
 <div class="wrapper-price">
     <p id="price" class:inactive={disabled} disabled={disabled}>
-        {`${literalPrice} €`}
+        {`${displayedPrice} €`}
     </p>
 </div>
 

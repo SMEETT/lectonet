@@ -21,6 +21,7 @@ section.faqs {
 	animation: fadein 1.15s;
 	z-index: 2;
 }
+
 /* ##################
 ### ACCORDION
 ################## */
@@ -30,6 +31,9 @@ section.faqs {
 	color: #444;
 	cursor: pointer;
 	margin-top: 16px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 	padding: 18px;
 	width: 100%;
 	border: none;
@@ -73,11 +77,21 @@ section.faqs {
 
 /* ----------- 960-WIDTH */
 @media (max-width: 1279px) {
+	section.faqs {
+		padding-left: 16px;
+		padding-right: 16px;
+	}
 }
 
 /* ----------- 600-WIDTH */
 @media only screen and (max-width: 959px) {
+	section.faqs {
+		padding-left: 32px;
+	}
 }
 /* ----------- 320-WIDTH */
 @media only screen and (max-width: 599px) {
+	section.faqs {
+		padding-left: 16px;
+	}
 }

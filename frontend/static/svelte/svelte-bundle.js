@@ -2196,7 +2196,7 @@ var app = (function () {
 
     			option.value = option.__value;
     			attr_dev(option, "class", "svelte-a9pndh");
-    			add_location(option, file, 121, 12, 4707);
+    			add_location(option, file, 121, 12, 4718);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, option, anchor);
@@ -2263,7 +2263,7 @@ var app = (function () {
 
     			attr_dev(label_1, "for", /*labelIdentifier*/ ctx[7]);
     			attr_dev(label_1, "class", "svelte-a9pndh");
-    			add_location(label_1, file, 110, 4, 4289);
+    			add_location(label_1, file, 110, 4, 4300);
     			option.selected = true;
     			option.disabled = true;
     			option.hidden = true;
@@ -2271,18 +2271,18 @@ var app = (function () {
     			option.__value = "Bitte auswählen";
     			option.value = option.__value;
     			attr_dev(option, "class", "svelte-a9pndh");
-    			add_location(option, file, 119, 8, 4593);
+    			add_location(option, file, 119, 8, 4604);
     			attr_dev(select, "name", /*labelIdentifier*/ ctx[7]);
     			attr_dev(select, "id", /*id*/ ctx[2]);
     			select.disabled = /*disableDropdown*/ ctx[5];
     			attr_dev(select, "class", "svelte-a9pndh");
     			if (/*currentSelection*/ ctx[4] === void 0) add_render_callback(() => /*select_change_handler*/ ctx[11].call(select));
     			toggle_class(select, "inactive", /*disableDropdown*/ ctx[5]);
-    			add_location(select, file, 112, 4, 4382);
+    			add_location(select, file, 112, 4, 4393);
     			attr_dev(div, "id", /*selectWrapperId*/ ctx[8]);
     			attr_dev(div, "class", "select-wrapper svelte-a9pndh");
     			toggle_class(div, "inactive", /*disableDropdown*/ ctx[5]);
-    			add_location(div, file, 106, 0, 4190);
+    			add_location(div, file, 106, 0, 4201);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -2449,7 +2449,7 @@ var app = (function () {
     		}
 
     		// when a 'type' is selected, remove the disabled status from 'priceDisplay'
-    		if (currentSelection.category) {
+    		if (currentSelection.category === "type") {
     			// update current calculated price
     			let priceTEMP;
 
@@ -2900,7 +2900,7 @@ var app = (function () {
     function create_fragment$2(ctx) {
     	let div;
     	let p;
-    	let t_value = `${/*literalPrice*/ ctx[1]} €` + "";
+    	let t_value = `${/*displayedPrice*/ ctx[1]} €` + "";
     	let t;
 
     	const block = {
@@ -2912,9 +2912,9 @@ var app = (function () {
     			attr_dev(p, "disabled", /*disabled*/ ctx[0]);
     			attr_dev(p, "class", "svelte-a4kz6p");
     			toggle_class(p, "inactive", /*disabled*/ ctx[0]);
-    			add_location(p, file$2, 17, 4, 418);
+    			add_location(p, file$2, 18, 4, 540);
     			attr_dev(div, "class", "wrapper-price svelte-a4kz6p");
-    			add_location(div, file$2, 16, 0, 386);
+    			add_location(div, file$2, 17, 0, 508);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -2925,7 +2925,7 @@ var app = (function () {
     			append_dev(p, t);
     		},
     		p: function update(ctx, [dirty]) {
-    			if (dirty & /*literalPrice*/ 2 && t_value !== (t_value = `${/*literalPrice*/ ctx[1]} €` + "")) set_data_dev(t, t_value);
+    			if (dirty & /*displayedPrice*/ 2 && t_value !== (t_value = `${/*displayedPrice*/ ctx[1]} €` + "")) set_data_dev(t, t_value);
 
     			if (dirty & /*disabled*/ 1) {
     				attr_dev(p, "disabled", /*disabled*/ ctx[0]);
@@ -2962,11 +2962,13 @@ var app = (function () {
     		$$invalidate(0, disabled = status);
     	});
 
-    	let literalPrice = "0.00";
+    	// initially set the displayed price to "0.00"
+    	let displayedPrice = "0.00";
 
+    	// subscribe to the global price and wait for changes,
+    	// update the "displayedPrice"
     	calculatedPrice.subscribe(price => {
-    		$$invalidate(1, literalPrice = 0);
-    		$$invalidate(1, literalPrice = price);
+    		$$invalidate(1, displayedPrice = price);
     	});
 
     	const writable_props = [];
@@ -2979,19 +2981,19 @@ var app = (function () {
     		calculatedPrice,
     		priceDisableStatus,
     		disabled,
-    		literalPrice
+    		displayedPrice
     	});
 
     	$$self.$inject_state = $$props => {
     		if ("disabled" in $$props) $$invalidate(0, disabled = $$props.disabled);
-    		if ("literalPrice" in $$props) $$invalidate(1, literalPrice = $$props.literalPrice);
+    		if ("displayedPrice" in $$props) $$invalidate(1, displayedPrice = $$props.displayedPrice);
     	};
 
     	if ($$props && "$$inject" in $$props) {
     		$$self.$inject_state($$props.$$inject);
     	}
 
-    	return [disabled, literalPrice];
+    	return [disabled, displayedPrice];
     }
 
     class PriceDisplay extends SvelteComponentDev {

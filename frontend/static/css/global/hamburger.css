@@ -22,7 +22,7 @@
 	grid-area: logo;
 	display: flex;
 	width: 100%;
-	justify-content: center;
+	padding-left: 32px;
 	align-items: center;
 }
 
@@ -34,7 +34,8 @@
 	grid-area: hamburger;
 	display: flex;
 	width: 100%;
-	justify-content: center;
+	justify-content: flex-end;
+	padding-right: 32px;
 	align-items: center;
 }
 
@@ -143,6 +144,14 @@
 			"logo hamburger"
 			"btn btn"
 			"links links";
+	}
+
+	.container-logo-hamburger {
+		padding-left: 16px;
+	}
+
+	.container-icon-hamburger {
+		padding-right: 16px;
 	}
 
 	.container-nav-items-hamburger {
