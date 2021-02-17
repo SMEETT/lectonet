@@ -45,7 +45,7 @@ app.use(
 	})
 );
 
-// app.use(cors());
+app.use(cors());
 
 // use EJS as template engine
 app.set("view engine", "ejs");
